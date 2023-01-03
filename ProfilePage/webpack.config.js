@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
     mode: "development",
@@ -21,6 +22,11 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            "envVariable": JSON.stringify(process.env.REACT_APP_SOME_ENV_VARIABLE)
+        })
+    ],
     devtool: "eval-cheap-module-source-map",
     devServer: {
         historyApiFallback: true,

@@ -2,20 +2,56 @@ const express = require("express");
 const app = express();
 const port = 3000;
 require("dotenv").config()
+const cors = require("cors")
 const mongoose = require("mongoose");
 
 databaseURI = process.env.MONGODB_URI;
 
+const corsOpts = {
+  origin: '*',
+
+  methods: [
+    'GET',
+    'POST',
+  ],
+
+  allowedHeaders: [
+    'Content-Type',
+  ],
+};
+
+app.use(cors(corsOpts));
+
+
+
 
 const splodoSchema = new mongoose.Schema({
-  name: {
-    type: String,
-  }
+  splodoId: Number,
+  userId: Number,
+  title: String,
+  catId: Number,
+  desc: String,
+  url: String,
+})
+
+const catSchema = new mongoose.Schema({
+  catId: Number,
+  userId: Number,
+  title: String
+})
+
+const userSchema = new mongoose.Schema({
+  userId: Number,
+  userName: String,
 })
 
 
-const Splodo = mongoose.model("Splodo", splodoSchema);
 
+
+
+const Splodo = mongoose.model("Splodo", splodoSchema);
+const User = mongoose.model("User", userSchema);
+const Category = mongoose.model("Category", catSchema)
 
 
 mongoose.connect(databaseURI).then(() =>{
@@ -33,15 +69,25 @@ connection.once('open', async function () {
   
   
   
-  app.get('/', (req, res) => {
+  app.get('/allSplodos', (req, res) => {
   
     let response = "";
-    const collection  = connection.db.collection("splodo");
+    const collection  = connection.db.collection("splodos");
     collection.find({}).toArray(function(err, data){
       res.send(data); // it will print your collection data
     });
   
+  })
 
+
+  app.get('/allCats', (req, res) => {
+  
+    let response = "";
+    const collection  = connection.db.collection("categories");
+    collection.find({}).toArray(function(err, data){
+      res.send(data); // it will print your collection data
+    });
+  
   })
 
 

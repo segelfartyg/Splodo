@@ -28,6 +28,10 @@ services:
     restart: always
     ports:
      - "8080:8080"
+    environment:
+      - REACT_APP_SOME_ENV_VARIABLE=http://localhost:3000
+    depends_on:
+      - ProfilePageServer
     
 volumes:
   MongoDBProfilePage: {}

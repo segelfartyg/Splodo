@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import BrowseArea from "./BrowseArea";
 import Header from "./Header.js"
@@ -10,8 +10,22 @@ import Feed from "./Feed.js";
 import New from "./New.js";
 import Splodo from "./Splodo.js"
 import About from "./About.js"
+import Config from "../Config.js";
 
 function App() {
+
+if(envVariable != undefined){
+    Config.SERVERURI = envVariable
+    Object.freeze(Config)
+}
+
+useEffect(() => {
+console.log(Config);
+}, [])
+
+
+
+
     return (
         <div className="App">
    

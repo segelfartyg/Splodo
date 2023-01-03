@@ -3,6 +3,7 @@ import ProfilePicArea from './ProfilePicArea';
 import BrowseArea from './BrowseArea';
 import { Link } from 'react-router-dom';
 import "./Profile.css"
+import Config from '../Config.js';
 
 
 
@@ -84,7 +85,14 @@ export default function Profile() {
         console.log(maxCatId + 1)
     }
    
+    useEffect(() => {
 
+        console.log(Config);
+        
+        fetch(Config.SERVERURI + "/allSplodos")
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }, [])
 
   return (
     <div className="Profile">
