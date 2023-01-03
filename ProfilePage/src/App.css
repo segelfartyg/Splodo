@@ -1,0 +1,61 @@
+.App{
+height: 100vh;
+overflow-y: scroll;
+
+
+/* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+font-family: bernhard-gothic-urw,sans-serif;
+font-weight: 400;
+font-style: normal;
+position: relative;
+background: yellow;
+background: linear-gradient(90deg, rgb(230, 230, 230) 0%, rgb(255, 255, 255) 50%, rgb(230, 230, 230) 100%)
+/*color: green; ttatata*/
+
+
+}
+
+.main{
+min-height: 100%;
+
+background: rgb(255, 255, 255);
+width: 80%;
+margin:auto;
+position: relative;
+filter: drop-shadow(1px 1px 5px black);
+
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
+  .card{
+
+    padding: 2rem;
+    border:solid black 1px;
+    border-radius:10px;
+    height: fit-content;
+    width:fit-content;
+    filter:drop-shadow(2px 2px 2px black)
+
+  }

@@ -1,0 +1,53 @@
+.New{
+height: fit-content;
+display: flex;
+flex-direction: row;
+width:100%;
+}
+
+.NewSplodoForm{
+    margin:auto;
+    display:flex;
+    flex-direction: column;
+    height:fit-content;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin-top: 5rem;
+    background: white;
+    
+}
+
+.NewSplodoForm input {
+    border: solid black 1px;
+    height: fit-content;
+    padding: 0.5rem;
+    font-size: 2rem;
+    height: 3rem;
+    width: 40vw;
+    max-width: 600px;
+    border-radius: 5px;
+    font-family: bernhard-gothic-urw,sans-serif;
+
+}
+
+.NewSplodoForm textarea {
+    width: 100%;
+    padding: 0.5rem;
+    max-width: 600px;
+    border: solid black 1px;
+    height: 25rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    font-family: bernhard-gothic-urw,sans-serif;
+}
+
+.NewSplodoForm button {
+    padding: 1rem;
+    background: white;
+    border: solid black 1px;
+    margin-top: 1rem;
+    border-radius: 5px;
+    font-family: bernhard-gothic-urw,sans-serif;
+}

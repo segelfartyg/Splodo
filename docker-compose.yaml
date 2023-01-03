@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  ProfilePageMongoDB:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - MongoDBProfilePage:/data/db
+
+  ProfilePageServer:
+    image: profilepageserver/splodo
+    restart: always
+
+    ports:
+     - "3000:3000"
+    environment:
+      PORT: 3000
+      MONGODB_URI: mongodb://ProfilePageMongoDB:27017/splodo
+      DB_NAME: splododb
+      NAME: Samuel
+    depends_on:
+      - ProfilePageMongoDB
+
+  ProfilePageFrontend:
+    image: profilepagefrontend/splodo
+    restart: always
+    ports:
+     - "8080:8080"
+    
+volumes:
+  MongoDBProfilePage: {}

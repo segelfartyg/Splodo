@@ -1,0 +1,89 @@
+
+.role{
+    color: rgb(190, 0, 0);
+}
+
+.profileDetails{
+    width:25%;
+    margin:auto;
+   
+    background:rgb(255, 255, 255);
+   
+}
+
+.profileDetails h2{
+    font-size: 3rem;
+}
+
+
+.profileDetails h3{
+    font-size: 1rem;
+}
+
+.profileName{
+    text-align: center;
+    align-items: center;
+    height:fit-content
+}
+
+.profilePicArea{
+
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    height: fit-content;
+    width: 80%;
+
+    background: white;
+    display: flex;
+    margin: auto;
+    align-items: center;
+}
+.imageDiv{
+    height:fit-content;
+    width:fit-content;
+    margin:auto;
+    position: relative;
+}
+
+.roleStatus{
+    width:1.5rem;
+    height:1.5rem;
+    background:linear-gradient(120deg, rgb(190, 0, 0) 0%, rgb(160, 0, 0) 50%, rgb(130, 0, 0) 100%) ;
+    position: absolute;
+    right:0;
+    bottom:0;
+    border-radius: 1.5rem ;
+}
+.profilePic{
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    border: solid black 5px;
+    margin:auto;
+    background: white;
+}
+
+@media screen and (max-width: 1324px) {
+    .profilePicArea{
+       
+       flex-direction: column;
+       width:100%;
+    }
+
+
+    .profileDetails{
+        margin-bottom: 5rem;
+        width:100%;
+    }
+
+    .imageDiv{
+        width: 30%;
+        height: fit-content;
+    }
+
+    .profilePic{
+        width:90%;
+        height:auto;
+    }
+ }
+
