@@ -48,7 +48,9 @@ console.log(Config);
                 </BrowserRouter>
 
                 
-
+                <a href={Config.SERVERURI+"/google"}>LOGIN THROUGH GOOGLE</a>
+                   
+                <a href={Config.SERVERURI+"/profile"}>PROFILEURL</a>
             </div>
         </div>
     );

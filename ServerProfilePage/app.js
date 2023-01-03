@@ -4,7 +4,10 @@ const port = 3000;
 require("dotenv").config()
 const cors = require("cors")
 const mongoose = require("mongoose");
+const passport = require("passport");
+const session = require("express-session");
 
+require("./config/passport.js")(passport)
 databaseURI = process.env.MONGODB_URI;
 
 const corsOpts = {
@@ -22,8 +25,18 @@ const corsOpts = {
 
 app.use(cors(corsOpts));
 
+app.use(session({
+  secret: "segelfartyg123",
+  resave: false,
+  saveUninitialized: false
+}))
 
 
+
+
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 const splodoSchema = new mongoose.Schema({
   splodoId: Number,
@@ -40,17 +53,17 @@ const catSchema = new mongoose.Schema({
   title: String
 })
 
-const userSchema = new mongoose.Schema({
-  userId: Number,
-  userName: String,
-})
+// const userSchema = new mongoose.Schema({
+//   userId: Number,
+//   userName: String,
+// })
 
 
 
 
 
 const Splodo = mongoose.model("Splodo", splodoSchema);
-const User = mongoose.model("User", userSchema);
+//const User = mongoose.model("User", userSchema);
 const Category = mongoose.model("Category", catSchema)
 
 
@@ -67,7 +80,26 @@ connection.once('open', async function () {
     console.log(`Example app listening on port ${port}`)
   })
   
+
+  app.get('/google', passport.authenticate("google", {scope: ["profile"]}, (req, res) =>{
   
+  }));
+
+  
+  app.get('/google/callback', passport.authenticate("google", {
+    failureRedirect: "/allSplodos",
+    successRedirect: "/profile" 
+  }));
+
+
+  app.get('/profile', (req, res) => {
+
+    res.redirect("http://localhost:8080/profile")
+ 
+  })
+
+
+
   
   app.get('/allSplodos', (req, res) => {
   

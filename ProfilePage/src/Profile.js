@@ -96,8 +96,6 @@ export default function Profile() {
 
   return (
     <div className="Profile">
-
-      
                         <ProfilePicArea />
                         <BrowseArea onNewFolderPress={onNewFolderPress} splodos={splodos} setChosenCat={setChosenCat} chosenCat={chosenCat}/>  
     </div>
