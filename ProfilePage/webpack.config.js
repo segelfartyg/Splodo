@@ -31,6 +31,10 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         hot: true,
-        static: path.join(__dirname, "public")
+        static: path.join(__dirname, "public"),
+        headers: {
+            "Access-Control-Allow-Origin": "http://localhost:3000",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization, Set-cookie"
+        }
     }
 }

@@ -11,6 +11,7 @@ import New from "./New.js";
 import Splodo from "./Splodo.js"
 import About from "./About.js"
 import Config from "../Config.js";
+import axios from "axios"
 
 function App() {
 
@@ -23,6 +24,35 @@ useEffect(() => {
 console.log(Config);
 }, [])
 
+function onLogin(){
+
+    
+
+
+    window.open(Config.SERVERURI+"/google", "_self");
+
+
+
+}
+
+function onLogOut(){
+
+    
+
+
+    axios.get("http://localhost:3000/logout", {
+        withCredentials: true
+    }).then((res) => {
+        if (res.data === "logged out") {
+            window.location.href = "/"
+            localStorage.removeItem("user");
+            window.location.reload();
+        }
+    })
+
+
+
+}
 
 
 
@@ -48,9 +78,9 @@ console.log(Config);
                 </BrowserRouter>
 
                 
-                <a href={Config.SERVERURI+"/google"}>LOGIN THROUGH GOOGLE</a>
+                <button className="loginBtn" onClick={onLogin}><img className="googleLoginPic" src="./google-tile.svg"></img><p>LOGIN WITH GOOGLE</p></button>
                    
-                <a href={Config.SERVERURI+"/profile"}>PROFILEURL</a>
+                <button className="logoutBtn" onClick={onLogOut}>LOGOUT</button>
             </div>
         </div>
     );

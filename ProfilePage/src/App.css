@@ -26,6 +26,34 @@ filter: drop-shadow(1px 1px 5px black);
 
 }
 
+.logoutBtn{
+  font-family: bernhard-gothic-urw,sans-serif;
+
+}
+
+.loginBtn{
+  font-family: bernhard-gothic-urw,sans-serif;
+background:rgb(255, 255, 255);
+width: fit-content;
+padding: 1rem;
+display: flex;
+border:solid black 1px;
+border-radius: 5px;
+gap:1rem;
+filter:drop-shadow(1px 1px 1px);
+margin: auto;
+}
+
+.loginBtn p {
+  margin:auto;
+}
+
+.googleLoginPic{
+  width: 3rem;
+  border: solid black 1px;
+  border-radius: 5px;
+}
+
 
 /* width */
 ::-webkit-scrollbar {

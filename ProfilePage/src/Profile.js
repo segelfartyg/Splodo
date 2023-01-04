@@ -4,6 +4,7 @@ import BrowseArea from './BrowseArea';
 import { Link } from 'react-router-dom';
 import "./Profile.css"
 import Config from '../Config.js';
+import axios from 'axios';
 
 
 
@@ -85,13 +86,22 @@ export default function Profile() {
         console.log(maxCatId + 1)
     }
    
-    useEffect(() => {
+    // useEffect(() => {
 
-        console.log(Config);
+    //     console.log(Config);
         
-        fetch(Config.SERVERURI + "/allSplodos")
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+    //     fetch("http://localhost:3000/profile", {credentials: "include"})
+    //     .then((response) => response.text()
+    //     .then ((data) => console.log(data)))
+    // }, [])
+
+    useEffect(() => {
+        axios.get("http://localhost:3000/profile", { withCredentials: true }).then((res) => {
+            console.log(res);
+            if (res.data) {
+                setUserObject(res.data);
+            }
+        })
     }, [])
 
   return (
