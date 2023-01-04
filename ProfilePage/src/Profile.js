@@ -96,7 +96,7 @@ export default function Profile() {
     // }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/profile", { withCredentials: true }).then((res) => {
+        axios.get(Config.SERVERURI + "/profile", { withCredentials: true }).then((res) => {
             console.log(res);
             if (res.data) {
                 setUserObject(res.data);

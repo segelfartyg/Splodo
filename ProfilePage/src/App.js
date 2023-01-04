@@ -40,13 +40,13 @@ function onLogOut(){
     
 
 
-    axios.get("http://localhost:3000/logout", {
+    axios.get(Config.SERVERURI +"/logout", {
         withCredentials: true
     }).then((res) => {
-        if (res.data === "logged out") {
+        if (res.data == "logged out") {
             window.location.href = "/"
             localStorage.removeItem("user");
-            window.location.reload();
+            //window.location.reload();
         }
     })
 

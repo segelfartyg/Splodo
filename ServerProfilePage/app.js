@@ -17,7 +17,7 @@ databaseURI = process.env.MONGODB_URI;
 
 
 app.use(express.json())
-app.use(cors({origin: "http://localhost:8080", credentials:true}));
+app.use(cors({origin: process.env.CLIENT_URI, credentials:true}));
 app.set("trust proxy", 1)
 
 var store = new MongoDBStore({
@@ -156,9 +156,9 @@ connection.once('open', async function () {
 
   
   app.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: 'http://localhost:8080/', session: true }),
+  passport.authenticate('google', { failureRedirect: process.env.CLIENT_URI, session: true }),
   function (req, res) {
-    res.redirect('http://localhost:8080/');
+    res.redirect(process.env.CLIENT_URI);
   });
 
 

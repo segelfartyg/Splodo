@@ -17,22 +17,19 @@ background: linear-gradient(90deg, rgb(230, 230, 230) 0%, rgb(255, 255, 255) 50%
 
 .main{
 min-height: 100%;
-
 background: rgb(255, 255, 255);
 width: 80%;
 margin:auto;
 position: relative;
 filter: drop-shadow(1px 1px 5px black);
-
 }
 
 .logoutBtn{
   font-family: bernhard-gothic-urw,sans-serif;
-
 }
 
 .loginBtn{
-  font-family: bernhard-gothic-urw,sans-serif;
+font-family: bernhard-gothic-urw,sans-serif;
 background:rgb(255, 255, 255);
 width: fit-content;
 padding: 1rem;
@@ -42,6 +39,10 @@ border-radius: 5px;
 gap:1rem;
 filter:drop-shadow(1px 1px 1px);
 margin: auto;
+}
+
+.loginBtn:hover{
+  background: rgb(240, 240, 240);
 }
 
 .loginBtn p {
