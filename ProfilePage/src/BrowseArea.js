@@ -3,10 +3,11 @@ import "./BrowseArea.css"
 import SplodoListItem from './SplodoListItem';
 import Category from './Category';
 import { Link } from 'react-router-dom';
+import IndividualSplodo from "./IndividualSplodo"
 
 export default function BrowseArea(props) {
 
-    console.log(props.splodos)
+    console.log(props.splodoCats)
 
    const [chosenCat, setChosenCat] = useState(0)
 
@@ -23,19 +24,17 @@ export default function BrowseArea(props) {
         props.onNewFolderPress()
     }
 
-    props.splodos.forEach((cat) =>{
+    props.cats.forEach((cat) =>{
         console.log(cat.catId)
     })
 
-    let splodosRender =  props.splodos.map((cat) => {
-       return <Category key={cat.catId} catId={cat.catId} catName={cat.catName} splodos={cat.splodos} onCatClick={onCatClick} chosenCat={props.chosenCat}></Category>    
-    }
+    let catRender =  props.cats.map((cat) => {
+       return <Category key={cat.catId} catId={cat.catId} catName={cat.catName} cats={cat.splodos} onCatClick={onCatClick} chosenCat={props.chosenCat}></Category>    
+    })
 
-     
-    
-
-      
-    )
+    let splodoRender =  props.splodos.map((splodo) => {
+        return <IndividualSplodo key={splodo.splodoId} splodoId={splodo.splodoId} title={splodo.title}></IndividualSplodo>
+     })
 
 
 
@@ -44,7 +43,8 @@ export default function BrowseArea(props) {
   return (
     <div className="browseArea">
 
-        {splodosRender}
+        {catRender}
+        {splodoRender}
 
 
     <div>

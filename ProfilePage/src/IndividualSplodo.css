@@ -1,0 +1,28 @@
+.IndividualSplodo{
+    
+        position:relative;
+        width: 90%;
+        margin:auto;
+    background:rgb(255, 255, 255);
+    display:flex;
+}
+
+.Link {
+
+    color:black;
+   
+    height:fit-content;
+    margin:auto;
+    margin-left:0;
+    text-decoration: none; 
+}
+/* .browseItem{
+    height: 4rem;
+    width: 100%;
+    border: solid black 1px;
+    margin: auto;
+    display:flex;
+    flex-direction: row;
+    border-radius: 5px;
+    position: relative;
+} */

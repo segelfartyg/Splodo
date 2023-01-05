@@ -107,7 +107,7 @@ passport.deserializeUser((id, done) => {
 
 const splodoSchema = new mongoose.Schema({
   splodoId: Number,
-  userId: Number,
+  userId: String,
   title: String,
   catId: Number,
   desc: String,
@@ -117,7 +117,8 @@ const splodoSchema = new mongoose.Schema({
 const catSchema = new mongoose.Schema({
   catId: Number,
   userId: Number,
-  title: String
+  title: String,
+  splodos: [{}]
 })
 
 // const userSchema = new mongoose.Schema({
@@ -132,6 +133,7 @@ const catSchema = new mongoose.Schema({
 const Splodo = mongoose.model("Splodo", splodoSchema);
 //const User = mongoose.model("User", userSchema);
 const Category = mongoose.model("Category", catSchema)
+
 
 
 mongoose.connect(databaseURI).then(() =>{
@@ -163,14 +165,47 @@ connection.once('open', async function () {
 
 
 
-  app.get('/profile', (req, res) => {
+  app.get('/profile', async (req, res) => {
 
     if(req.user){
 
-      res.send("you are logged in")
+      let categoriesAndSplodos = [];
+
+      let resultCategories = await Category.find({userId: req.user.userId})
+      let resultSplodos = await Splodo.find({userId: req.user.userId})
+
+      console.log(resultCategories)
+      console.log(resultSplodos)
+
+      resultCategories.forEach((cat) =>{
+
+          categoriesAndSplodos.push(cat)
+      })
+
+      resultSplodos.forEach((splodo) =>{
+
+        if(splodo.catId == 0){
+          categoriesAndSplodos.push({
+
+            catId:0,
+            splodoId:splodo._id,
+            title: splodo.title
+
+
+          })
+
+        }
+      })
+
+      res.send({
+        response:{
+          result: categoriesAndSplodos
+        }
+      })
+
     }
     else{
-      res.send("you are not logged in")
+      res.send({ response: "noauth" })
     }
     
   })
@@ -178,29 +213,59 @@ connection.once('open', async function () {
   app.get("/logout", (req, res) =>{
 
     if(req.user){
-      req.logout(function(err) {
-        if (err) { return next(err); }
-        res.send('logged out');
-      });
      
-    }
+
+
+
+    };
+     
+    
 
 
   })
 
 
+  app.post('/new', (req, res) => {
+  
+    console.log(req.body)
+
+    if(req.user){
+
+      let newSplodo = new Splodo({
+        userId: req.user.userId,
+        title: req.body.title,
+        desc: req.body.desc,
+        url: req.body.url,
+        catId: req.body.catId
+      })
+
+      newSplodo.save();
+
+      res.send({response:"success"})  
+      console.log(req.user)
+    }
+    else{
+      res.send({response:"nono"}) 
+    }
+   
+     
+  
+  
+  })
+
+
 
   
-  app.get('/allSplodos', ensureAuth, (req, res) => {
+  app.get('/getSplodo', async (req, res) => {
   
-    // let response = "";
-    // const collection  = connection.db.collection("splodos");
-    // collection.find({}).toArray(function(err, data){
-    //   res.send(data); // it will print your collection data
-    // });
-    console.log(req.user)
+   console.log(req.query.splodoId);
 
-  res.send({"allSplodos": "hej"})    
+    console.log(mongoose.Types.ObjectId(req.query.splodoId))
+
+
+    let result = await Splodo.find({userId: req.user.userId, _id: req.query.splodoId})
+//let result = "hej"
+  res.send({"response": result})    
   
   })
 

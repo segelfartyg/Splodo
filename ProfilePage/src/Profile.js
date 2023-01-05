@@ -12,47 +12,11 @@ export default function Profile() {
 
     const [chosenCat, setChosenCat] = useState(0)
 
-    const [splodos, setSplodos] = useState([
-        {
-            catId: 1,
-            catName: "Initiatives",
-            splodos: [
-                {
-                    splodoId: 1,
-                    title: "Splodo"
-                },
-                {
-                    splodoId: 2,
-                    title: "Charity"
-                },
-                {
-                    splodoId: 3,
-                    title: "NoteLad"
-                }
-            ]
-        },
-        {
-            catId: 2,
-            catName: "Good Books",
-            splodos: [
-                {
-                    splodoId: 1,
-                    title: "The Magician"
-                },
-                {
-                    splodoId: 2,
-                    title: "Bible"
-                },
-                {
-                    splodoId: 3,
-                    title: "Koran"
-                }
-            ]
-        }
-    ])
+    const [cats, setCats] = useState([])
+    const [splodos, setSplodos] = useState([])
 
     function onNewFolderPress(){
-        let temp = splodos;
+        let temp = cats;
 
         let maxCatId = Math.max(...temp.map(o => o.catId))
 
@@ -81,7 +45,7 @@ export default function Profile() {
 
         )
           
-        setSplodos(temp);
+        setCats(temp);
         setChosenCat(maxCatId + 1)
         console.log(maxCatId + 1)
     }
@@ -98,8 +62,39 @@ export default function Profile() {
     useEffect(() => {
         axios.get(Config.SERVERURI + "/profile", { withCredentials: true }).then((res) => {
             console.log(res);
-            if (res.data) {
-                setUserObject(res.data);
+            if(res.data.response != "noauth") {
+                
+                let profileSplodos = [];
+                let profileCats = [];
+                res.data.response.result.forEach((item) => {
+
+                    if(item.catId != 0){
+
+                        profileCats.push({
+                                    catId: item.catId,
+                                    catName: item.title,
+                                    splodos: item.splodos
+                                })
+
+                    }
+                    else{
+                        profileSplodos.push({
+                            splodoId: item.splodoId,
+                            title: item.title
+
+                        })
+                    }
+
+                })
+                
+                console.log(profileCats)
+                console.log(profileSplodos)
+
+                setCats(profileCats)
+                setSplodos(profileSplodos)
+            }
+            else{
+                console.log("not authenticated")
             }
         })
     }, [])
@@ -107,7 +102,7 @@ export default function Profile() {
   return (
     <div className="Profile">
                         <ProfilePicArea />
-                        <BrowseArea onNewFolderPress={onNewFolderPress} splodos={splodos} setChosenCat={setChosenCat} chosenCat={chosenCat}/>  
+                        <BrowseArea onNewFolderPress={onNewFolderPress} cats={cats} splodos={splodos} setChosenCat={setChosenCat} chosenCat={chosenCat}/>  
     </div>
   )
 }

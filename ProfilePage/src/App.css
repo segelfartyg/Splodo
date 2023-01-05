@@ -9,7 +9,7 @@ font-weight: 400;
 font-style: normal;
 position: relative;
 background: yellow;
-background: linear-gradient(90deg, rgb(230, 230, 230) 0%, rgb(255, 255, 255) 50%, rgb(230, 230, 230) 100%)
+background: linear-gradient(90deg, rgb(200, 0, 0) 0%, rgb(255, 255, 255) 50%, rgb(200, 0, 0) 100%)
 /*color: green; ttatata*/
 
 
@@ -22,6 +22,8 @@ width: 80%;
 margin:auto;
 position: relative;
 filter: drop-shadow(1px 1px 5px black);
+border-left:1px solid black;
+border-right:1px solid black;
 }
 
 .logoutBtn{

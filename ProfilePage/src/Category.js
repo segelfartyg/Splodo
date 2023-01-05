@@ -30,7 +30,7 @@ export default function (props) {
         <div onClick={() => onCatClick(props.catId)} className="browseItem">
         <div className="folderContent">
             <div className="imageAndTitle">
-                <img src="./folder.png"></img>
+                <img className="splodoIcon" src="./folder.png"></img>
                 <h2>{props.catName}</h2>
             </div>
             <h3 style={arrowStyle}>v</h3>
@@ -44,10 +44,10 @@ export default function (props) {
 
 
    
-  {props.splodos.map((splodo) => (
+  {props.cats.map((cat) => (
 
     
-    <SplodoListItem key={props.catId + "_" + splodo.splodoId}catId={props.catId} title={splodo.title} splodoId={splodo.splodoId} chosenCat={props.chosenCat} childrenHide={childrenHide}></SplodoListItem>
+    <SplodoListItem key={props.catId + "_" + cat.splodoId}catId={props.catId} title={cat.title} splodoId={cat.splodoId} chosenCat={props.chosenCat} childrenHide={childrenHide}></SplodoListItem>
   
 
 ))}

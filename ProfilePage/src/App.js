@@ -67,6 +67,7 @@ function onLogOut(){
                             <Route path="new" element={<New />} />
                             <Route path="featured" element={<Splodo />} />
                             <Route path="about" element={<About />} />
+                            <Route path="splodo" element={<Splodo />} />
                     </Routes>
                 
                     <Link to="/profile">Profile</Link>
