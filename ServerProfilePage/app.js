@@ -116,9 +116,9 @@ const splodoSchema = new mongoose.Schema({
 
 const catSchema = new mongoose.Schema({
   catId: Number,
-  userId: Number,
+  userId: String,
   title: String,
-  splodos: [{}]
+  splodos:[]
 })
 
 // const userSchema = new mongoose.Schema({
@@ -135,7 +135,6 @@ const Splodo = mongoose.model("Splodo", splodoSchema);
 const Category = mongoose.model("Category", catSchema)
 
 
-
 mongoose.connect(databaseURI).then(() =>{
 })
 
@@ -143,6 +142,8 @@ mongoose.connect(databaseURI).then(() =>{
 const connection = mongoose.connection;
 
 
+// let kategori = new Category({catId: 1, userId: "117006401158785848064", title: "Books", splodos:[]})
+// kategori.save();
 
 
 
@@ -174,12 +175,16 @@ connection.once('open', async function () {
       let resultCategories = await Category.find({userId: req.user.userId})
       let resultSplodos = await Splodo.find({userId: req.user.userId})
 
+      let splodosWithCat = [];
+      let splodosWithoutCat = [];
+      let categories = [];
       console.log(resultCategories)
       console.log(resultSplodos)
 
       resultCategories.forEach((cat) =>{
 
           categoriesAndSplodos.push(cat)
+          categories.push(cat)
       })
 
       resultSplodos.forEach((splodo) =>{
@@ -194,12 +199,33 @@ connection.once('open', async function () {
 
           })
 
+          splodosWithoutCat.push({
+            catId:0,
+            splodoId:splodo._id,
+            title: splodo.title
+          })
+
+        }
+        else if(splodo.catId > 0){
+          splodosWithCat.push({
+
+            catId:splodo.catId,
+            splodoId:splodo._id,
+            title: splodo.title
+          
+
+
+          })
         }
       })
 
       res.send({
         response:{
-          result: categoriesAndSplodos
+          result: categoriesAndSplodos,
+          categories: categories,
+          splodosWithCat: splodosWithCat,
+          splodosWithoutCat: splodosWithoutCat
+
         }
       })
 
@@ -264,6 +290,7 @@ connection.once('open', async function () {
 
 
     let result = await Splodo.find({userId: req.user.userId, _id: req.query.splodoId})
+    
 //let result = "hej"
   res.send({"response": result})    
   

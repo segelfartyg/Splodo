@@ -17,4 +17,14 @@ margin:auto;
 .SplodoContainer{
     background:white;
     margin:auto;
+    animation: splodoAni forwards 2s;
 }
+
+/* @keyframes splodoAni{
+    0%{
+        filter:opacity(0.1)
+    }
+    100%{
+        filter:opacity(1)
+    }
+} */

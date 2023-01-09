@@ -128,7 +128,14 @@
     background:rgb(255, 255, 255);
     position: relative;
     z-index: 4;
+ 
 
+}
+
+
+.splodoListItem a{
+    text-decoration: none;
+    color: black;
 }
 
 .hidden{
@@ -141,6 +148,15 @@
    }
 }
 
+
+.browseAreaBtn {
+    padding: 1rem;
+    background: white;
+    border: solid black 1px;
+    margin-top: 1rem;
+    border-radius: 5px;
+    font-family: bernhard-gothic-urw,sans-serif;
+}
 /* 
 @media screen and (min-width: 780px) {
     .browseArea{

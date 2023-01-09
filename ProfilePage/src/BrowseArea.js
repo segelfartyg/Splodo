@@ -7,7 +7,7 @@ import IndividualSplodo from "./IndividualSplodo"
 
 export default function BrowseArea(props) {
 
-    console.log(props.splodoCats)
+    console.log(props.cats)
 
    const [chosenCat, setChosenCat] = useState(0)
 
@@ -29,7 +29,7 @@ export default function BrowseArea(props) {
     })
 
     let catRender =  props.cats.map((cat) => {
-       return <Category key={cat.catId} catId={cat.catId} catName={cat.catName} cats={cat.splodos} onCatClick={onCatClick} chosenCat={props.chosenCat}></Category>    
+       return <Category key={cat.catId} catId={cat.catId} catName={cat.title} cats={cat.splodos} onCatClick={onCatClick} chosenCat={props.chosenCat}></Category>    
     })
 
     let splodoRender =  props.splodos.map((splodo) => {
@@ -49,7 +49,7 @@ export default function BrowseArea(props) {
 
     <div>
         
-        <button onClick={onNewFolderPress}>Add Folder</button>
+        <button className="browseAreaBtn" onClick={onNewFolderPress}>New Directory</button>
 
 
     </div>

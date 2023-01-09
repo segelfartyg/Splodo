@@ -11,9 +11,8 @@ export default function About() {
        
         <h1>What is Splodo?</h1>
         <p>
-            Have you ever come across something revolutionary and wanted to spread the word to everyone about it?
-            Have you ever eaten at a great restaurant?
-            Or bought something awesome on Amazon? <strong>We bet you have.</strong>
+            Splodo is a platform made for creating value through text components that you create yourself. Have you ever wanted to express something 
+            in words, and create further value with it? <strong>We bet you have.</strong>
         </p>
 
         <p>
@@ -25,8 +24,8 @@ export default function About() {
         </p>
 
         <p>
-        If the concept of Splodos and how and when to use them seems abstract for you, the featured Splodos given by the 
-        developers of this community is a good place to start. 
+        If the concept of Splodos and how and when to use them seems abstract for you, the community pages given by the 
+        developers of the platform is a good place to start. 
         </p>
 
         <h3>However, Splodo shows its best 

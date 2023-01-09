@@ -1,4 +1,5 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect} from 'react';
+import { Link } from 'react-router-dom';
 
 export default function SplodoListItem(props) {
 
@@ -42,7 +43,7 @@ export default function SplodoListItem(props) {
 
   return (
     <div className="splodoListItem" style={hidden}>
-    <p>{props.title}</p>
+    <Link to="/splodo" state={{from: props.splodoId}}><p>{props.title}</p></Link>
     </div>
   )
 }
