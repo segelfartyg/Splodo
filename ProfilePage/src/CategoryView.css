@@ -1,0 +1,19 @@
+.CategoryView{
+    height:100%;
+    padding-top:5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.categoryInformation{
+    padding: 0;
+}
+
+.categoryName{
+    padding:0;
+    width: 90%;
+    text-align: left;
+    margin:auto;
+}
+

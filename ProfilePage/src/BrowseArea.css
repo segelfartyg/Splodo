@@ -1,161 +1,147 @@
-.containerCatSplodo{
-    position:relative;
-    width: 90%;
-    margin:auto;
+.containerCatSplodo {
+  position: relative;
+  width: 90%;
+  margin: auto;
 }
 
-.arrowStyle{
-    animation: none;
+.arrowStyle {
+  animation: none;
 }
 
-@keyframes arrowRotateUp{
-
-    0%{
-        transform: rotate(0deg);
-    }
-100%{
-    transform: rotate(180deg);
-}
-
-}
-@keyframes arrowRotateDown{
-
-    0%{
-        transform: rotate(180deg);
-    }
-100%{
+@keyframes arrowRotateUp {
+  0% {
     transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
 }
-
+@keyframes arrowRotateDown {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
-.browseArea{
-    height: 100%;
-    width: 100%;
-    margin:auto;
-    background: white;
-    display:grid;
-    grid-template-columns: 1fr;
-    gap:1rem;
+.browseArea {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  background: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
   padding-bottom: 5rem;
- 
 }
 
-.browseItem{
-    height: 4rem;
-    width: 100%;
-    border: solid black 1px;
-    margin: auto;
-    display:flex;
-    flex-direction: row;
-    border-radius: 5px;
-    position: relative;
-
+.browseItem {
+  height: 4rem;
+  width: 100%;
+  border: solid black 1px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  position: relative;
 }
 
-.browseItem:hover{
-    background:rgb(240, 240, 240);
+.browseItem:hover {
+  background: rgb(240, 240, 240);
 }
 
-
-.browseItemContainer{
-    height: fit-content;
-    margin: auto;
-    display:flex;
+.browseItemContainer {
+  height: fit-content;
+  margin: auto;
+  display: flex;
 }
 
-.browseItem h2{
-    margin:0;
-    font-size: 4rem;
+.browseItem h2 {
+  margin: 0;
+  font-size: 4rem;
 }
 
-.browseItem p{
-    justify-self:end;
+.browseItem p {
+  justify-self: end;
 }
 
-.folderContent{
-    margin:auto;
-    display:flex;
-    flex-direction:row;
-    margin-left: 0;
-    width: 100%;
-    
+.folderContent {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  margin-left: 0;
+  width: 100%;
 }
 
-.imageAndTitle{
-    display: flex;
-   
+.imageAndTitle {
+  display: flex;
 }
 
-.folderContent img{
-    height:2rem;
-    width: 2rem;
-    margin:auto;
-    margin-left: 1rem;
+.folderContent img {
+  height: 2rem;
+  width: 2rem;
+  margin: auto;
+  margin-left: 1rem;
 }
-.folderContent h2{
-    display:flex;
-    font-size: 1rem;
-    margin:auto;
-    margin-left: 1rem;
+.folderContent h2 {
+  display: flex;
+  font-size: 1rem;
+  margin: auto;
+  margin-left: 1rem;
 
-    width: fit-content;
-}
-
-.folderContent h3{
-    display:flex;
-    font-size: 1rem;
-  
-    margin-left: auto;
-    margin-right: 1rem;
-
-}
-.splodoListItemArea{
-    display:relative;
-    height:fit-content;
-    position: absolute;
-    width: 100%;
-    margin:auto;
-}
-.splodoListItem{
-    width: 90%;
-    margin:auto;
-    height: 3rem;
-    overflow: hidden;
-    border-left: 1px black solid;
-    border-right: 1px black solid;
-    border-bottom: 1px black solid;
-    transition: height 0.25s ease;
-    background:rgb(255, 255, 255);
-    position: relative;
-    z-index: 4;
- 
-
+  width: fit-content;
 }
 
+.folderContent h3 {
+  display: flex;
+  font-size: 1rem;
 
-.splodoListItem a{
-    text-decoration: none;
-    color: black;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+.splodoListItemArea {
+  display: relative;
+  height: fit-content;
+  position: absolute;
+  width: 100%;
+  margin: auto;
+}
+.splodoListItem {
+  width: 90%;
+  margin: auto;
+  height: 3rem;
+  overflow: hidden;
+  border-left: 1px black solid;
+  border-right: 1px black solid;
+  border-bottom: 1px black solid;
+  transition: height 0.25s ease;
+  background: rgb(255, 255, 255);
+  position: relative;
+  z-index: 4;
 }
 
-.hidden{
-    display: none;
+.splodoListItem a {
+  text-decoration: none;
+  color: black;
+}
+
+.hidden {
+  display: none;
 }
 
 @media screen and (max-width: 480px) {
-   .browseArea{
+  .browseArea {
     grid-template-columns: 1fr;
-   }
+  }
 }
 
-
 .browseAreaBtn {
-    padding: 1rem;
-    background: white;
-    border: solid black 1px;
-    margin-top: 1rem;
-    border-radius: 5px;
-    font-family: bernhard-gothic-urw,sans-serif;
+  padding: 1rem;
+  background: white;
+  border: solid black 1px;
+  margin-top: 1rem;
+  border-radius: 5px;
+  font-family: bernhard-gothic-urw, sans-serif;
 }
 /* 
 @media screen and (min-width: 780px) {

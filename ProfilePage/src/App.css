@@ -1,180 +1,166 @@
-.App{
-height: 100vh;
-overflow-y: scroll;
+.App {
+  height: 100vh;
+  overflow-y: scroll;
 
-
-/* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-font-family: bernhard-gothic-urw,sans-serif;
-font-weight: 400;
-font-style: normal;
-position: relative;
-background: yellow;
-background: linear-gradient(90deg, rgb(145, 145, 145) 0%, rgb(255, 255, 255) 10%, rgb(255, 255, 255) 50%, rgb(255, 255, 255) 90% , rgb(145, 145, 145) 100%)
-/*color: green; ttatata*/
+  /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  font-family: bernhard-gothic-urw, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  position: relative;
+  background: yellow;
+  background: linear-gradient(
+    90deg,
+    rgb(230, 230, 230) 0%,
+    rgb(255, 255, 255) 10%,
+    rgb(255, 255, 255) 50%,
+    rgb(255, 255, 255) 90%,
+    rgb(230, 230, 230) 100%
+  );
+  /*color: green; ttatata*/
 }
 
-
-.navBar{
+.navBar {
   width: 100%;
-  display:flex;
-  height:5rem;
+  display: flex;
+  height: 5rem;
 }
 
 .navBar a {
   width: 10%;
-  color:rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
 
-  margin:0; 
+  margin: 0;
   text-decoration: none;
-  margin-left:1rem;
-  display:flex;
-  padding:0;
-
+  margin-left: 1rem;
+  display: flex;
+  padding: 0;
 }
 
-.navBar a p{
+.navBar a p {
   margin: auto;
 }
 
-.navBar a:last-of-type{
-  color:black;
-  margin-left:auto;
-
+.navBar a:last-of-type {
+  color: black;
+  margin-left: auto;
 }
 
-.main{
-min-height: 100%;
-background: rgb(255, 255, 255);
-width: 80%;
-margin:auto;
-position: relative;
-filter: drop-shadow(1px 1px 5px black);
-border-left:2px solid black;
-border-right:2px solid black;
+.main {
+  min-height: 100%;
+  background: rgb(255, 255, 255);
+  width: 80%;
+  margin: auto;
+  position: relative;
+  filter: drop-shadow(1px 1px 5px black);
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
-.logoutBtn{
-  font-family: bernhard-gothic-urw,sans-serif;
+.logoutBtn {
+  font-family: bernhard-gothic-urw, sans-serif;
 }
 
-.loginBtn{
-font-family: bernhard-gothic-urw,sans-serif;
-background:rgb(255, 255, 255);
-width: fit-content;
-padding: 1rem;
-display: flex;
-border:solid black 1px;
-border-radius: 5px;
-gap:1rem;
-filter:drop-shadow(1px 1px 1px);
-margin: auto;
+.loginBtn {
+  font-family: bernhard-gothic-urw, sans-serif;
+  background: rgb(255, 255, 255);
+  width: fit-content;
+  padding: 1rem;
+  display: flex;
+  border: solid black 1px;
+  border-radius: 5px;
+  gap: 1rem;
+  filter: drop-shadow(1px 1px 1px);
+  margin: auto;
 }
 
-.loginBtn:hover{
+.loginBtn:hover {
   background: rgb(240, 240, 240);
 }
 
 .loginBtn p {
-  margin:auto;
+  margin: auto;
 }
 
-.googleLoginPic{
+.googleLoginPic {
   width: 3rem;
   border: solid black 1px;
   border-radius: 5px;
 }
 
-
 /* width */
 ::-webkit-scrollbar {
-    
-    width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+  width: 10px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
 
-  .card{
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
 
-    padding: 2rem;
-    border:solid black 1px;
-    border-radius:10px;
-    height: fit-content;
-    width:fit-content;
-    filter:drop-shadow(2px 2px 2px black)
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 
-  }
+.card {
+  padding: 2rem;
+  border: solid black 1px;
+  border-radius: 10px;
+  height: fit-content;
+  width: fit-content;
+  filter: drop-shadow(2px 2px 2px black);
+}
 
-
-
-.hamburger{
-  position:fixed;
+.hamburger {
+  position: fixed;
   left: 15%;
   top: 1rem;
   font-size: 3rem;
   z-index: 4;
-  display:none;
+  display: none;
 }
 
-
-.mobileNav{
-
-  position:fixed;
+.mobileNav {
+  position: fixed;
   height: 100%;
-  background:white;
+  background: white;
   width: 50%;
   max-width: 300px;
   z-index: 5;
   border-right: 4px solid black;
   left: -500px;
   animation: none 0.5s forwards;
-
 }
 
-@keyframes navRight{
-  0%{
+@keyframes navRight {
+  0% {
     transform: translateX(0px);
   }
-  100%{
+  100% {
     transform: translateX(500px);
   }
 }
 
-@keyframes navLeft{
-  0%{
+@keyframes navLeft {
+  0% {
     transform: translateX(500px);
   }
-  100%{
+  100% {
     transform: translateX(0px);
   }
 }
-
-
 
 @media screen and (max-width: 1324px) {
- 
-  .navBar{
-    display:none;
+  .navBar {
+    display: none;
   }
 
-  .hamburger{
-    display:block;
+  .hamburger {
+    display: block;
   }
-
 }
-
-
-
