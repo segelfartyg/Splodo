@@ -20,7 +20,7 @@ export default function New() {
           title: titleRef.current.value,
           desc: descRef.current.value,
           url: urlRef.current.value,
-          catId: 0,
+          catId: "nocat",
         }),
       });
       const content = await rawResponse.text();

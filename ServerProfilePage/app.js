@@ -95,7 +95,7 @@ const splodoSchema = new mongoose.Schema({
   splodoId: Number,
   userId: String,
   title: String,
-  catId: Number,
+  catId: String,
   desc: String,
   url: String,
 });
@@ -119,6 +119,8 @@ const Category = mongoose.model("Category", catSchema);
 mongoose.connect(databaseURI).then(() => {});
 
 const connection = mongoose.connection;
+
+
 
 // let kategori = new Category({catId: 1, userId: "117006401158785848064", title: "Books", splodos:[]})
 // kategori.save();
@@ -148,6 +150,25 @@ connection.once("open", async function () {
     }
   );
 
+
+  app.get("/addCollection", async (req, res) => {
+   if(req.user){
+
+      let newColl = new Category({
+        userId: req.user.userId,
+        title: "New Collection",
+        splodos: []
+      })
+
+
+      await newColl.save();
+
+   }
+
+    //let result = "hej"
+    res.redirect("/profile");
+  });
+
   app.get("/profile", async (req, res) => {
     if (req.user) {
       let categoriesAndSplodos = [];
@@ -167,15 +188,15 @@ connection.once("open", async function () {
       });
 
       resultSplodos.forEach((splodo) => {
-        if (splodo.catId == 0) {
+        if (splodo.catId == "nocat") {
           categoriesAndSplodos.push({
-            catId: 0,
+            catId: "nocat",
             splodoId: splodo._id,
             title: splodo.title,
           });
 
           splodosWithoutCat.push({
-            catId: 0,
+            catId: "nocat",
             splodoId: splodo._id,
             title: splodo.title,
           });
@@ -206,21 +227,39 @@ connection.once("open", async function () {
     }
   });
 
-  app.post("/new", (req, res) => {
+  app.post("/new", async (req, res) => {
     console.log(req.body);
 
     if (req.user) {
-      let newSplodo = new Splodo({
-        userId: req.user.userId,
-        title: req.body.title,
-        desc: req.body.desc,
-        url: req.body.url,
-        catId: req.body.catId,
-      });
 
-      newSplodo.save();
 
-      res.send({ response: "success" });
+
+      if(req.body.splodoId){
+
+        
+        await Splodo.findOneAndUpdate({_id: req.body.splodoId, userId: req.user.userId}, {catId: req.body.catId})
+
+        res.send({response: "splodo found and updated"})
+
+      }
+      else{
+
+        let newSplodo = new Splodo({
+          userId: req.user.userId,
+          title: req.body.title,
+          desc: req.body.desc,
+          url: req.body.url,
+          catId: req.body.catId,
+        });
+  
+        newSplodo.save();
+  
+        res.send({ response: "success added" });
+
+
+      }
+
+     
       console.log(req.user);
     } else {
       res.send({ response: "nono" });
@@ -245,7 +284,7 @@ connection.once("open", async function () {
   app.get("/getCatSplodos", async (req, res) => {
     console.log(req.query.catId);
 
-    let categoryName = await Category.find({catId: req.query.catId, userId: req.user.userId}).select("title")
+    let categoryName = await Category.find({_id: req.query.catId, userId: req.user.userId}).select("title")
     console.log(categoryName)
 
     let result = await Splodo.find({
@@ -259,8 +298,29 @@ connection.once("open", async function () {
   });
 
 
-
   
+  
+
+  app.get("/getCats", async (req, res) => {
+    
+    
+    if(req.user){
+
+
+      let collections = await Category.find({userId: req.user.userId})
+      res.send({response: collections})
+    }
+    else{
+      res.send({response: "noauth"})
+    }
+
+
+   
+  });
+
+
+
+
 
   app.get("/allCats", (req, res) => {
     let response = ""; bv

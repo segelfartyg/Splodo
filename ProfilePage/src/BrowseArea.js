@@ -27,8 +27,8 @@ export default function BrowseArea(props) {
   let catRender = props.cats.map((cat) => {
     return (
       <Category
-        key={cat.catId}
-        catId={cat.catId}
+        key={cat._id}
+        catId={cat._id}
         catName={cat.title}
         cats={cat.splodos}
         onCatClick={onCatClick}
@@ -59,48 +59,5 @@ export default function BrowseArea(props) {
       </div>
     </div>
 
-    /* 
-    <div className="browseItem">
-        <div className='browseItemContainer'>
-            <h2>😜</h2>
-            <p>Lorem</p>
-        </div>    
-    </div>  
-
-    <div className="browseItem">
-        <div className='browseItemContainer'>
-            <h2>👏</h2>
-            <p>Lorem</p>
-        </div>    
-    </div>  
-
-    <div className="browseItem">
-        <div className='browseItemContainer'>
-            <h2>🐱</h2>
-            <p>Lorem</p>
-        </div>    
-    </div>  
-
-    <div className="browseItem">
-        <div className='browseItemContainer'>
-            <h2>🚜</h2>
-            <p>Lorem</p>
-        </div>    
-    </div>  
-
-    <div className="browseItem">
-        <div className='browseItemContainer'>
-            <h2>🚜</h2>
-            <p>Lorem</p>
-        </div>    
-    </div>  
-
-    <div className="browseItem">
-        <div className='browseItemContainer'>
-            <h2>😎</h2>
-            <p>Lorem</p>
-        </div>    
-    </div>  
- */
   );
 }

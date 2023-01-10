@@ -51,9 +51,9 @@
   width: 80%;
   margin: auto;
   position: relative;
-  filter: drop-shadow(1px 1px 5px black);
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  filter: drop-shadow(0px 0px 5px rgb(128, 126, 126));
+  border-left: 2px solid rgb(126, 126, 126);
+  border-right: 2px solid rgb(126, 126, 126);
 }
 
 .logoutBtn {

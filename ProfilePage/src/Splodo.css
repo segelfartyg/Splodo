@@ -17,6 +17,20 @@
   animation: splodoAni forwards 2s;
 }
 
+.dropdown{
+  border: solid black 1px;
+  border-radius: 5px;
+
+}
+
+.dropdownList{
+  margin:0;
+  padding:0;
+  width:100%;
+  background:white;
+  border:solid black 1px;
+
+}
 /* @keyframes splodoAni{
     0%{
         filter:opacity(0.1)
