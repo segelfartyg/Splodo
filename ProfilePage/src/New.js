@@ -94,7 +94,7 @@ export default function New() {
       <div className="NewSplodoForm card">
         <input className="inputHeader" ref={titleRef} placeholder="Title"></input>
         <textarea className="inputDesc" ref={descRef}></textarea>
-        {/* <input ref={urlRef} className="inputUrl" placeholder="Link / URL"></input> */}
+         <input ref={urlRef} className="inputUrl" placeholder="Link / URL"></input> 
         <div className="tagArea">
 
             <div className="tagArea">
