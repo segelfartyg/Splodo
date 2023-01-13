@@ -8,6 +8,7 @@ import axios from "axios";
 
 export default function Profile() {
   const [chosenCat, setChosenCat] = useState(0);
+  const [userInfo, setUserInfo] = useState({splodoName:"sname", role: "role"});
 
   const [cats, setCats] = useState([
     {
@@ -122,7 +123,27 @@ export default function Profile() {
   //     .then ((data) => console.log(data)))
   // }, [])
 
+  function getProfileInformation(){
+
+    fetch(Config.SERVERURI + "/getProfile", {
+      credentials: "include",
+    }).then((response) =>
+      response.json().then((data) => {
+        console.log(data);
+          setUserInfo(prev => { return {...prev, splodoName: data.splodoName, role: data.role}})
+
+      })
+    );
+  }
+
+
+  function onNameChange(){
+    getProfileInformation()
+  }
+
   useEffect(() => {
+
+    getProfileInformation();
     // GET REQUEST TO SERVER, GETTING THE SPLODOS WITH SPECIFIED CATEGORY, ALL CATEGORIES, AND ALSO CATEGORIES WHICH ARE EMPTY
     axios
       .get(Config.SERVERURI + "/profile", { withCredentials: true })
@@ -203,7 +224,7 @@ export default function Profile() {
 
   return (
     <div className="Profile">
-      <ProfilePicArea />
+      <ProfilePicArea userInfo={userInfo} onNameChange={onNameChange}/>
       <BrowseArea
         onNewFolderPress={onNewFolderPress}
         cats={cats}

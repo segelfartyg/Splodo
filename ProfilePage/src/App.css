@@ -119,10 +119,19 @@
 .hamburger {
   position: fixed;
   left: 15%;
-  top: 1rem;
+  top: 5rem;
   font-size: 3rem;
   z-index: 4;
   display: none;
+}
+
+.hamburgerTile{
+  height: 0.25rem;
+  width: 2rem;
+  border-radius:5px;
+  background: black;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .mobileNav {
@@ -135,6 +144,14 @@
   border-right: 4px solid black;
   left: -500px;
   animation: none 0.5s forwards;
+  display:flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.mobileNavInner{
+  margin:auto;
+  height:fit-content;
 }
 
 @keyframes navRight {

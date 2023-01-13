@@ -9,6 +9,8 @@
   background: rgb(255, 255, 255);
 }
 
+
+
 .profileDetails h2 {
   font-size: 3rem;
 }
@@ -21,6 +23,38 @@
   text-align: center;
   align-items: center;
   height: fit-content;
+  position: relative;
+}
+
+.nameChange{
+  display:none;
+  position:absolute;
+  border:solid black 1px;
+  border-radius:5px;
+  bottom: 0;
+  right:0;
+  height:100%;
+  width:100%;
+  font-size:2rem;
+  font-family: bernhard-gothic-urw, sans-serif;
+  font-weight: 400;
+  padding:0;
+}
+
+.saveNameBtn{
+  display:none;
+  position: absolute;
+  height: 100%; 
+  right:-7em;
+  width: 5rem;
+  bottom:0;
+  margin:0;
+  padding:0;
+  background:white;
+  font-family: bernhard-gothic-urw, sans-serif;
+  font-weight: 400;
+  border:solid black 1px;
+  border-radius:5px;
 }
 
 .profilePicArea {

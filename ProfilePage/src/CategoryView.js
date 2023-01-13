@@ -1,19 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import "./CategoryView.css"
 import Config from "../Config.js"
 import IndividualSplodo from "./IndividualSplodo";
 
-export default function CategoryView() {
+export default function CategoryView(props) {
 
   
 
     const location = useLocation();
-    const { from } = location.state;
-
+    const { from, title } = location.state;
+    const [catTitle, setCatTitle] = useState("");
     const [categorySplodos, setCategorySplodos] = useState([])
+    const [catNameChangeStyle, setCatNameChangeStyle] = useState({display: "none"})
+    const catNameChangeRef = useRef()
 
     useEffect(() => {
+        setCatTitle(title)
+        GetCategorySplodos();
+      }, []);
+
+      function GetCategorySplodos(){
         fetch(Config.SERVERURI + "/getCatSplodos?" + "catId=" + from, {
           credentials: "include",
         }).then((response) =>
@@ -34,7 +41,7 @@ export default function CategoryView() {
 
           })
         );
-      }, []);
+      }
  
       let splodoRender = categorySplodos.map((splodo) => {
         return (
@@ -46,14 +53,55 @@ export default function CategoryView() {
         );
       });
 
+      function onCatNameChangePress(){
 
+        if(catNameChangeStyle.display == "none"){
+
+          setCatNameChangeStyle(prev => { return {...prev, display: "block"} })
+
+        }
+
+      }
+
+
+      function onCatNameChangeSubmit(){
+
+
+        if(catNameChangeRef.current.value.length >= 1){
+          (async () => {
+            const rawResponse = await fetch(Config.SERVERURI + "/catNameChange", {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify({
+                name: catNameChangeRef.current.value,
+                catId: from
+              }),
+            });
+            const content = await rawResponse.text();
+            
+            setCatNameChangeStyle(prev => { return {...prev, display: "none"} })
+            setCatTitle(catNameChangeRef.current.value)
+          })();
+  
+  
+        }
+
+      }
+
+      function nameChanged(){
+
+      }
 
     return (
 
     <div className="CategoryView">
         
     <div className="categoryInformation">
-        <h1 className="categoryName">Category Name 📁</h1>
+        <div className="categoryName"><h1 onClick={onCatNameChangePress}>{catTitle}📁<input ref={catNameChangeRef} style={catNameChangeStyle} className="categoryNameChange"></input><button onClick={onCatNameChangeSubmit} style={catNameChangeStyle} className="changeCatNameBtn">SAVE</button></h1></div>
     </div>   
     <div className="browseArea">
         {splodoRender}

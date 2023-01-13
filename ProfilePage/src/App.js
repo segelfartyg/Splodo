@@ -64,9 +64,12 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <div onClick={onHamburgerClick} className="hamburger">
-          <h1>=</h1>
+          <div className="hamburgerTile"></div>
+          <div className="hamburgerTile"></div>
+          <div className="hamburgerTile"></div>
         </div>
         <div style={mobileNavStyle} className="mobileNav">
+          <div className="mobileNavInner">
           <Link to="/profile">
             <p>Profile</p>
           </Link>
@@ -80,6 +83,7 @@ function App() {
             <p>What is Splodo?</p>
           </Link>
           <h2 onClick={onHamburgerClick}>X</h2>
+          </div>
         </div>
 
         <div className="main">

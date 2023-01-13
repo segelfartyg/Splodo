@@ -27,7 +27,7 @@ export default function (props) {
 
   return (
     <div className="containerCatSplodo">
-      <Link to="/category" state={{ from: props.catId }}>
+      <Link to="/category" state={{ from: props.catId, title: props.catName }}>
       <div onClick={() => onCatClick(props.catId)} className="browseItem">
         <div className="folderContent">
           <div className="imageAndTitle">
@@ -41,7 +41,6 @@ export default function (props) {
       <div className="splodoListItemArea">
         {props.cats.map((cat) => (
           <SplodoListItem
-            
             key={props.catId + "_" + cat.splodoId}
             catId={props.catId}
             title={cat.title}

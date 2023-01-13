@@ -9,6 +9,9 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const cookieParser = require("cookie-parser");
+const Splodo = require("./models/SplodoModel").Splodo;
+const Category = require("./models/CategoryModel").Category;
+const User = require("./models/User").User;
 
 const { ensureAuth, ensureGuest } = require("./services/auth");
 
@@ -35,18 +38,18 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-const userSchema = new mongoose.Schema({
-  userId: String,
-  firstName: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+// const userSchema = new mongoose.Schema({
+//   userId: String,
+//   firstName: String,
+//   createdAt: {
+//     type: Date,
+//     default: Date.now,
+//   },
+// });
 
-const User = mongoose.model("User", userSchema);
+// const User = mongoose.model("User", userSchema);
 
-module.exports = mongoose.model("User", userSchema);
+// module.exports = mongoose.model("User", userSchema);
 
 passport.use(
   new GoogleStrategy(
@@ -58,8 +61,9 @@ passport.use(
     async (accessToken, refreshToken, profile, callback) => {
       const newUser = {
         userId: profile.id,
-        userName: profile.displayName,
+        splodoName: profile.name.givenName,
         firstName: profile.name.givenName,
+        role: "Traveller"
       };
 
       try {
@@ -91,36 +95,34 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-const splodoSchema = new mongoose.Schema({
-  splodoId: Number,
-  userId: String,
-  title: String,
-  catId: String,
-  desc: String,
-  url: String,
-});
+// const splodoSchema = new mongoose.Schema({
+//   splodoId: Number,
+//   userId: String,
+//   title: String,
+//   catId: String,
+//   desc: String,
+//   url: String,
+// });
 
-const catSchema = new mongoose.Schema({
-  catId: Number,
-  userId: String,
-  title: String,
-  splodos: [],
-});
+// const catSchema = new mongoose.Schema({
+//   catId: Number,
+//   userId: String,
+//   title: String,
+//   splodos: [],
+// });
 
 // const userSchema = new mongoose.Schema({
 //   userId: Number,
 //   userName: String,
 // })
 
-const Splodo = mongoose.model("Splodo", splodoSchema);
-//const User = mongoose.model("User", userSchema);
-const Category = mongoose.model("Category", catSchema);
+// const Splodo = mongoose.model("Splodo", splodoSchema);
+// //const User = mongoose.model("User", userSchema);
+// const Category = mongoose.model("Category", catSchema);
 
 mongoose.connect(databaseURI).then(() => {});
 
 const connection = mongoose.connection;
-
-
 
 // let kategori = new Category({catId: 1, userId: "117006401158785848064", title: "Books", splodos:[]})
 // kategori.save();
@@ -150,20 +152,16 @@ connection.once("open", async function () {
     }
   );
 
-
   app.get("/addCollection", async (req, res) => {
-   if(req.user){
-
+    if (req.user) {
       let newColl = new Category({
         userId: req.user.userId,
         title: "New Collection",
-        splodos: []
-      })
-
+        splodos: [],
+      });
 
       await newColl.save();
-
-   }
+    }
 
     //let result = "hej"
     res.redirect("/profile");
@@ -227,44 +225,98 @@ connection.once("open", async function () {
     }
   });
 
+
+  app.get("/getProfile", (req, res) => {
+    if (req.user) {
+
+      res.send(req.user)
+
+
+    }
+    else{
+      res.send("noauth")
+    }
+  });
+
   app.post("/new", async (req, res) => {
     console.log(req.body);
 
     if (req.user) {
+      if (req.body.splodoId) {
+        await Splodo.findOneAndUpdate(
+          { _id: req.body.splodoId, userId: req.user.userId },
+          { catId: req.body.catId }
+        );
 
-
-
-      if(req.body.splodoId){
-
-        
-        await Splodo.findOneAndUpdate({_id: req.body.splodoId, userId: req.user.userId}, {catId: req.body.catId})
-
-        res.send({response: "splodo found and updated"})
-
-      }
-      else{
-
+        res.send({ response: "splodo found and updated" });
+      } else {
         let newSplodo = new Splodo({
           userId: req.user.userId,
           title: req.body.title,
           desc: req.body.desc,
           url: req.body.url,
           catId: req.body.catId,
+          tags: req.body.tags
         });
-  
+
         newSplodo.save();
-  
+
         res.send({ response: "success added" });
-
-
       }
 
-     
       console.log(req.user);
     } else {
       res.send({ response: "nono" });
     }
   });
+
+
+  app.post("/nameChange", async (req, res) => {
+    console.log(req.body);
+
+    if (req.user) {
+      if (req.body.name) {
+        console.log(req.body.name)
+        await User.findOneAndUpdate(
+          { userId: req.user.userId, },
+          { splodoName: req.body.name }
+        );
+
+        res.send({ response: "user found and name updated" });
+      } else {
+        res.send("not valid username")
+      }
+
+   
+    } else {
+      res.send({ response: "noauth" });
+    }
+  });
+
+  app.post("/catNameChange", async (req, res) => {
+    console.log(req.body);
+    console.log(req.body.catId);
+
+    if (req.user) {
+      if (req.body.name) {
+        console.log(req.body.name)
+        await Category.findOneAndUpdate(
+          { userId: req.user.userId, _id: req.body.catId},
+          { title: req.body.name }
+        );
+
+        res.send({ response: "cat found and name updated" });
+      } else {
+        res.send("not valid username")
+      }
+
+   
+    } else {
+      res.send({ response: "noauth" });
+    }
+  });
+
+
 
   app.get("/getSplodo", async (req, res) => {
     console.log(req.query.splodoId);
@@ -280,50 +332,37 @@ connection.once("open", async function () {
     res.send({ response: result });
   });
 
-
   app.get("/getCatSplodos", async (req, res) => {
     console.log(req.query.catId);
 
-    let categoryName = await Category.find({_id: req.query.catId, userId: req.user.userId}).select("title")
-    console.log(categoryName)
+    let categoryName = await Category.find({
+      _id: req.query.catId,
+      userId: req.user.userId,
+    }).select("title");
+    console.log(categoryName);
 
     let result = await Splodo.find({
       userId: req.user.userId,
       catId: req.query.catId,
     });
 
-    console.log(result)
+    console.log(result);
     //let result = "hej"
     res.send({ title: categoryName[0].title, splodos: result });
   });
 
-
-  
-  
-
   app.get("/getCats", async (req, res) => {
-    
-    
-    if(req.user){
-
-
-      let collections = await Category.find({userId: req.user.userId})
-      res.send({response: collections})
+    if (req.user) {
+      let collections = await Category.find({ userId: req.user.userId });
+      res.send({ response: collections });
+    } else {
+      res.send({ response: "noauth" });
     }
-    else{
-      res.send({response: "noauth"})
-    }
-
-
-   
   });
 
-
-
-
-
   app.get("/allCats", (req, res) => {
-    let response = ""; bv
+    let response = "";
+    bv;
     const collection = connection.db.collection("categories");
     collection.find({}).toArray(function (err, data) {
       res.send(data); // it will print your collection data
