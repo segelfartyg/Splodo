@@ -6,8 +6,7 @@ const splodoSchema = new mongoose.Schema({
     title: String,
     catId: String,
     desc: String,
-    tags: [{}],
-    url: String,
+    tags: [{}]
   });
 
 var Splodo = mongoose.model('Splodo', splodoSchema);

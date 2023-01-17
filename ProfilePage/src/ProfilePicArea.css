@@ -17,6 +17,7 @@
 
 .profileDetails h3 {
   font-size: 1rem;
+  
 }
 
 .profileName {
@@ -24,7 +25,30 @@
   align-items: center;
   height: fit-content;
   position: relative;
+  animation-duration: 1s;
+  animation-name: slideup;
+ 
 }
+
+
+@keyframes slideup {
+  0% {
+
+    height: 0px;
+ 
+   
+    opacity: 0;
+  
+  }
+
+  
+
+  100% {
+    opacity: 1;
+    height: 100%;
+  }
+}
+
 
 .nameChange{
   display:none;
@@ -67,6 +91,7 @@
   display: flex;
   margin: auto;
   align-items: center;
+  
 }
 .imageDiv {
   height: fit-content;

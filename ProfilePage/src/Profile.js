@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProfilePicArea from "./ProfilePicArea";
 import BrowseArea from "./BrowseArea";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Profile.css";
 import Config from "../Config.js";
 import axios from "axios";
@@ -9,7 +9,7 @@ import axios from "axios";
 export default function Profile() {
   const [chosenCat, setChosenCat] = useState(0);
   const [userInfo, setUserInfo] = useState({splodoName:"sname", role: "role"});
-
+  const navigate = useNavigate();
   const [cats, setCats] = useState([
     {
       catId: 1,
@@ -108,6 +108,7 @@ export default function Profile() {
               setCats(resultCats);
               setSplodos(profileSplodos);
             } else {
+
               console.log("not authenticated");
             }
           });
@@ -217,7 +218,8 @@ export default function Profile() {
           setCats(resultCats);
           setSplodos(profileSplodos);
         } else {
-          console.log("not authenticated");
+          console.log("not auth")
+          navigate("/login")
         }
       });
   }, []);

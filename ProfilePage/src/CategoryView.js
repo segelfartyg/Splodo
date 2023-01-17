@@ -6,8 +6,6 @@ import IndividualSplodo from "./IndividualSplodo";
 
 export default function CategoryView(props) {
 
-  
-
     const location = useLocation();
     const { from, title } = location.state;
     const [catTitle, setCatTitle] = useState("");
@@ -36,9 +34,7 @@ export default function CategoryView(props) {
                     catId: splodo.catId,
                 })
             })
-
             setCategorySplodos(temp);
-
           })
         );
       }
@@ -54,19 +50,14 @@ export default function CategoryView(props) {
       });
 
       function onCatNameChangePress(){
-
         if(catNameChangeStyle.display == "none"){
-
           setCatNameChangeStyle(prev => { return {...prev, display: "block"} })
-
         }
-
       }
-
 
       function onCatNameChangeSubmit(){
 
-
+        setCatNameChangeStyle(prev => { return {...prev, display: "none"} })
         if(catNameChangeRef.current.value.length >= 1){
           (async () => {
             const rawResponse = await fetch(Config.SERVERURI + "/catNameChange", {

@@ -50,14 +50,19 @@
   background: rgb(255, 255, 255);
   width: 80%;
   margin: auto;
-  position: relative;
   filter: drop-shadow(0px 0px 5px rgb(128, 126, 126));
   border-left: 2px solid rgb(126, 126, 126);
   border-right: 2px solid rgb(126, 126, 126);
 }
 
 .logoutBtn {
+  position: fixed;
   font-family: bernhard-gothic-urw, sans-serif;
+  background:white;
+  border:solid black 1px;
+  border-radius: 5px;
+  right:1rem;
+  bottom: 1rem;
 }
 
 .loginBtn {
@@ -118,11 +123,23 @@
 
 .hamburger {
   position: fixed;
-  left: 15%;
-  top: 5rem;
+  left: rem;
+  background:white;
+  padding:1rem;
+  border:solid black 1px;
+  border-radius: 10px;
+  top:7.5rem;
   font-size: 3rem;
   z-index: 4;
   display: none;
+  margin-left:-2rem;
+}
+
+.hamburgerOverlayDiv{
+  display:flex;
+  width:80%;
+  margin:auto;
+  position: relative;
 }
 
 .hamburgerTile{
@@ -179,5 +196,9 @@
 
   .hamburger {
     display: block;
+  }
+
+  .App{
+    
   }
 }

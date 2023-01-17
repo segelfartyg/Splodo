@@ -15,9 +15,95 @@ export default function Splodo(props) {
 }]);
 
 
+const newTagNameRef = useRef();
+const newTagValueRef = useRef();
+
+const splodoNameChangeRef = useRef();
+const splodoDescChangeRef = useRef();
+
+  const [tags, setTags] = useState([])
+
+
   const currentSplodoCat = useRef({value: "nocat", label: "No Category"});
+  const [splodoNameChangeStyle, setSplodoNameChangeStyle] = useState({display: "none"})
+  const [descNameChangeStyle, setDescNameChangeStyle] = useState({display: "none"})
+
+  function removeEdit(){
+
+    // if(splodoNameChangeStyle.display == "block"){
+    //   setSplodoNameChangeStyle(prev => { return {...prev, display: "none"} })
+    // }
+   
+    
+    // setDescChangeStyle(prev => { return {...prev, display: "none"} })
+  }
+
+  function onSplodoNameChangePress(){
+    console.log(splodoNameChangeStyle.display)
+    if(splodoNameChangeStyle.display == "none"){
+      setSplodoNameChangeStyle(prev => { return {...prev, display: "block"} })
+    }else{
+      // setSplodoNameChangeStyle(prev => {
+      //   return {...prev, display: "none"}
+      // })
+    }
 
 
+  }
+
+
+  function onNewTag(){
+
+
+    let temp = tags;
+    let max = 0;
+    temp.forEach((tag) => {
+
+     if(tag.index >= max){
+      max = tag.index
+     }
+
+    })
+
+    max++
+
+    
+    temp.push({tagName: newTagNameRef.current.value, tagValue: newTagValueRef.current.value, index: max})
+
+
+    setTags([...temp])
+  
+    console.log(tags)
+
+  }
+
+  let tagsRender = tags.map((tag) => {
+    return (
+      <p key={Math.random()}>{tag.tagName} : {tag.tagValue} <button className="tagRemoveBtn" onClick={() => onTagRemove(tag.index)}>REMOVE</button></p> 
+    );
+  });
+
+
+  function onTagRemove(_index){
+
+    let temp = tags;
+
+    let newArr = removeObjectWithId(temp, _index)
+
+
+
+    setTags([...newArr])
+  }
+
+  function removeObjectWithId(arr, index) {
+    const objWithIdIndex = arr.findIndex((obj) => obj.index === index);
+  
+    if (objWithIdIndex > -1) {
+      arr.splice(objWithIdIndex, 1);
+    }
+  
+    return arr;
+  }
 
 
   function onCatSelect(event){
@@ -36,9 +122,10 @@ export default function Splodo(props) {
         },
         credentials: "include",
         body: JSON.stringify({
-          // title: titleRef.current.value,
-          // desc: descRef.current.value,
+          title: splodoNameChangeRef.current.value,
+          desc: splodoDescChangeRef.current.value,
           // url: urlRef.current.value,
+          tags: tags,
           catId: currentSplodoCat.current.value,
           splodoId: from
         }),
@@ -56,6 +143,21 @@ export default function Splodo(props) {
     }).then((response) =>
       response.json().then((data) => {
         console.log(data.response[0]);
+
+
+        if(data.response[0].tags){
+          
+          let temp = [];
+
+
+          data.response[0].tags.forEach((tag) => {
+            temp.push({tagName: tag.tagName, tagValue: tag.tagValue, index: tag.index})
+            setTags([...temp])
+          })
+          
+
+        }
+        
 
         setSplodoShow((prev) => ({
           ...prev,
@@ -100,25 +202,62 @@ export default function Splodo(props) {
     );
 
 
+    fetch(Config.SERVERURI + "/getTags?" + "splodoId=" + from, {
+      credentials: "include",
+    }).then((response) =>
+      response.json().then((data) => {
+        // console.log(data.response[0]);
+
+        // setSplodoShow((prev) => ({
+        //   ...prev,
+        //   title: data.response[0].title,
+        //   desc: data.response[0].desc,
+        //   url: data.response[0].url,
+        //   splodoId: data.response[0]._id,
+        // }));
+      })
+    );
 
 
 
 
   }, []);
 
+
+ 
+  
+
   console.log(from);
   return (
     <div className="Splodo">
-      <div className="card SplodoContainer">
-        <h1>{splodoShow.title}</h1>
-        <p>{splodoShow.desc}</p>
-        <div>
-          <div className="tag">Book</div>
-        </div>
+      <div className="card SplodoContainer" onClick={removeEdit}>
+
+        <div className="wrapperCon">
+
+
+        
+        <input defaultValue={splodoShow.title} className="splodoTitle" ref={splodoNameChangeRef}></input>
+        <textarea defaultValue={splodoShow.desc} className="splodoDescChange" ref={splodoDescChangeRef}></textarea>
+       
         <Dropdown className="dropdown" menuClassName="dropdownList" options={options} onChange={onCatSelect} ref={currentSplodoCat} value={currentSplodoCat.current.label} placeholder={currentSplodoCat.current.label}></Dropdown>
-        <p><a href={splodoShow.url}>{splodoShow.url}</a></p>
+     
+
+        <div className="tagArea">
+
+   
+              
+              <div className="newTagArea">
+                <input className="tagName" ref={newTagNameRef} placeholder="Tag Name"></input><p className="divider">:</p>
+                <input className="tagValue" ref={newTagValueRef} placeholder="Value"></input>
+                <button id="newTagBtn"onClick={onNewTag}>Add</button>
+              </div>
+              
+              {tagsRender}
+
+            </div>
       
-        <button onClick={onSaveClick}>SAVE SPLODO</button>
+        <button className="saveSplodo" onClick={onSaveClick}>SAVE SPLODO</button>
+        </div>
       </div>
     </div>
   );

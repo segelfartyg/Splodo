@@ -13,6 +13,7 @@ import About from "./About.js";
 import CategoryView from "./CategoryView.js"
 import Config from "../Config.js";
 import axios from "axios";
+import Login from "./Login.js"
 
 function App() {
   const [mobileNavStyle, setMobileNavStyle] = useState({ animation: "none" });
@@ -42,9 +43,7 @@ function App() {
     console.log(Config);
   }, []);
 
-  function onLogin() {
-    window.open(Config.SERVERURI + "/google", "_self");
-  }
+ 
 
   function onLogOut() {
     axios
@@ -52,8 +51,10 @@ function App() {
         withCredentials: true,
       })
       .then((res) => {
-        if (res.data == "logged out") {
-          window.location.href = "/";
+        console.log(res)
+        if (res.data == "Logged out") {
+         
+          window.location.href = "/login";
           localStorage.removeItem("user");
           //window.location.reload();
         }
@@ -62,12 +63,18 @@ function App() {
 
   return (
     <div className="App">
+
+<div className="hamburgerOverlayDiv">
+<div onClick={onHamburgerClick} className="hamburger">
+          <div className="hamburgerTile"></div>
+          <div className="hamburgerTile"></div>
+          <div className="hamburgerTile"></div>
+</div>
+
+</div>
+
       <BrowserRouter>
-        <div onClick={onHamburgerClick} className="hamburger">
-          <div className="hamburgerTile"></div>
-          <div className="hamburgerTile"></div>
-          <div className="hamburgerTile"></div>
-        </div>
+       
         <div style={mobileNavStyle} className="mobileNav">
           <div className="mobileNavInner">
           <Link to="/profile">
@@ -87,6 +94,9 @@ function App() {
         </div>
 
         <div className="main">
+
+       
+
           <div className="navBar">
             <Link to="/profile">
               <p>Profile</p>
@@ -110,17 +120,16 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="splodo" element={<Splodo />} />
             <Route path="category" element={<CategoryView />} />
+            <Route path="login" element={<Login />} />
           </Routes>
 
-          <button className="loginBtn" onClick={onLogin}>
-            <img className="googleLoginPic" src="./google-tile.svg"></img>
-            <p>LOGIN WITH GOOGLE</p>
-          </button>
-          <button className="logoutBtn" onClick={onLogOut}>
-            LOGOUT
-          </button>
+          
+        
         </div>
       </BrowserRouter>
+      <button className="logoutBtn" onClick={onLogOut}>
+            LOGOUT
+      </button>
     </div>
   );
 }

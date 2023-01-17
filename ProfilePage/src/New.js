@@ -1,17 +1,31 @@
 import React, { useRef, useState } from "react";
 import "./New.css";
 import Config from "../Config.js";
+import Dropdown from "react-dropdown"
 
 export default function New() {
 
+  const [options, setOptions] = useState([{
+    value: "loading",
+    label: "waiting for cats"
+}]);
+
   const titleRef = useRef();
   const descRef = useRef();
-  const urlRef = useRef();
 
   const newTagNameRef = useRef();
   const newTagValueRef = useRef();
 
   const [tags, setTags] = useState([])
+
+  function onCatSelect(event){
+    console.log(event)
+
+    currentSplodoCat.current = event;
+  }
+  
+  const currentSplodoCat = useRef({value: "nocat", label: "No Category"});
+
 
   function postSplodo() {
     (async () => {
@@ -25,7 +39,6 @@ export default function New() {
         body: JSON.stringify({
           title: titleRef.current.value,
           desc: descRef.current.value,
-          url: urlRef.current.value,
           tags: tags,
           catId: "nocat",
         }),
@@ -92,9 +105,18 @@ export default function New() {
   return (
     <div className="New">
       <div className="NewSplodoForm card">
+
+        <div className="wrapperCon">
+
+
+        
         <input className="inputHeader" ref={titleRef} placeholder="Title"></input>
         <textarea className="inputDesc" ref={descRef}></textarea>
-         <input ref={urlRef} className="inputUrl" placeholder="Link / URL"></input> 
+        
+
+        <Dropdown className="dropdown" menuClassName="dropdownList" options={options} onChange={onCatSelect} ref={currentSplodoCat} value={currentSplodoCat.current.label} placeholder={currentSplodoCat.current.label}></Dropdown>
+     
+
         <div className="tagArea">
 
             <div className="tagArea">
@@ -115,6 +137,7 @@ export default function New() {
         </div>
      
         <button className="submitBtn" onClick={postSplodo}>Create Splodo</button>
+        </div>
       </div>
     </div>
   );

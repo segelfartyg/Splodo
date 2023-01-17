@@ -148,7 +148,7 @@ connection.once("open", async function () {
       session: true,
     }),
     function (req, res) {
-      res.redirect(process.env.CLIENT_URI);
+      res.redirect(process.env.CLIENT_URI + "/profile");
     }
   );
 
@@ -221,8 +221,12 @@ connection.once("open", async function () {
   });
 
   app.get("/logout", (req, res) => {
-    if (req.user) {
-    }
+    req.logout(function(err) {
+      if (err) { return next(err); }
+    
+    });
+
+    res.send("Logged out")
   });
 
 
@@ -245,7 +249,7 @@ connection.once("open", async function () {
       if (req.body.splodoId) {
         await Splodo.findOneAndUpdate(
           { _id: req.body.splodoId, userId: req.user.userId },
-          { catId: req.body.catId }
+          { catId: req.body.catId, tags: req.body.tags, title: req.body.title, desc: req.body.desc }
         );
 
         res.send({ response: "splodo found and updated" });
@@ -254,7 +258,6 @@ connection.once("open", async function () {
           userId: req.user.userId,
           title: req.body.title,
           desc: req.body.desc,
-          url: req.body.url,
           catId: req.body.catId,
           tags: req.body.tags
         });

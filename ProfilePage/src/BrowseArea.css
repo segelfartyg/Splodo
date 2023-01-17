@@ -33,7 +33,29 @@
   grid-template-columns: 1fr;
   gap: 1rem;
   padding-bottom: 5rem;
+  animation-duration: 0.3s;
+  animation-name: slidein2;
 }
+
+
+@keyframes slidein2 {
+  0% {
+
+    width: 0px;
+ 
+   
+    opacity: 0;
+  
+  }
+
+  
+
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
 
 .browseItem {
   height: 4rem;
