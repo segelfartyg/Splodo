@@ -30,6 +30,38 @@
  
 }
 
+.profilePicChangeForm{
+  font-family: bernhard-gothic-urw, sans-serif;
+  padding:1rem;
+  border:solid black 1px;
+  border-radius: 5px;
+  position:absolute;
+  background: white;
+  bottom: -1rem;
+  display:none;
+  width:15rem;
+  z-index: 5;
+  flex-direction: column;
+  left:0;
+}
+
+.imageDiv:hover  .profilePicChangeForm {
+  display:flex;
+}
+.profilePicChangeForm input {
+  font-family: bernhard-gothic-urw, sans-serif;
+  background: white;
+}
+.profilePicChangeForm button {
+  font-family: bernhard-gothic-urw, sans-serif;
+  background: white;
+  border:solid black 1px;
+  border-radius: 5px; 
+}
+
+.profilePicChangeForm button:hover{
+  background: rgb(214, 214, 214);
+}
 
 @keyframes slideup {
   0% {

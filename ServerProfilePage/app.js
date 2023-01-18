@@ -12,14 +12,29 @@ const cookieParser = require("cookie-parser");
 const Splodo = require("./models/SplodoModel").Splodo;
 const Category = require("./models/CategoryModel").Category;
 const User = require("./models/User").User;
+const multer = require("multer")
 
-const { ensureAuth, ensureGuest } = require("./services/auth");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images/')
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.user.userId + ".png")
+  },
+})
+
+const upload = multer({ storage: storage })
 
 databaseURI = process.env.MONGODB_URI;
+
+var publicDir = require('path').join(__dirname,'/images'); 
+app.use(express.static(publicDir)); 
+
 
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URI, credentials: true }));
 app.set("trust proxy", 1);
+
 
 var store = new MongoDBStore({
   uri: process.env.MONGODB_URI,
@@ -37,19 +52,6 @@ app.use(
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
-
-// const userSchema = new mongoose.Schema({
-//   userId: String,
-//   firstName: String,
-//   createdAt: {
-//     type: Date,
-//     default: Date.now,
-//   },
-// });
-
-// const User = mongoose.model("User", userSchema);
-
-// module.exports = mongoose.model("User", userSchema);
 
 passport.use(
   new GoogleStrategy(
@@ -94,31 +96,6 @@ passport.deserializeUser((id, done) => {
     return done(err, user);
   });
 });
-
-// const splodoSchema = new mongoose.Schema({
-//   splodoId: Number,
-//   userId: String,
-//   title: String,
-//   catId: String,
-//   desc: String,
-//   url: String,
-// });
-
-// const catSchema = new mongoose.Schema({
-//   catId: Number,
-//   userId: String,
-//   title: String,
-//   splodos: [],
-// });
-
-// const userSchema = new mongoose.Schema({
-//   userId: Number,
-//   userName: String,
-// })
-
-// const Splodo = mongoose.model("Splodo", splodoSchema);
-// //const User = mongoose.model("User", userSchema);
-// const Category = mongoose.model("Category", catSchema);
 
 mongoose.connect(databaseURI).then(() => {});
 
@@ -319,6 +296,10 @@ connection.once("open", async function () {
     }
   });
 
+
+  app.post('/image', upload.single('file'), function (req, res) {
+    res.json({})
+  })
 
 
   app.get("/getSplodo", async (req, res) => {

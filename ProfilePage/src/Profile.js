@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default function Profile() {
   const [chosenCat, setChosenCat] = useState(0);
-  const [userInfo, setUserInfo] = useState({splodoName:"sname", role: "role"});
+  const [userInfo, setUserInfo] = useState({splodoName:"sname", role: "role", userId: "1"});
   const navigate = useNavigate();
   const [cats, setCats] = useState([
     {
@@ -131,7 +131,7 @@ export default function Profile() {
     }).then((response) =>
       response.json().then((data) => {
         console.log(data);
-          setUserInfo(prev => { return {...prev, splodoName: data.splodoName, role: data.role}})
+          setUserInfo(prev => { return {...prev, splodoName: data.splodoName, role: data.role, userId: data.userId}})
 
       })
     );

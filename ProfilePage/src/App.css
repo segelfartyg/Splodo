@@ -189,6 +189,11 @@
   }
 }
 
+button:hover{
+  background:rgb(233, 233, 233);
+
+}
+
 @media screen and (max-width: 1324px) {
   .navBar {
     display: none;
