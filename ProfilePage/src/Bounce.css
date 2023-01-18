@@ -1,0 +1,15 @@
+.bounceArea{
+    height:100%;
+    width:100%;
+    display:block;
+    position: relative;
+}
+
+@keyframes bounce{
+    0%{
+        transform: translateX(200px) translateY(-400px);
+    }
+    100%{
+        transform: translateX(200px) , translateY(500px);
+    }
+}

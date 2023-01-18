@@ -14,6 +14,9 @@ import CategoryView from "./CategoryView.js"
 import Config from "../Config.js";
 import axios from "axios";
 import Login from "./Login.js"
+import Services from "./Services";
+import Bounce from "./Bounce";
+import ChooseCat from "./ChooseCat";
 
 function App() {
   const [mobileNavStyle, setMobileNavStyle] = useState({ animation: "none" });
@@ -100,7 +103,7 @@ function App() {
             <Link to="/new">
               <p>New Splodo</p>
             </Link>
-            <Link to="/community">
+            <Link to="/services">
               <p>Community</p>
             </Link>
             <Link to="/about">
@@ -116,6 +119,9 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="splodo" element={<Splodo />} />
             <Route path="category" element={<CategoryView />} />
+            <Route path="services" element={<Services />} />
+            <Route path="bounce" element={<Bounce />} />
+            <Route path="choosecat" element={<ChooseCat />} />
             <Route path="login" element={<Login />} />
           </Routes>
 
