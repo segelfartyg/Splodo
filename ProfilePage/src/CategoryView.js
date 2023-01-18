@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./CategoryView.css"
 import Config from "../Config.js"
 import IndividualSplodo from "./IndividualSplodo";
@@ -7,6 +7,7 @@ import IndividualSplodo from "./IndividualSplodo";
 export default function CategoryView(props) {
 
     const location = useLocation();
+    const navigate = useNavigate();
     const { from, title } = location.state;
     const [catTitle, setCatTitle] = useState("");
     const [categorySplodos, setCategorySplodos] = useState([])
@@ -83,8 +84,32 @@ export default function CategoryView(props) {
 
       }
 
-      function nameChanged(){
-
+      function onCatDelete(){
+  
+          (async () => {
+            const rawResponse = await fetch(Config.SERVERURI + "/deleteCat", {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify({
+                catId: from
+              }),
+            });
+            const content = await rawResponse.text();
+           
+        
+            if(content == "deleted"){
+              navigate("/profile")
+            }
+            else{
+              console.log("error during deletion")
+            }
+          })();
+      
+      
       }
 
     return (
@@ -98,6 +123,13 @@ export default function CategoryView(props) {
         {splodoRender}
     </div>
 
+
+      <div className="btnArea">
+
+        <button className="deleteCatBtn" onClick={onCatDelete}>Delete Directory</button>
+        <button className="deleteCatBtn">Add Splodo</button>
+
+      </div>
     
     </div>
   )

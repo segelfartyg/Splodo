@@ -115,6 +115,11 @@
 font-weight: 400;
 
 }
+
+.buttonArea{
+  display:flex;
+  
+}
 /* @keyframes splodoAni{
     0%{
         filter:opacity(0.1)

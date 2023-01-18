@@ -229,7 +229,7 @@ connection.once("open", async function () {
           { catId: req.body.catId, tags: req.body.tags, title: req.body.title, desc: req.body.desc }
         );
 
-        res.send({ response: "splodo found and updated" });
+        res.send("saved");
       } else {
         let newSplodo = new Splodo({
           userId: req.user.userId,
@@ -241,12 +241,51 @@ connection.once("open", async function () {
 
         newSplodo.save();
 
-        res.send({ response: "success added" });
+        res.send("created");
       }
 
       console.log(req.user);
     } else {
       res.send({ response: "nono" });
+    }
+  });
+
+  app.post("/deleteSplodo", async (req, res) => {
+    console.log(req.body);
+
+    if (req.user) {
+      if (req.body.splodoId) {
+        await Splodo.findOneAndDelete(
+          { _id: req.body.splodoId, userId: req.user.userId });
+
+        res.send("deleted");
+      } 
+
+       
+
+      console.log(req.user);
+    } else {
+      res.send({ response: "noauth" });
+    }
+  });
+
+
+  app.post("/deleteCat", async (req, res) => {
+    console.log(req.body);
+
+    if (req.user) {
+      if (req.body.catId) {
+        await Category.findOneAndDelete(
+          { _id: req.body.catId, userId: req.user.userId });
+
+        res.send("deleted");
+      } 
+
+       
+
+      console.log(req.user);
+    } else {
+      res.send({ response: "noauth" });
     }
   });
 

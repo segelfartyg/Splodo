@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import "./New.css";
 import Config from "../Config.js";
-import Dropdown from "react-dropdown"
+import Dropdown from "react-dropdown";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function New() {
 
@@ -9,6 +10,8 @@ export default function New() {
     value: "loading",
     label: "waiting for cats"
 }]);
+
+ const navigate = useNavigate();
 
   const titleRef = useRef();
   const descRef = useRef();
@@ -45,6 +48,13 @@ export default function New() {
       });
       const content = await rawResponse.text();
 
+      if(content == "created"){
+        navigate("/profile")
+
+      }
+      else{
+        console.log("creation failed")
+      }
       console.log(content);
     })();
   }

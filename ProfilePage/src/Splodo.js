@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Splodo.css";
 import Config from "../Config";
 import Dropdown from "react-dropdown"
@@ -7,7 +7,7 @@ import Dropdown from "react-dropdown"
 export default function Splodo(props) {
   const location = useLocation();
   const { from } = location.state;
-
+  const navigate = useNavigate();
   const [splodoShow, setSplodoShow] = useState({});
   const [options, setOptions] = useState([{
     value: "loading",
@@ -132,10 +132,44 @@ const splodoDescChangeRef = useRef();
       });
       const content = await rawResponse.text();
 
-      console.log(content);
+      if(content == "saved"){
+        navigate("/profile")
+      }
+      else{
+        console.log("save failed")
+      }
+      
     })();
 
   }
+
+
+  function onDeleteClick(){
+    (async () => {
+      const rawResponse = await fetch(Config.SERVERURI + "/deleteSplodo", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          splodoId: from
+        }),
+      });
+      const content = await rawResponse.text();
+     
+  
+      if(content == "deleted"){
+        navigate("/profile")
+      }
+      else{
+        console.log("error during deletion")
+      }
+    })();
+
+  }
+
 
   useEffect(() => {
     fetch(Config.SERVERURI + "/getSplodo?" + "splodoId=" + from, {
@@ -256,7 +290,16 @@ const splodoDescChangeRef = useRef();
 
             </div>
       
+      <div className="buttonArea">
+        
+        
+    
         <button className="saveSplodo" onClick={onSaveClick}>SAVE SPLODO</button>
+        <button className="saveSplodo" onClick={onDeleteClick}>DELETE SPLODO</button>
+    
+    
+        </div>
+    
         </div>
       </div>
     </div>

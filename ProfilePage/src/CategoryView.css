@@ -66,3 +66,21 @@
   font-weight: 400;
 }
 
+.btnArea{
+    display:flex;
+    margin:auto;
+    gap:1rem;
+}
+
+.deleteCatBtn{
+    border:solid black 1px;
+    background: white;
+    padding:0.75rem;
+    border-radius: 5px;
+    font-family: bernhard-gothic-urw, sans-serif;
+}
+
+.deleteCatBtn:hover{
+    background:rgb(207, 207, 207);
+}
+
