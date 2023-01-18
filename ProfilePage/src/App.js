@@ -18,6 +18,13 @@ import Login from "./Login.js"
 function App() {
   const [mobileNavStyle, setMobileNavStyle] = useState({ animation: "none" });
 
+  useEffect(() => {
+    if (envVariable != undefined) {
+      Config.SERVERURI = envVariable;
+      Object.freeze(Config);
+    }
+  }, []);
+
   function onHamburgerClick() {
     if (mobileNavStyle.animation == "none") {
       setMobileNavStyle((prev) => {
@@ -33,17 +40,6 @@ function App() {
       });
     }
   }
-
-  if (envVariable != undefined) {
-    Config.SERVERURI = envVariable;
-    Object.freeze(Config);
-  }
-
-  useEffect(() => {
-    console.log(Config);
-  }, []);
-
- 
 
   function onLogOut() {
     axios
