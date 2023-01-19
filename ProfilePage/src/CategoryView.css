@@ -84,3 +84,10 @@
     background:rgb(207, 207, 207);
 }
 
+.splodoWrapper{
+    display:flex;
+    flex-direction: column;
+    height:fit-content;
+    gap:1rem;
+}
+

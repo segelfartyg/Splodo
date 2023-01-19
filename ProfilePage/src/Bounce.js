@@ -5,7 +5,7 @@ import Config from "../Config.js"
 import "./Bounce.css";
 
 
-export default function Bounce() {
+export default function Bounce(props) {
 
     const location = useLocation();
  
@@ -13,6 +13,8 @@ export default function Bounce() {
     console.log(from)
     const [categorySplodos, setCategorySplodos] = useState([])
 
+
+    const [bounceBool, setBounceBool] = useState(true)
  
 
     useEffect(() => {
@@ -21,7 +23,7 @@ export default function Bounce() {
       }, []);
 
       function GetCategorySplodos(){
-        fetch(Config.SERVERURI + "/getCatSplodos?" + "catId=" + "63c6806cbadbbd0bfd5a586c", {
+        fetch(Config.SERVERURI + "/getCatSplodos?" + "catId=" + from, {
           credentials: "include",
         }).then((response) =>
           response.json().then((data) => {
@@ -45,7 +47,7 @@ export default function Bounce() {
 
       let splodoRender = categorySplodos.map((splodo) => {
         return (
-          <BounceComponent key={splodo.splodoId} title={splodo.title} desc={splodo.desc}>
+          <BounceComponent bounceBool={bounceBool} key={splodo.splodoId} title={splodo.title} desc={splodo.desc}>
           
           </BounceComponent>
         );

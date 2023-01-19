@@ -120,7 +120,14 @@ export default function CategoryView(props) {
         <div className="categoryName"><h1 onClick={onCatNameChangePress}>{catTitle}📁<input ref={catNameChangeRef} style={catNameChangeStyle} className="categoryNameChange"></input><button onClick={onCatNameChangeSubmit} style={catNameChangeStyle} className="changeCatNameBtn">SAVE</button></h1></div>
     </div>   
     <div className="browseArea">
+      
+      <div className="splodoWrapper">
+        
         {splodoRender}
+    
+        </div>
+        
+        
     </div>
 
 
