@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./CategoryView.css"
 import Config from "../Config.js"
 import IndividualSplodo from "./IndividualSplodo";
@@ -126,17 +126,17 @@ export default function CategoryView(props) {
         {splodoRender}
     
         </div>
-        
+        <div className="btnArea">
+
+<button className="deleteCatBtn" onClick={onCatDelete}>Delete Directory</button>
+<button className="deleteCatBtn"><Link to="/new" state={{fromCat: from, fromCatName: catTitle}}>Add Splodo</Link></button>
+
+</div>   
         
     </div>
 
 
-      <div className="btnArea">
-
-        <button className="deleteCatBtn" onClick={onCatDelete}>Delete Directory</button>
-        <button className="deleteCatBtn">Add Splodo</button>
-
-      </div>
+     
     
     </div>
   )

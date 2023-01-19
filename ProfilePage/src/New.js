@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./New.css";
 import Config from "../Config.js";
 import Dropdown from "react-dropdown";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 export default function New() {
 
@@ -10,6 +10,9 @@ export default function New() {
     value: "loading",
     label: "waiting for cats"
 }]);
+
+
+
 
  const navigate = useNavigate();
 
@@ -19,7 +22,61 @@ export default function New() {
   const newTagNameRef = useRef();
   const newTagValueRef = useRef();
 
+  const location = useLocation();
+
+ 
+
   const [tags, setTags] = useState([])
+
+  useEffect(() => {
+
+    fetch(Config.SERVERURI + "/getCats", {
+      credentials: "include",
+    }).then((response) =>
+      response.json().then((data) => {
+        console.log(data.response);
+
+        let temp = []
+        data.response.forEach((cat) => {
+
+            temp.push({
+              value: cat._id,
+              label: cat.title
+            })
+        })
+
+        temp.push({
+          value: "nocat",
+          label: "No Category"
+        })
+
+        setOptions(temp)
+        // setSplodoShow((prev) => ({
+        //   ...prev,
+        //   title: data.response[0].title,
+        //   desc: data.response[0].desc,
+        //   url: data.response[0].url,
+        //   splodoId: data.response[0]._id,
+        // }));
+      })
+    );
+
+
+    if(location.state != null){
+      console.log(location.state)
+      currentSplodoCat.current = location.state.fromCat;
+
+      onCatSelect({value: location.state.fromCat, label: location.state.fromCatName})
+    }
+
+
+
+
+
+
+  }, [])
+
+
 
   function onCatSelect(event){
     console.log(event)
@@ -28,6 +85,10 @@ export default function New() {
   }
   
   const currentSplodoCat = useRef({value: "nocat", label: "No Category"});
+
+
+
+
 
 
   function postSplodo() {
