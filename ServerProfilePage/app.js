@@ -58,7 +58,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/google/callback",
+      callbackURL: process.env.SERVERURI + "/google/callback",
     },
     async (accessToken, refreshToken, profile, callback) => {
       const newUser = {
@@ -125,7 +125,8 @@ connection.once("open", async function () {
       session: true,
     }),
     function (req, res) {
-      res.redirect(process.env.CLIENT_URI + "/profile");
+     res.redirect(process.env.CLIENT_URI + "/profile");
+        //res.redirect("http//localhost:3050/profile");
     }
   );
 
@@ -204,6 +205,13 @@ connection.once("open", async function () {
     });
 
     res.send("Logged out")
+  });
+
+
+  app.get("/hej", (req, res) => {
+
+    console.log("hejsan")
+    res.send("tjena man")
   });
 
 

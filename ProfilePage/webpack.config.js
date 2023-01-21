@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 
+
 module.exports = {
     mode: "development",
     entry: "./src/index.js",
@@ -35,6 +36,14 @@ module.exports = {
         headers: {
             "Access-Control-Allow-Origin": "http://localhost:3000",
             "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization, Set-cookie"
-        }
+        },
+        proxy: {
+            '/api': {
+                target: 'http://localhost:3000',
+                secure: false,
+                changeOrigin: true
+            }
+          },
+        allowedHosts: "all"
+          }
     }
-}

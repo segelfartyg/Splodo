@@ -37,7 +37,7 @@ export default function BounceComponent(props) {
     if (props.bounceBool) {
       interval = setInterval(() => {
 
-        let bounceMode = "jump";
+        let bounceMode = "sick";
 
         switch (bounceMode) {
           case "jump":

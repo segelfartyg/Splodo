@@ -11,3 +11,4 @@ ENV NODE_ENV DEV
 EXPOSE 8080
 
 CMD ["npm", "run", "dev"]
+

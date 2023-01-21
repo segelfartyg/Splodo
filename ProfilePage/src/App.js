@@ -21,11 +21,27 @@ import ChooseCat from "./ChooseCat";
 function App() {
   const [mobileNavStyle, setMobileNavStyle] = useState({ animation: "none" });
 
+  
   useEffect(() => {
+
     if (envVariable != undefined) {
       Config.SERVERURI = envVariable;
       Object.freeze(Config);
     }
+
+   
+    axios
+      .get(Config.SERVERURI + "/hej", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res)
+      
+      });
+
+
+
+   
   }, []);
 
   function onHamburgerClick() {
@@ -46,7 +62,7 @@ function App() {
 
   function onLogOut() {
     axios
-      .get(Config.SERVERURI + "/logout", {
+      .get(Config.SERVERURI +"/logout", {
         withCredentials: true,
       })
       .then((res) => {
