@@ -26,6 +26,7 @@ function App() {
 
     if (envVariable != undefined) {
       Config.SERVERURI = envVariable;
+      console.log(Config.SERVERURI)
       Object.freeze(Config);
     }
 

@@ -31,7 +31,7 @@ export default function Profile() {
     },
   ]);
   const [splodos, setSplodos] = useState([]);
-
+  
   function onNewFolderPress() {
     let temp = cats;
 
