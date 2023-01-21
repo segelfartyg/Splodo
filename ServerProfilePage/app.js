@@ -125,7 +125,7 @@ connection.once("open", async function () {
       session: true,
     }),
     function (req, res) {
-     res.redirect(process.env.CLIENT_URI + "/profile");
+     res.redirect(process.env.CLIENT_URI + "");
         //res.redirect("http//localhost:3050/profile");
     }
   );

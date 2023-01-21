@@ -27,6 +27,8 @@ services:
 
     ports:
      - "3000:3000"
+    volumes:
+      - images:/images
     environment:
       PORT: 3000
       MONGODB_URI: mongodb://ProfilePageMongoDB:27017/splodo
@@ -51,3 +53,4 @@ services:
     
 volumes:
   MongoDBProfilePage: {}
+  images: {}
