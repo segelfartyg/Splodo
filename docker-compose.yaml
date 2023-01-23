@@ -21,8 +21,8 @@ services:
     volumes:
       - MongoDBProfilePage:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=
-      - MONGO_INITDB_ROOT_PASSWORD=
+      - MONGO_INITDB_ROOT_USERNAME=NDJISAmxsanjiS4567SDAYD187VGvddFFF
+      - MONGO_INITDB_ROOT_PASSWORD=UjewanNUDSAuh237nYDSRWNDuuD72bIoI
 
   ProfilePageServer:
     image: profilepageserver/splodo
@@ -33,7 +33,7 @@ services:
       - images:/images
     environment:
       PORT: 3000
-      MONGODB_URI: mongodb://:@ProfilePageMongoDB:27017/splodo?authSource=admin
+      MONGODB_URI: mongodb://NDJISAmxsanjiS4567SDAYD187VGvddFFF:UjewanNUDSAuh237nYDSRWNDuuD72bIoI@ProfilePageMongoDB:27017/splodo?authSource=admin
       CLIENT_URI: http://localhost:3050
       SERVERURI: http://localhost:3000
       DB_NAME: splododb

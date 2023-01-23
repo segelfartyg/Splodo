@@ -99,7 +99,7 @@ function App() {
           <Link to="/new">
             <p>New Splodo</p>
           </Link>
-          <Link to="/community">
+          <Link to="/services">
             <p>Community</p>
           </Link>
           <Link to="/about">

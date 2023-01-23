@@ -72,8 +72,7 @@
   margin: auto;
   filter: drop-shadow(0px 0px 0.25rem rgb(0, 0, 0));
   position: relative;
-  height:100%;
-  overflow-y: hidden;
+  
   /*border-left: 2px solid rgb(0, 0, 0);
   border-right: 2px solid rgb(0, 0, 0);*/
 }
@@ -145,13 +144,12 @@
 }
 
 .hamburger {
-  position: fixed;
-  left: rem;
+  position: absolute;
+  left: 10%;
   background:white;
   padding:1rem;
-  border:solid black 1px;
   border-radius: 10px;
-  top:7.5rem;
+  top:1rem;
   font-size: 3rem;
   z-index: 4;
   display: none;
@@ -217,7 +215,7 @@ button:hover{
 
 }
 
-@media screen and (max-width: 1324px) {
+@media screen and (max-width: 1104px) {
   .navBar {
     display: none;
   }
@@ -226,7 +224,11 @@ button:hover{
     display: block;
   }
 
-  .App{
-    
+  .main{
+    width:95%;
+    padding-top: 5rem;
   }
+
+
+
 }
