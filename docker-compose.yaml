@@ -20,24 +20,26 @@ services:
       - "27017:27017"
     volumes:
       - MongoDBProfilePage:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=
+      - MONGO_INITDB_ROOT_PASSWORD=
 
   ProfilePageServer:
     image: profilepageserver/splodo
     restart: always
-
     ports:
      - "3000:3000"
     volumes:
       - images:/images
     environment:
       PORT: 3000
-      MONGODB_URI: mongodb://ProfilePageMongoDB:27017/splodo
+      MONGODB_URI: mongodb://:@ProfilePageMongoDB:27017/splodo?authSource=admin
       CLIENT_URI: http://localhost:3050
       SERVERURI: http://localhost:3000
       DB_NAME: splododb
       NAME: Samuel
       GOOGLE_CLIENT_ID:
-      GOOGLE_CLIENT_SECRET:
+      GOOGLE_CLIENT_SECRET: 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
     depends_on:
       - ProfilePageMongoDB
 
