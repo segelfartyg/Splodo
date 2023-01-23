@@ -207,20 +207,9 @@ connection.once("open", async function () {
     res.send("Logged out")
   });
 
-
-  app.get("/hej", (req, res) => {
-
-    console.log("hejsan")
-    res.send("tjena man")
-  });
-
-
   app.get("/getProfile", (req, res) => {
     if (req.user) {
-
       res.send(req.user)
-
-
     }
     else{
       res.send("noauth")
@@ -265,12 +254,8 @@ connection.once("open", async function () {
       if (req.body.splodoId) {
         await Splodo.findOneAndDelete(
           { _id: req.body.splodoId, userId: req.user.userId });
-
         res.send("deleted");
       } 
-
-       
-
       console.log(req.user);
     } else {
       res.send({ response: "noauth" });
@@ -288,10 +273,6 @@ connection.once("open", async function () {
 
         res.send("deleted");
       } 
-
-       
-
-      console.log(req.user);
     } else {
       res.send({ response: "noauth" });
     }
@@ -313,8 +294,6 @@ connection.once("open", async function () {
       } else {
         res.send("not valid username")
       }
-
-   
     } else {
       res.send({ response: "noauth" });
     }
@@ -337,30 +316,38 @@ connection.once("open", async function () {
         res.send("not valid username")
       }
 
-   
     } else {
       res.send({ response: "noauth" });
     }
   });
 
 
-  app.post('/image', upload.single('file'), function (req, res) {
+ function authentication (req, res, next) {
+     if(req.user){
+      return next()
+     } 
+     else{
+      res.send("noauth")
+     }    
+    }
+
+  app.post('/image', authentication, upload.single('file'), function (req, res) {
     res.json({})
   })
 
-
   app.get("/getSplodo", async (req, res) => {
-    console.log(req.query.splodoId);
-
-    console.log(mongoose.Types.ObjectId(req.query.splodoId));
-
-    let result = await Splodo.find({
-      userId: req.user.userId,
-      _id: req.query.splodoId,
-    });
-
-    //let result = "hej"
-    res.send({ response: result });
+    
+    if(req.user){
+      let result = await Splodo.find({
+        userId: req.user.userId,
+        _id: req.query.splodoId,
+      });
+      res.send({ response: result });
+    }
+    else{
+      res.send("no auth");
+    }
+   
   });
 
   app.get("/getCatSplodos", async (req, res) => {
@@ -392,11 +379,17 @@ connection.once("open", async function () {
   });
 
   app.get("/allCats", (req, res) => {
-    let response = "";
-    bv;
-    const collection = connection.db.collection("categories");
-    collection.find({}).toArray(function (err, data) {
-      res.send(data); // it will print your collection data
-    });
+    
+    if(req.user){
+      let response = "";
+      const collection = connection.db.collection("categories");
+      collection.find({}).toArray(function (err, data) {
+        res.send(data); // it will print your collection data
+      });
+    }
+    else{
+      res.send("noauth")
+    }
+    
   });
 });

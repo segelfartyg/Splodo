@@ -224,7 +224,7 @@ export default function Profile() {
           setSplodos(profileSplodos);
         } else {
           console.log("not auth")
-          navigate("/login")
+          //navigate("/login")
         }
       });
   }, []);

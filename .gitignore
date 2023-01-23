@@ -1,4 +1,5 @@
 ./ProfilePage/node_modules
+./ProfilePage/Config.js
 ServerProfilePage/node_modules
 ServerProfilePage/images
 docker-compose.yaml
