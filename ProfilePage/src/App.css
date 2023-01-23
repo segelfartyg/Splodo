@@ -116,7 +116,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */
@@ -227,6 +227,10 @@ button:hover{
   .main{
     width:95%;
     padding-top: 5rem;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
   }
 
 
