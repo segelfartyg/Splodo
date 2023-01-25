@@ -6,7 +6,11 @@
   "scripts": {
     "start": "webpack serve --open",
     "dev": "webpack-dev-server",
+<<<<<<< Updated upstream
     "build": "webpack" 
+=======
+    "build": "webpack"
+>>>>>>> Stashed changes
   },
   "author": "",
   "license": "ISC",

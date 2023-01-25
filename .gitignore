@@ -1,3 +1,7 @@
+certbot
+letsencrypt
+data
+images
 ./ProfilePage/node_modules
 ./ProfilePage/Config.js
 ServerProfilePage/node_modules

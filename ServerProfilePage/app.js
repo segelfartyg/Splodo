@@ -145,6 +145,13 @@ connection.once("open", async function () {
     res.redirect("/profile");
   });
 
+ app.get("/api/hej", async (req, res) => {
+    res.send({ response: "hej" });
+    
+  });
+
+
+
   app.get("/profile", async (req, res) => {
     if (req.user) {
       let categoriesAndSplodos = [];

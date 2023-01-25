@@ -32,7 +32,7 @@ function App() {
 
    
     axios
-      .get(Config.SERVERURI + "/hej", {
+      .get("/api/hej", {
         withCredentials: true,
       })
       .then((res) => {

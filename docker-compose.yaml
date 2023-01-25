@@ -11,7 +11,12 @@ services:
       dockerfile: Dockerfile
       context: ./nginx
     ports:
-      - "3050:80"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/sites-available/default
+      - ./letsencrypt:/etc/letsencrypt
+ 
   
   ProfilePageMongoDB:
     image: mongo:latest
@@ -30,15 +35,15 @@ services:
     ports:
      - "3000:3000"
     volumes:
-      - images:/images
+      - /images:/server/images
     environment:
       PORT: 3000
       MONGODB_URI: mongodb://NDJISAmxsanjiS4567SDAYD187VGvddFFF:UjewanNUDSAuh237nYDSRWNDuuD72bIoI@ProfilePageMongoDB:27017/splodo?authSource=admin
-      CLIENT_URI: http://localhost:3050
-      SERVERURI: http://localhost:3000
+      CLIENT_URI: https://splodo.com
+      SERVERURI: http://splodo.com:3000
       DB_NAME: splododb
       NAME: Samuel
-      GOOGLE_CLIENT_ID:
+      GOOGLE_CLIENT_ID: 883967806822-6ksrgqhjggjievfgh3eubqukdsa4oflm.apps.googleusercontent.com
       GOOGLE_CLIENT_SECRET: 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
     depends_on:
       - ProfilePageMongoDB
@@ -49,10 +54,11 @@ services:
     ports:
      - "8080:8080"
     environment:
-      REACT_APP_SOME_ENV_VARIABLE: http://localhost:3000
+      REACT_APP_SOME_ENV_VARIABLE: http://splodo.com:3000
     depends_on:
       - ProfilePageServer
     
 volumes:
   MongoDBProfilePage: {}
   images: {}
+ 
