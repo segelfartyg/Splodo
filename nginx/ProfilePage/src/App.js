@@ -48,15 +48,15 @@ function App() {
   function onHamburgerClick() {
     if (mobileNavStyle.animation == "none") {
       setMobileNavStyle((prev) => {
-        return { ...prev, animation: "navRight 0.5s forwards" };
+        return { ...prev, animation: "navRight 0.25s forwards" };
       });
-    } else if (mobileNavStyle.animation == "navRight 0.5s forwards") {
+    } else if (mobileNavStyle.animation == "navRight 0.25s forwards") {
       setMobileNavStyle((prev) => {
-        return { ...prev, animation: "navLeft 0.5s forwards" };
+        return { ...prev, animation: "navLeft 0.25s forwards" };
       });
-    } else if (mobileNavStyle.animation == "navLeft 0.5s forwards") {
+    } else if (mobileNavStyle.animation == "navLeft 0.25s forwards") {
       setMobileNavStyle((prev) => {
-        return { ...prev, animation: "navRight 0.5s forwards" };
+        return { ...prev, animation: "navRight 0.25s forwards" };
       });
     }
   }
@@ -93,16 +93,16 @@ function App() {
        
         <div style={mobileNavStyle} className="mobileNav">
           <div className="mobileNavInner">
-          <Link to="/profile">
+          <Link onClick={onHamburgerClick}to="/profile">
             <p>Profile</p>
           </Link>
-          <Link to="/new">
+          <Link onClick={onHamburgerClick}to="/new">
             <p>New Splodo</p>
           </Link>
-          <Link to="/services">
+          <Link onClick={onHamburgerClick}to="/services">
             <p>Community</p>
           </Link>
-          <Link to="/about">
+          <Link onClick={onHamburgerClick}to="/about">
             <p>What is Splodo?</p>
           </Link>
           <h2 onClick={onHamburgerClick}>X</h2>
@@ -140,12 +140,16 @@ function App() {
             <Route path="bounce" element={<Bounce />} />
             <Route path="choosecat" element={<ChooseCat />} />
             <Route path="login" element={<Login />} />
+        
           </Routes>
 
-          
+         
         
         </div>
       </BrowserRouter>
+
+   
+
       <button className="logoutBtn" onClick={onLogOut}>
             LOGOUT
       </button>
