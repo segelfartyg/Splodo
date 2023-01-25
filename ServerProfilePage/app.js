@@ -28,7 +28,7 @@ const upload = multer({ storage: storage })
 databaseURI = process.env.MONGODB_URI;
 
 var publicDir = require('path').join(__dirname,'/images'); 
-app.use(express.static(publicDir)); 
+app.use("/api", express.static(publicDir)); 
 
 
 app.use(express.json());

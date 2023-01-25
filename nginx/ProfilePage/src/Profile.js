@@ -235,6 +235,20 @@ export default function Profile() {
           navigate("/login")
         }
       });
+
+	 axios
+      .get("/api/hej", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res)
+      	console.log("from profile")
+      });
+
+
+
+
+
   }, []);
 
   return (

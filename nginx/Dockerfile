@@ -6,7 +6,7 @@ COPY /ProfilePage .
 
 RUN npm install
 
-COPY frontend .
+COPY . .
 
 RUN npm run build
 

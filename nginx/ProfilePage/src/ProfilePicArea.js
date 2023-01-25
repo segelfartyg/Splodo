@@ -155,7 +155,7 @@ export default function ProfilePicArea(props) {
           <button type="submit">Submit</button>
         </form>
         <img
-          src={Config.SERVERURI + "/" + props.userInfo.userId + ".png?" + new Date().getTime()} 
+          src={"/api/" + props.userInfo.userId + ".png?" + new Date().getTime()} 
           alt={imageState}
           className="profilePic"
         ></img>
