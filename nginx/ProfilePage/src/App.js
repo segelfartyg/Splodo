@@ -63,7 +63,7 @@ function App() {
 
   function onLogOut() {
     axios
-      .get(Config.SERVERURI +"/logout", {
+      .get("/api/logout", {
         withCredentials: true,
       })
       .then((res) => {

@@ -111,7 +111,7 @@ connection.once("open", async function () {
   });
 
   app.get(
-    "/google",
+    "/api/google",
     passport.authenticate("google", {
       scope: ["profile"],
       prompt: "select_account",
@@ -152,7 +152,7 @@ connection.once("open", async function () {
 
 
 
-  app.get("/profile", async (req, res) => {
+  app.get("/api/profile", async (req, res) => {
     if (req.user) {
       let categoriesAndSplodos = [];
 
@@ -205,7 +205,7 @@ connection.once("open", async function () {
     }
   });
 
-  app.get("/logout", (req, res) => {
+  app.get("/api/logout", (req, res) => {
     req.logout(function(err) {
       if (err) { return next(err); }
     
@@ -214,7 +214,7 @@ connection.once("open", async function () {
     res.send("Logged out")
   });
 
-  app.get("/getProfile", (req, res) => {
+  app.get("/api/getProfile", (req, res) => {
     if (req.user) {
       res.send(req.user)
     }
@@ -223,7 +223,7 @@ connection.once("open", async function () {
     }
   });
 
-  app.post("/new", async (req, res) => {
+  app.post("/api/new", async (req, res) => {
     console.log(req.body);
 
     if (req.user) {
@@ -254,7 +254,7 @@ connection.once("open", async function () {
     }
   });
 
-  app.post("/deleteSplodo", async (req, res) => {
+  app.post("/api/deleteSplodo", async (req, res) => {
     console.log(req.body);
 
     if (req.user) {
@@ -270,7 +270,7 @@ connection.once("open", async function () {
   });
 
 
-  app.post("/deleteCat", async (req, res) => {
+  app.post("/api/deleteCat", async (req, res) => {
     console.log(req.body);
 
     if (req.user) {
@@ -286,7 +286,7 @@ connection.once("open", async function () {
   });
 
 
-  app.post("/nameChange", async (req, res) => {
+  app.post("/api/nameChange", async (req, res) => {
     console.log(req.body);
 
     if (req.user) {
@@ -306,7 +306,7 @@ connection.once("open", async function () {
     }
   });
 
-  app.post("/catNameChange", async (req, res) => {
+  app.post("/api/catNameChange", async (req, res) => {
     console.log(req.body);
     console.log(req.body.catId);
 
@@ -338,11 +338,11 @@ connection.once("open", async function () {
      }    
     }
 
-  app.post('/image', authentication, upload.single('file'), function (req, res) {
+  app.post('/api/image', authentication, upload.single('file'), function (req, res) {
     res.json({})
   })
 
-  app.get("/getSplodo", async (req, res) => {
+  app.get("/api/getSplodo", async (req, res) => {
     
     if(req.user){
       let result = await Splodo.find({
@@ -357,7 +357,7 @@ connection.once("open", async function () {
    
   });
 
-  app.get("/getCatSplodos", async (req, res) => {
+  app.get("/api/getCatSplodos", async (req, res) => {
     console.log(req.query.catId);
 
     let categoryName = await Category.find({
@@ -376,7 +376,7 @@ connection.once("open", async function () {
     res.send({ title: categoryName[0].title, splodos: result });
   });
 
-  app.get("/getCats", async (req, res) => {
+  app.get("/api/getCats", async (req, res) => {
     if (req.user) {
       let collections = await Category.find({ userId: req.user.userId });
       res.send({ response: collections });
@@ -385,7 +385,7 @@ connection.once("open", async function () {
     }
   });
 
-  app.get("/allCats", (req, res) => {
+  app.get("/api/allCats", (req, res) => {
     
     if(req.user){
       let response = "";

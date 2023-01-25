@@ -37,7 +37,7 @@ export default function Profile() {
 
         // GET REQUEST TO SERVER, GETTING THE SPLODOS WITH SPECIFIED CATEGORY, ALL CATEGORIES, AND ALSO CATEGORIES WHICH ARE EMPTY
         axios
-          .get(Config.SERVERURI + "/addCollection", { withCredentials: true })
+          .get("/api/addCollection", { withCredentials: true })
           .then((res) => {
             console.log(res);
     
@@ -126,7 +126,7 @@ export default function Profile() {
 
   function getProfileInformation(){
 
-    fetch(Config.SERVERURI + "/getProfile", {
+    fetch("/api/getProfile", {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
@@ -136,6 +136,14 @@ export default function Profile() {
       })
     );
 
+    // axios
+    // .get("/api/hej", {
+    //   withCredentials: true,
+    // })
+    // .then((res) => {
+    //   console.log(res)
+    
+    // });
 
 
 
@@ -152,7 +160,7 @@ export default function Profile() {
     getProfileInformation();
     // GET REQUEST TO SERVER, GETTING THE SPLODOS WITH SPECIFIED CATEGORY, ALL CATEGORIES, AND ALSO CATEGORIES WHICH ARE EMPTY
     axios
-      .get(Config.SERVERURI + "/profile", { withCredentials: true })
+      .get("/api/profile", { withCredentials: true })
       .then((res) => {
         console.log(res);
 

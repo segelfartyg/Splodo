@@ -30,7 +30,7 @@ export default function ChooseCat(props) {
 
     
     function GetCategories(){
-      fetch(Config.SERVERURI + "/getCats", {
+      fetch("/api/getCats", {
         credentials: "include",
       }).then((response) =>
         response.json().then((data) => {

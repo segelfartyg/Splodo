@@ -30,7 +30,7 @@ export default function New() {
 
   useEffect(() => {
 
-    fetch(Config.SERVERURI + "/getCats", {
+    fetch("/api/getCats", {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
@@ -93,7 +93,7 @@ export default function New() {
 
   function postSplodo() {
     (async () => {
-      const rawResponse = await fetch(Config.SERVERURI + "/new", {
+      const rawResponse = await fetch("/api/new", {
         method: "POST",
         headers: {
           Accept: "application/json",

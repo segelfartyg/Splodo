@@ -6,7 +6,7 @@ export default function Login() {
 
 
     function onLogin() {
-        window.open(Config.SERVERURI + "/google", "_self");
+        window.open("/api/google", "_self");
       }
 
 

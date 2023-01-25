@@ -23,7 +23,7 @@ export default function Bounce(props) {
       }, []);
 
       function GetCategorySplodos(){
-        fetch(Config.SERVERURI + "/getCatSplodos?" + "catId=" + from, {
+        fetch("/api/getCatSplodos?" + "catId=" + from, {
           credentials: "include",
         }).then((response) =>
           response.json().then((data) => {

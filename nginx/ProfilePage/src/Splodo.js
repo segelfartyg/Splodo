@@ -85,7 +85,7 @@ export default function Splodo(props) {
 
   function onSaveClick() {
     (async () => {
-      const rawResponse = await fetch(Config.SERVERURI + "/new", {
+      const rawResponse = await fetch("/api/new", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -113,7 +113,7 @@ export default function Splodo(props) {
 
   function onDeleteClick() {
     (async () => {
-      const rawResponse = await fetch(Config.SERVERURI + "/deleteSplodo", {
+      const rawResponse = await fetch("/api/deleteSplodo", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -135,7 +135,7 @@ export default function Splodo(props) {
   }
 
   useEffect(() => {
-    fetch(Config.SERVERURI + "/getSplodo?" + "splodoId=" + from, {
+    fetch("/api/getSplodo?" + "splodoId=" + from, {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
@@ -162,7 +162,7 @@ export default function Splodo(props) {
       })
     );
 
-    fetch(Config.SERVERURI + "/getCats", {
+    fetch("/api/getCats", {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
@@ -183,7 +183,7 @@ export default function Splodo(props) {
       })
     );
 
-    fetch(Config.SERVERURI + "/getTags?" + "splodoId=" + from, {
+    fetch("/api/getTags?" + "splodoId=" + from, {
       credentials: "include",
     }).then((response) => response.json().then((data) => {}));
   }, []);

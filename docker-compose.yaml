@@ -47,16 +47,6 @@ services:
       GOOGLE_CLIENT_SECRET: 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
     depends_on:
       - ProfilePageMongoDB
-
-  ProfilePageFrontend:
-    image: profilepagefrontend/splodo
-    restart: always
-    ports:
-     - "8080:8080"
-    environment:
-      REACT_APP_SOME_ENV_VARIABLE: http://splodo.com:3000
-    depends_on:
-      - ProfilePageServer
     
 volumes:
   MongoDBProfilePage: {}

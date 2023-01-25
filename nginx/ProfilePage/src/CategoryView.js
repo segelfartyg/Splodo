@@ -20,7 +20,7 @@ export default function CategoryView(props) {
       }, []);
 
       function GetCategorySplodos(){
-        fetch(Config.SERVERURI + "/getCatSplodos?" + "catId=" + from, {
+        fetch("/api/getCatSplodos?" + "catId=" + from, {
           credentials: "include",
         }).then((response) =>
           response.json().then((data) => {
@@ -61,7 +61,7 @@ export default function CategoryView(props) {
         setCatNameChangeStyle(prev => { return {...prev, display: "none"} })
         if(catNameChangeRef.current.value.length >= 1){
           (async () => {
-            const rawResponse = await fetch(Config.SERVERURI + "/catNameChange", {
+            const rawResponse = await fetch("/api/catNameChange", {
               method: "POST",
               headers: {
                 Accept: "application/json",
@@ -87,7 +87,7 @@ export default function CategoryView(props) {
       function onCatDelete(){
   
           (async () => {
-            const rawResponse = await fetch(Config.SERVERURI + "/deleteCat", {
+            const rawResponse = await fetch("/api/deleteCat", {
               method: "POST",
               headers: {
                 Accept: "application/json",

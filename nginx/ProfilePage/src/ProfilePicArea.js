@@ -83,7 +83,7 @@ export default function ProfilePicArea(props) {
 
     if (nameChangeRef.current.value.length >= 1) {
       (async () => {
-        const rawResponse = await fetch(Config.SERVERURI + "/nameChange", {
+        const rawResponse = await fetch("/api/nameChange", {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -107,7 +107,7 @@ export default function ProfilePicArea(props) {
     e.preventDefault();
     let formData = new FormData();
     formData.append("file", image.data);
-    const response = await fetch(Config.SERVERURI + "/image", {
+    const response = await fetch("/api/image", {
       method: "POST",
       credentials: "include",
       body: formData,
