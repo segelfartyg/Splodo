@@ -97,6 +97,7 @@ export default function Profile() {
                   splodoId: item.splodoId,
                   title: item.title,
                   catId: item.catId,
+                  iconUrl: item.iconUrl
                 });
               });
     
@@ -220,6 +221,7 @@ export default function Profile() {
               splodoId: item.splodoId,
               title: item.title,
               catId: item.catId,
+              iconUrl: item.iconUrl
             });
           });
 

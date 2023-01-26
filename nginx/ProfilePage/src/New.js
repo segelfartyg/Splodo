@@ -11,9 +11,11 @@ export default function New() {
     label: "waiting for cats"
 }]);
 
+const [iconOptions, setIconOptions] = useState([])
 
+const [iconMenuStyle, setIconMenuStyle] = useState({display: "none"})
 
-
+const [currentSplodoIcon, setCurrentSplodoIcon] = useState({name: "star", url: "/api/icons/tier1star.png"})
  const navigate = useNavigate();
 
   const titleRef = useRef();
@@ -70,7 +72,24 @@ export default function New() {
     }
 
 
+    fetch("/api/getIcons", {
+      credentials: "include",
+    }).then((response) => response.json().then((data) => {
+      console.log(data.response)
 
+      let temp = [];
+
+      data.response.forEach((icon) => {
+      
+        temp.push({name: icon, url: "/api/icons/" + icon})
+
+      })
+
+      console.log(temp)
+      setIconOptions(temp)
+
+
+    }));
 
 
 
@@ -105,6 +124,7 @@ export default function New() {
           desc: descRef.current.value,
           tags: tags,
           catId: "nocat",
+          iconUrl: currentSplodoIcon.url,
         }),
       });
       const content = await rawResponse.text();
@@ -173,6 +193,26 @@ export default function New() {
     );
   });
 
+
+  function onIconClick(url, name){
+    console.log(url, name)
+
+    setCurrentSplodoIcon(prev => {return {...prev, name: name, url: url}})
+    setIconMenuStyle(prev => { return {...prev, display: "none"}})
+  }
+
+  function onIconChangeClick(){
+    setIconMenuStyle(prev => { return {...prev, display: "block"}})
+  }
+
+
+  let iconRender = iconOptions.map((icon) => { return <div onClick={() => onIconClick(icon.url, icon.name)} className="choiceIcon"> <img className="choiceIconImg" src={icon.url}></img> </div> })
+
+
+
+
+
+
   return (
     <div className="New">
       <div className="NewSplodoForm card">
@@ -209,7 +249,30 @@ export default function New() {
      
         <button className="submitBtn" onClick={postSplodo}>Create Splodo</button>
         </div>
+
+
+
       </div>
+
+
+      <div className="iconArea card">
+
+<img onClick={onIconChangeClick} src={currentSplodoIcon.url} alt={currentSplodoIcon.name}>
+
+
+   
+
+
+
+</img>
+<div style={iconMenuStyle} className="iconCollection">
+  {iconRender}
+</div>
+
+</div>
+
+
+
     </div>
   );
 }

@@ -17,6 +17,14 @@ export default function Splodo(props) {
     },
   ]);
 
+
+  const [iconOptions, setIconOptions] = useState([])
+
+  const [iconMenuStyle, setIconMenuStyle] = useState({display: "none"})
+
+  const [currentSplodoIcon, setCurrentSplodoIcon] = useState({name: "star", url: "/api/icons/tier1star.png"})
+  
+
   const newTagNameRef = useRef();
   const newTagValueRef = useRef();
 
@@ -95,7 +103,7 @@ export default function Splodo(props) {
         body: JSON.stringify({
           title: splodoNameChangeRef.current.value,
           desc: splodoDescChangeRef.current.value,
-          // url: urlRef.current.value,
+          iconUrl: currentSplodoIcon.url,
           tags: tags,
           catId: currentSplodoCat.current.value,
           splodoId: from,
@@ -159,7 +167,12 @@ export default function Splodo(props) {
           catId: data.response[0].catId,
           splodoId: data.response[0]._id,
         }));
+
+
+        setCurrentSplodoIcon(prev => { return { ...prev, name: "icon", url: data.response[0].iconUrl  } })
       })
+
+
     );
 
     fetch("/api/getCats", {
@@ -186,6 +199,36 @@ export default function Splodo(props) {
     fetch("/api/getTags?" + "splodoId=" + from, {
       credentials: "include",
     }).then((response) => response.json().then((data) => {}));
+
+
+
+  
+
+    fetch("/api/getIcons", {
+      credentials: "include",
+    }).then((response) => response.json().then((data) => {
+      console.log(data.response)
+
+      let temp = [];
+
+      data.response.forEach((icon) => {
+      
+        temp.push({name: icon, url: "/api/icons/" + icon})
+
+      })
+
+      console.log(temp)
+      setIconOptions(temp)
+
+
+    }));
+
+
+
+
+
+
+
   }, []);
 
   useEffect(() => {
@@ -201,6 +244,21 @@ export default function Splodo(props) {
       setCurrentSplodoCatVar(temp);
     }
   }, [splodoShow.catId, options]);
+
+  function onIconClick(url, name){
+    console.log(url, name)
+
+    setCurrentSplodoIcon(prev => {return {...prev, name: name, url: url}})
+    setIconMenuStyle(prev => { return {...prev, display: "none"}})
+  }
+
+  function onIconChangeClick(){
+    setIconMenuStyle(prev => { return {...prev, display: "block"}})
+  }
+
+
+  let iconRender = iconOptions.map((icon) => { return <div onClick={() => onIconClick(icon.url, icon.name)}className="choiceIcon"> <img className="choiceIconImg" src={icon.url}></img> </div> })
+
 
   return (
     <div className="Splodo">
@@ -257,6 +315,22 @@ export default function Splodo(props) {
             </button>
           </div>
         </div>
+      </div>
+
+      <div className="iconArea card">
+
+        <img onClick={onIconChangeClick} src={currentSplodoIcon.url} alt={currentSplodoIcon.name}>
+
+
+           
+
+
+
+        </img>
+        <div style={iconMenuStyle} className="iconCollection">
+          {iconRender}
+        </div>
+
       </div>
     </div>
   );

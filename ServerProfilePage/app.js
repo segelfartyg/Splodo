@@ -12,7 +12,9 @@ const cookieParser = require("cookie-parser");
 const Splodo = require("./models/SplodoModel").Splodo;
 const Category = require("./models/CategoryModel").Category;
 const User = require("./models/User").User;
-const multer = require("multer")
+const multer = require("multer");
+const path = require("path");
+const { readdir } = require("fs/promises");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -29,6 +31,9 @@ databaseURI = process.env.MONGODB_URI;
 
 var publicDir = require('path').join(__dirname,'/images'); 
 app.use("/api", express.static(publicDir)); 
+
+var publicDir2 = require('path').join(__dirname,'/icons'); 
+app.use("/api/icons", express.static(publicDir2)); 
 
 
 app.use(express.json());
@@ -130,7 +135,7 @@ connection.once("open", async function () {
     }
   );
 
-  app.get("/addCollection", async (req, res) => {
+  app.get("/api/addCollection", async (req, res) => {
     if (req.user) {
       let newColl = new Category({
         userId: req.user.userId,
@@ -142,7 +147,7 @@ connection.once("open", async function () {
     }
 
     //let result = "hej"
-    res.redirect("/profile");
+    res.redirect("/api/profile");
   });
 
  app.get("/api/hej", async (req, res) => {
@@ -176,18 +181,21 @@ connection.once("open", async function () {
             catId: "nocat",
             splodoId: splodo._id,
             title: splodo.title,
+            iconUrl: splodo.iconUrl
           });
 
           splodosWithoutCat.push({
             catId: "nocat",
             splodoId: splodo._id,
             title: splodo.title,
+            iconUrl: splodo.iconUrl
           });
         } else if (splodo.catId > 0) {
           splodosWithCat.push({
             catId: splodo.catId,
             splodoId: splodo._id,
             title: splodo.title,
+            iconUrl: splodo.iconUrl
           });
         }
       });
@@ -223,30 +231,79 @@ connection.once("open", async function () {
     }
   });
 
+  
+  function checkIconTier(role, tier){
+
+
+    switch(role){
+        case "Admin":
+          return true 
+          break;
+        case "Kosmos":
+          if(tier.includes("tier3") || tier.includes("tier2") || tier.includes("tier1")){
+            return true
+          }
+          else{
+            return false;
+          } 
+          break;
+        case "Satellit":
+          if(tier.includes("tier2") || tier.includes("tier1")){
+            return true
+          }
+          else{
+            return false;
+          } 
+          break;
+        case "Traveller":
+          if(tier.includes("tier1")){
+            return true
+          }
+          else{
+            return false;
+          } 
+          break;
+    }
+
+
+  }
+
+
   app.post("/api/new", async (req, res) => {
     console.log(req.body);
 
     if (req.user) {
-      if (req.body.splodoId) {
-        await Splodo.findOneAndUpdate(
-          { _id: req.body.splodoId, userId: req.user.userId },
-          { catId: req.body.catId, tags: req.body.tags, title: req.body.title, desc: req.body.desc }
-        );
 
-        res.send("saved");
-      } else {
-        let newSplodo = new Splodo({
-          userId: req.user.userId,
-          title: req.body.title,
-          desc: req.body.desc,
-          catId: req.body.catId,
-          tags: req.body.tags
-        });
+      if(checkIconTier(req.user.role, req.body.iconUrl)){
+        if (req.body.splodoId) {
+          await Splodo.findOneAndUpdate(
+            { _id: req.body.splodoId, userId: req.user.userId },
+            { catId: req.body.catId, tags: req.body.tags, title: req.body.title, desc: req.body.desc, iconUrl: req.body.iconUrl }
+          );
+  
+          res.send("saved");
+        } else {
+          let newSplodo = new Splodo({
+            userId: req.user.userId,
+            title: req.body.title,
+            desc: req.body.desc,
+            catId: req.body.catId,
+            iconUrl: req.body.iconUrl,
+            tags: req.body.tags
+          });
+  
+          newSplodo.save();
+  
+          res.send("created");
+        }
 
-        newSplodo.save();
-
-        res.send("created");
       }
+      else{
+        res.send("iconnoauth")
+      }
+
+
+     
 
       console.log(req.user);
     } else {
@@ -370,7 +427,7 @@ connection.once("open", async function () {
       userId: req.user.userId,
       catId: req.query.catId,
     });
-
+    console.log("CATTIG");
     console.log(result);
     //let result = "hej"
     res.send({ title: categoryName[0].title, splodos: result });
@@ -384,6 +441,74 @@ connection.once("open", async function () {
       res.send({ response: "noauth" });
     }
   });
+
+
+  app.get("/api/getIcons", async (req, res) => {
+    if (req.user) {
+
+     
+      const matchedFiles = [];
+
+      const files = await readdir("./icons");
+
+      let adminIcons = [];
+      let satellitIcons = [];
+      let kosmosIcons = [];
+      let travellerIcons = [];
+  
+      for (const file of files) {
+          // Method 1:
+          const filename = path.parse(file).name;
+  
+          if (filename.includes("tier1")) {
+              adminIcons.push(file);
+              satellitIcons.push(file);
+              kosmosIcons.push(file);
+              travellerIcons.push(file);
+          }
+
+          if (filename.includes("tier2")) {
+            adminIcons.push(file);
+            satellitIcons.push(file);
+            kosmosIcons.push(file);
+        }
+
+        if (filename.includes("tier3")) {
+          adminIcons.push(file);
+          kosmosIcons.push(file);
+      }
+
+      if (filename.includes("tier4")) {
+        adminIcons.push(file);
+    }
+
+        }
+   
+      let resultArray = [];
+
+      switch(req.user.role){
+        case "Admin":
+          resultArray = adminIcons;
+          break;
+        case "Satellit":
+          resultArray = satellitIcons;
+          break;
+        case "Kosmos":
+          resultArray = kosmosIcons;
+          break;
+        case "Traveller":
+          resultArray = travellerIcons;
+          break;
+        default:
+          break;
+      }
+
+      res.send({ response: resultArray });
+    } else {
+      res.send({ response: "noauth" });
+    }
+  });
+
 
   app.get("/api/allCats", (req, res) => {
     

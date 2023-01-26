@@ -43,6 +43,7 @@ export default function BrowseArea(props) {
         key={splodo.splodoId}
         splodoId={splodo.splodoId}
         title={splodo.title}
+        iconUrl={splodo.iconUrl}
       ></IndividualSplodo>
     );
   });

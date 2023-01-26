@@ -144,9 +144,7 @@ export default function ProfilePicArea(props) {
         <h3 className="role" style={roleColor}>
           {props.userInfo.role}
         </h3>
-        <h3 className="profileURL">
-          <a>www.github.com/segelfartyg</a>
-        </h3>
+     
       </div>
 
       <div className="imageDiv">

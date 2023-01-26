@@ -122,6 +122,54 @@ font-weight: 400;
   display:flex;
   
 }
+
+
+.iconArea{
+  margin:auto;
+  background:white;
+  margin-top: 4rem;
+  position:relative;
+ 
+}
+
+.iconArea img {
+  width: 5rem;
+  height:5rem;
+}
+
+.iconCollection {
+  height:250%;
+  width:150%;
+  position: absolute;
+  background:rgb(255, 255, 255);
+  border:solid black 2px;
+  border-radius: 5px;
+  z-index: 4;
+  margin:auto;
+  top: 0%;
+left: 50%;
+transform: translate(-50%, -50%);
+overflow-y: scroll;
+padding-top:1rem;
+padding-bottom: 1rem;
+display:flex;
+flex-direction: column;
+gap:2rem;
+  
+}
+
+.choiceIcon{
+
+
+
+}
+
+.choiceIconImg{
+
+  width:10rem;
+  height:10rem;
+
+}
 /* @keyframes splodoAni{
     0%{
         filter:opacity(0.1)

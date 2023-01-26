@@ -33,6 +33,7 @@ export default function CategoryView(props) {
                     splodoId: splodo._id,
                     title: splodo.title,
                     catId: splodo.catId,
+                    iconUrl: splodo.iconUrl
                 })
             })
             setCategorySplodos(temp);
@@ -46,6 +47,7 @@ export default function CategoryView(props) {
             key={splodo.splodoId}
             splodoId={splodo.splodoId}
             title={splodo.title}
+            iconUrl={splodo.iconUrl}
           ></IndividualSplodo>
         );
       });

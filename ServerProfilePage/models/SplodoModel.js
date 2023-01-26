@@ -6,6 +6,7 @@ const splodoSchema = new mongoose.Schema({
     title: String,
     catId: String,
     desc: String,
+    iconUrl: String,
     tags: [{}]
   });
 
