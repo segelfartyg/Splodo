@@ -1,94 +1,85 @@
-.CategoryView{
-    height:100%;
-    padding-top:5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+.CategoryView {
+  height: 100%;
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.categoryInformation{
-    padding: 0;
-   
+.categoryInformation {
+  padding: 0;
 }
 
-.categoryName{
-    padding:0;
-    width: 90%;
-    text-align: left;
-    margin:auto;
-  
-
+.categoryName {
+  padding: 0;
+  width: 90%;
+  text-align: left;
+  margin: auto;
 }
 
-.categoryName h1{
-    width:fit-content;
-    padding:0;
-    margin:0;
-    position: relative;
+.categoryName h1 {
+  width: fit-content;
+  padding: 0;
+  margin: 0;
+  position: relative;
 }
 
+.categoryNameChange {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: none;
 
-
-.categoryNameChange{
-    position: absolute;
-    height: 100%;
-    width:100%;
-    top:0;
-    left:0;
-    display:none;
-
-    font-family: bernhard-gothic-urw, sans-serif;
+  font-family: bernhard-gothic-urw, sans-serif;
   font-weight: 400;
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
   font-size: 1.5rem;
-  border:solid black 1px;
+  border: solid black 1px;
   border-radius: 5px;
-   
-
 }
 
-.changeCatNameBtn{
-    height:100%;
-    width:fit-content;
-    position:absolute;
-  
-    margin:0;
-    display:block;
-    right:-4rem;
-    top:0;
-    font-size: 1rem;
-  
-    background:white;
-    border:solid black 1px;
-    border-radius: 5px;
-    font-family: bernhard-gothic-urw, sans-serif;
+.changeCatNameBtn {
+  height: 100%;
+  width: fit-content;
+  position: absolute;
+
+  margin: 0;
+  display: block;
+  right: -4rem;
+  top: 0;
+  font-size: 1rem;
+
+  background: white;
+  border: solid black 1px;
+  border-radius: 5px;
+  font-family: bernhard-gothic-urw, sans-serif;
   font-weight: 400;
 }
 
-.btnArea{
-    
-    display:flex;
-    margin:auto;
-    gap:1rem;
+.btnArea {
+  display: flex;
+  margin: auto;
+  gap: 1rem;
 }
 
-.deleteCatBtn{
-    border:solid black 1px;
-    background: white;
-    padding:0.75rem;
-    border-radius: 5px;
-    font-family: bernhard-gothic-urw, sans-serif;
+.deleteCatBtn {
+  border: solid black 1px;
+  background: white;
+  padding: 0.75rem;
+  border-radius: 5px;
+  font-family: bernhard-gothic-urw, sans-serif;
 }
 
-.deleteCatBtn:hover{
-    background:rgb(207, 207, 207);
+.deleteCatBtn:hover {
+  background: rgb(207, 207, 207);
 }
 
-.splodoWrapper{
-    display:flex;
-    flex-direction: column;
-    height:fit-content;
-    gap:1rem;
+.splodoWrapper {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  gap: 1rem;
 }
-

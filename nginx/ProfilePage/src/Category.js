@@ -34,7 +34,7 @@ export default function (props) {
             <img className="splodoIcon" src="./folder.png"></img>
             <h2>{props.catName}</h2>
           </div>
-          <h3 style={arrowStyle}>v</h3>
+      
         </div>
       </div>
       </Link>

@@ -7,20 +7,15 @@
   display: flex;
 }
 
-.Link {
+.IndividualSplodo .Link {
   color: black;
   height: fit-content;
   margin: auto;
   margin-left: 0;
   text-decoration: none;
+  height:100%;
+  width:100%;
+  position:absolute;
+  display:flex;
 }
-/* .browseItem{
-    height: 4rem;
-    width: 100%;
-    border: solid black 1px;
-    margin: auto;
-    display:flex;
-    flex-direction: row;
-    border-radius: 5px;
-    position: relative;
-} */
+

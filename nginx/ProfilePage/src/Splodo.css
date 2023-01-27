@@ -1,6 +1,5 @@
 .Splodo {
   padding-top: 5rem;
-
 }
 
 .tag {
@@ -12,26 +11,25 @@
   margin: auto;
 }
 
-
 .SplodoContainer {
   background: white;
   margin: auto;
   animation: splodoAni forwards 2s;
-  gap:1rem;
-  display:flex;
-  flex-direction: column; 
-  min-width:20vw;
- position:relative;
- max-width: 75%;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 20vw;
+  position: relative;
+  max-width: 75%;
 }
 
-.wrapperCon{
+.wrapperCon {
   display: flex;
   flex-direction: column;
   width: 90%;
-  position:relative;
-  padding:0;
-  margin:auto;
+  position: relative;
+  padding: 0;
+  margin: auto;
   gap: 1.5rem;
   animation-duration: 0.3s;
   animation-name: slidein;
@@ -39,15 +37,10 @@
 
 @keyframes slidein {
   0% {
-
     width: 0px;
- 
-   
-    opacity: 0;
-  
-  }
 
-  
+    opacity: 0;
+  }
 
   100% {
     opacity: 1;
@@ -55,126 +48,110 @@
   }
 }
 
-.dropdown{
+.dropdown {
   border: solid black 1px;
   border-radius: 5px;
-  margin:auto;
+  margin: auto;
   width: 100%;
-  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-.dropdownList{
-  margin:0;
-  padding:0;
-  width:100%;
-  background:white;
-  border:solid black 1px;
-
+.dropdownList {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background: white;
+  border: solid black 1px;
 }
 
-.splodoTitle{
-  padding:0;
-  margin:auto;
-  width:100%;
+.splodoTitle {
+  padding: 0;
+  margin: auto;
+  width: 100%;
   font-family: bernhard-gothic-urw, sans-serif;
   text-align: center;
   font-size: 2rem;
-  border:solid black 1px;
+  border: solid black 1px;
   border-radius: 5px;
 }
 
-.splodoTitleChange{
+.splodoTitleChange {
   position: absolute;
-  height:100%;
+  height: 100%;
   width: 100%;
   font-family: bernhard-gothic-urw, sans-serif;
   text-align: center;
   font-size: 2rem;
 }
 
-
-.splodoDescChange{
-
-  border:solid black 1px;
-  border-radius:5px;
-  height:5rem;
+.splodoDescChange {
+  border: solid black 1px;
+  border-radius: 5px;
+  height: 5rem;
   width: 100%;
-  margin:auto;
-  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;
+  margin: auto;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
   font-family: bernhard-gothic-urw, sans-serif;
 }
 
-.saveSplodo{
+.saveSplodo {
+  width: fit-content;
 
-  width:fit-content;
+  margin: auto;
 
-  margin:auto;
- 
-  background:white;
-  border:solid black 1px;
+  background: white;
+  border: solid black 1px;
   border-radius: 5px;
   font-family: bernhard-gothic-urw, sans-serif;
-font-weight: 400;
-
+  font-weight: 400;
 }
 
-.buttonArea{
-  display:flex;
-  
+.buttonArea {
+  display: flex;
 }
 
-
-.iconArea{
-  margin:auto;
-  background:white;
+.iconArea {
+  margin: auto;
+  background: white;
   margin-top: 4rem;
-  position:relative;
- 
+  position: relative;
 }
 
 .iconArea img {
   width: 5rem;
-  height:5rem;
+  height: 5rem;
 }
 
 .iconCollection {
-  height:250%;
-  width:150%;
+  height: 250%;
+  width: 150%;
   position: absolute;
-  background:rgb(255, 255, 255);
-  border:solid black 2px;
+  background: rgb(255, 255, 255);
+  border: solid black 2px;
   border-radius: 5px;
   z-index: 4;
-  margin:auto;
+  margin: auto;
   top: 0%;
-left: 50%;
-transform: translate(-50%, -50%);
-overflow-y: scroll;
-padding-top:1rem;
-padding-bottom: 1rem;
-display:flex;
-flex-direction: column;
-gap:2rem;
-  
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: scroll;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.choiceIcon{
-
-
-
+.choiceIcon {
 }
 
-.choiceIconImg{
-
-  width:10rem;
-  height:10rem;
-
+.choiceIconImg {
+  width: 10rem;
+  height: 10rem;
 }
-/* @keyframes splodoAni{
-    0%{
-        filter:opacity(0.1)
-    }
-    100%{
-        filter:opacity(1)
-    }
-} */

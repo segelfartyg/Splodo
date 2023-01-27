@@ -8,14 +8,27 @@ export default function ProfilePicArea(props) {
   });
   const [roleColor, setRoleColor] = useState({ color: `rgb(190, 0, 0)` });
 
-  const [ imageState, setImageState] = useState("");
+  const [imageState, setImageState] = useState("");
+
+  const [imageFormStyle, setImageFormStyle] = useState({});
+
   const nameChangeRef = useRef();
 
   const [nameChangeStyle, setNameChangeStyle] = useState({ display: "none" });
 
   useEffect(() => {
+    if (props.onlyShow) {
+      setImageFormStyle((prev) => {
+        return { ...prev, display: "none" };
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     console.log(props.userInfo);
     console.log(props.userInfo.role);
+
+    console.log(props.userInfo.userId);
     switch (props.userInfo.role) {
       case "Traveller":
         setProfileColor((prev) => {
@@ -69,35 +82,39 @@ export default function ProfilePicArea(props) {
   }, [props.userInfo]);
 
   function onChangeNameClick() {
-    if (nameChangeStyle.display == "none") {
-      setNameChangeStyle((prev) => {
-        return { ...prev, display: "block" };
-      });
+    if (!props.onlyShow) {
+      if (nameChangeStyle.display == "none") {
+        setNameChangeStyle((prev) => {
+          return { ...prev, display: "block" };
+        });
+      }
     }
   }
 
   function onChangeNameSubmit() {
-    setNameChangeStyle((prev) => {
-      return { ...prev, display: "none" };
-    });
+    if (!props.onlyShow) {
+      setNameChangeStyle((prev) => {
+        return { ...prev, display: "none" };
+      });
 
-    if (nameChangeRef.current.value.length >= 1) {
-      (async () => {
-        const rawResponse = await fetch("/api/nameChange", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            name: nameChangeRef.current.value,
-          }),
-        });
-        const content = await rawResponse.text();
-        props.onNameChange(content);
-        console.log(content);
-      })();
+      if (nameChangeRef.current.value.length >= 1) {
+        (async () => {
+          const rawResponse = await fetch("/api/nameChange", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+              name: nameChangeRef.current.value,
+            }),
+          });
+          const content = await rawResponse.text();
+          props.onNameChange(content);
+          console.log(content);
+        })();
+      }
     }
   }
 
@@ -144,16 +161,19 @@ export default function ProfilePicArea(props) {
         <h3 className="role" style={roleColor}>
           {props.userInfo.role}
         </h3>
-     
       </div>
 
       <div className="imageDiv">
-        <form className="profilePicChangeForm" onSubmit={handleSubmit}>
+        <form
+          style={imageFormStyle}
+          className="profilePicChangeForm"
+          onSubmit={handleSubmit}
+        >
           <input type="file" name="file" onChange={handleFileChange}></input>
           <button type="submit">Submit</button>
         </form>
         <img
-          src={"/api/" + props.userInfo.userId + ".png?" + new Date().getTime()} 
+          src={"/api/" + props.userInfo.userId + ".png?" + new Date().getTime()}
           alt={imageState}
           className="profilePic"
         ></img>

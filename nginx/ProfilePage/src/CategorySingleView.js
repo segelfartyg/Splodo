@@ -8,13 +8,8 @@ export default function CategorySingleView(props) {
     const navigate = useNavigate()
     const location = useLocation();
 
-
-
-
   function onCatClick(catId) {
     props.onCatClick(props.catId);
-
-   // navigate("/bounce", {state: { from: "/bounce"}})
   }
 
   return (
@@ -26,7 +21,6 @@ export default function CategorySingleView(props) {
             <img className="splodoIcon" src="./folder.png"></img>
             <h2>{props.catName}</h2>
           </div>
-       
         </div>
       </div>
       </Link>

@@ -9,15 +9,12 @@
   background: rgb(255, 255, 255);
 }
 
-
-
 .profileDetails h2 {
   font-size: 3rem;
 }
 
 .profileDetails h3 {
   font-size: 1rem;
-  
 }
 
 .profileName {
@@ -28,26 +25,25 @@
   animation-duration: 1s;
   animation-name: slideup;
   text-shadow: 0.25px 0.25px 0.25px black;
- 
 }
 
-.profilePicChangeForm{
+.profilePicChangeForm {
   font-family: bernhard-gothic-urw, sans-serif;
-  padding:1rem;
-  border:solid black 1px;
+  padding: 1rem;
+  border: solid black 1px;
   border-radius: 5px;
-  position:absolute;
+  position: absolute;
   background: white;
   bottom: -1rem;
-  display:none;
-  width:15rem;
+  display: none;
+  width: 15rem;
   z-index: 5;
   flex-direction: column;
-  left:0;
+  left: 0;
 }
 
-.imageDiv:hover  .profilePicChangeForm {
-  display:flex;
+.imageDiv:hover .profilePicChangeForm {
+  display: flex;
 }
 .profilePicChangeForm input {
   font-family: bernhard-gothic-urw, sans-serif;
@@ -56,25 +52,20 @@
 .profilePicChangeForm button {
   font-family: bernhard-gothic-urw, sans-serif;
   background: white;
-  border:solid black 1px;
-  border-radius: 5px; 
+  border: solid black 1px;
+  border-radius: 5px;
 }
 
-.profilePicChangeForm button:hover{
+.profilePicChangeForm button:hover {
   background: rgb(214, 214, 214);
 }
 
 @keyframes slideup {
   0% {
-
     height: 0px;
- 
-   
-    opacity: 0;
-  
-  }
 
-  
+    opacity: 0;
+  }
 
   100% {
     opacity: 1;
@@ -82,36 +73,35 @@
   }
 }
 
-
-.nameChange{
-  display:none;
-  position:absolute;
-  border:solid black 1px;
-  border-radius:5px;
+.nameChange {
+  display: none;
+  position: absolute;
+  border: solid black 1px;
+  border-radius: 5px;
   bottom: 0;
-  right:0;
-  height:100%;
-  width:100%;
-  font-size:2rem;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  font-size: 2rem;
   font-family: bernhard-gothic-urw, sans-serif;
   font-weight: 400;
-  padding:0;
+  padding: 0;
 }
 
-.saveNameBtn{
-  display:none;
+.saveNameBtn {
+  display: none;
   position: absolute;
-  height: 100%; 
-  right:-7em;
+  height: 100%;
+  right: -7em;
   width: 5rem;
-  bottom:0;
-  margin:0;
-  padding:0;
-  background:white;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  background: white;
   font-family: bernhard-gothic-urw, sans-serif;
   font-weight: 400;
-  border:solid black 1px;
-  border-radius:5px;
+  border: solid black 1px;
+  border-radius: 5px;
 }
 
 .profilePicArea {
@@ -124,7 +114,6 @@
   display: flex;
   margin: auto;
   align-items: center;
-  
 }
 .imageDiv {
   height: fit-content;
@@ -152,7 +141,7 @@
   width: 250px;
   border-radius: 50%;
   border: solid rgb(0, 0, 0) 2px;
-  filter:drop-shadow(1px 1px 2px black);
+  filter: drop-shadow(1px 1px 2px black);
   margin: auto;
   background: white;
 }

@@ -11,18 +11,12 @@ export default function BrowseArea(props) {
   const [chosenCat, setChosenCat] = useState(0);
 
   function onCatClick(catid) {
-    console.log(catid);
-
     props.setChosenCat(catid);
   }
 
   function onNewFolderPress() {
     props.onNewFolderPress();
   }
-
-  props.cats.forEach((cat) => {
-    console.log(cat.catId);
-  });
 
   let catRender = props.cats.map((cat) => {
     return (
@@ -44,6 +38,7 @@ export default function BrowseArea(props) {
         splodoId={splodo.splodoId}
         title={splodo.title}
         iconUrl={splodo.iconUrl}
+        onlyShow={props.onlyShow}
       ></IndividualSplodo>
     );
   });
@@ -54,11 +49,12 @@ export default function BrowseArea(props) {
       {splodoRender}
 
       <div>
-        <button className="browseAreaBtn" onClick={onNewFolderPress}>
-          New Directory
-        </button>
+        {!props.onlyShow && (
+          <button className="browseAreaBtn" onClick={onNewFolderPress}>
+            New Directory
+          </button>
+        )}
       </div>
     </div>
-
   );
 }

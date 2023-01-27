@@ -8,7 +8,11 @@ import axios from "axios";
 
 export default function Profile() {
   const [chosenCat, setChosenCat] = useState(0);
-  const [userInfo, setUserInfo] = useState({splodoName:"sname", role: "role", userId: "1"});
+  const [userInfo, setUserInfo] = useState({
+    splodoName: "sname",
+    role: "role",
+    userId: "1",
+  });
   const navigate = useNavigate();
   const [cats, setCats] = useState([
     {
@@ -31,89 +35,85 @@ export default function Profile() {
     },
   ]);
   const [splodos, setSplodos] = useState([]);
-  
+
   function onNewFolderPress() {
     let temp = cats;
 
-        // GET REQUEST TO SERVER, GETTING THE SPLODOS WITH SPECIFIED CATEGORY, ALL CATEGORIES, AND ALSO CATEGORIES WHICH ARE EMPTY
-        axios
-          .get("/api/addCollection", { withCredentials: true })
-          .then((res) => {
-            console.log(res);
-    
-            // CHECKING AUTHENTICATION
-            if (res.data.response != "noauth") {
-              let resultSplodosWithCat = res.data.response.splodosWithCat;
-              let resultCats = res.data.response.categories;
-              let emptyCategories = res.data.response.categories;
-    
-              let profileSplodos = [];
-              let profileCats = [];
-              let profileCatSplodos = [];
-    
-              // SORTING SPLODOS WITH CATEGORY
-              resultSplodosWithCat.sort(function (a, b) {
-                return parseFloat(a.catId) - parseFloat(b.catId);
-              });
-    
-              // SORTING CATEGORIES BY CATID
-              resultCats.sort(function (a, b) {
-                return parseFloat(a.catId) - parseFloat(b.catId);
-              });
-    
-              //FOREACH SPLODO WITH A SPECIFIED CATEGORY, FINDS THE CATEGORY BY THAT SPLODOS CATID, THEN ADDING THAT SPECIFIC SPLODO INSIDE THAT CATEGORY BASED OFF FOUND CATID.
-              res.data.response.splodosWithCat.forEach((splodo) => {
-                let cat = resultCats.find(({ catId }) => catId === splodo.catId);
-                if (cat != undefined) {
-                  console.log("SPLODOD", cat.catId);
-                  cat.splodos.push({
-                    splodoId: splodo.splodoId,
-                    title: splodo.title,
-                  });
-                  console.log(splodo.splodoId);
-                  console.log(cat);
-    
-                  // EVERY ITERATION, CHECKS IF CATEGORIES ARE PRESENT, IF NOT, ITS ADDED TO THE EMPTYCATEGORIES ARRAY
-                  // NOT USED NOW THOUGH
-                  if (
-                    emptyCategories.find(({ catId }) => catId === cat.catId) !=
-                    undefined
-                  ) {
-                    let newEmptyCategories = emptyCategories.filter(function (obj) {
-                      return obj.catId !== cat.catId;
-                    });
-    
-                    emptyCategories = newEmptyCategories;
-                  }
-                } else {
-                  console.log("NO CATEGORY EXIST WITH THAT SPLODO: ERROR ");
-                }
-              });
-    
-              // ADDING ALL SPLODOS THAT DOESNT HAVE AN ASSIGNED CATEGORY
-    
-              res.data.response.splodosWithoutCat.forEach((item) => {
-                profileSplodos.push({
-                  splodoId: item.splodoId,
-                  title: item.title,
-                  catId: item.catId,
-                  iconUrl: item.iconUrl
-                });
-              });
-    
-              console.log(emptyCategories);
-              console.log(resultCats);
-              console.log(profileSplodos);
-    
-              // SETTING STATE FOR CATEGORIES AND SPLODOS WITHOUT CATEGORY
-              setCats(resultCats);
-              setSplodos(profileSplodos);
-            } else {
+    // GET REQUEST TO SERVER, GETTING THE SPLODOS WITH SPECIFIED CATEGORY, ALL CATEGORIES, AND ALSO CATEGORIES WHICH ARE EMPTY
+    axios.get("/api/addCollection", { withCredentials: true }).then((res) => {
+      console.log(res);
 
-              console.log("not authenticated");
+      // CHECKING AUTHENTICATION
+      if (res.data.response != "noauth") {
+        let resultSplodosWithCat = res.data.response.splodosWithCat;
+        let resultCats = res.data.response.categories;
+        let emptyCategories = res.data.response.categories;
+
+        let profileSplodos = [];
+        let profileCats = [];
+        let profileCatSplodos = [];
+
+        // SORTING SPLODOS WITH CATEGORY
+        resultSplodosWithCat.sort(function (a, b) {
+          return parseFloat(a.catId) - parseFloat(b.catId);
+        });
+
+        // SORTING CATEGORIES BY CATID
+        resultCats.sort(function (a, b) {
+          return parseFloat(a.catId) - parseFloat(b.catId);
+        });
+
+        //FOREACH SPLODO WITH A SPECIFIED CATEGORY, FINDS THE CATEGORY BY THAT SPLODOS CATID, THEN ADDING THAT SPECIFIC SPLODO INSIDE THAT CATEGORY BASED OFF FOUND CATID.
+        res.data.response.splodosWithCat.forEach((splodo) => {
+          let cat = resultCats.find(({ catId }) => catId === splodo.catId);
+          if (cat != undefined) {
+            console.log("SPLODOD", cat.catId);
+            cat.splodos.push({
+              splodoId: splodo.splodoId,
+              title: splodo.title,
+            });
+            console.log(splodo.splodoId);
+            console.log(cat);
+
+            // EVERY ITERATION, CHECKS IF CATEGORIES ARE PRESENT, IF NOT, ITS ADDED TO THE EMPTYCATEGORIES ARRAY
+            // NOT USED NOW THOUGH
+            if (
+              emptyCategories.find(({ catId }) => catId === cat.catId) !=
+              undefined
+            ) {
+              let newEmptyCategories = emptyCategories.filter(function (obj) {
+                return obj.catId !== cat.catId;
+              });
+
+              emptyCategories = newEmptyCategories;
             }
+          } else {
+            console.log("NO CATEGORY EXIST WITH THAT SPLODO: ERROR ");
+          }
+        });
+
+        // ADDING ALL SPLODOS THAT DOESNT HAVE AN ASSIGNED CATEGORY
+
+        res.data.response.splodosWithoutCat.forEach((item) => {
+          profileSplodos.push({
+            splodoId: item.splodoId,
+            title: item.title,
+            catId: item.catId,
+            iconUrl: item.iconUrl,
           });
-    
+        });
+
+        console.log(emptyCategories);
+        console.log(resultCats);
+        console.log(profileSplodos);
+
+        // SETTING STATE FOR CATEGORIES AND SPLODOS WITHOUT CATEGORY
+        setCats(resultCats);
+        setSplodos(profileSplodos);
+      } else {
+        console.log("not authenticated");
+      }
+    });
   }
 
   // useEffect(() => {
@@ -125,137 +125,119 @@ export default function Profile() {
   //     .then ((data) => console.log(data)))
   // }, [])
 
-  function getProfileInformation(){
-
+  function getProfileInformation() {
     fetch("/api/getProfile", {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
         console.log(data);
-          setUserInfo(prev => { return {...prev, splodoName: data.splodoName, role: data.role, userId: data.userId}})
-
+        setUserInfo((prev) => {
+          return {
+            ...prev,
+            splodoName: data.splodoName,
+            role: data.role,
+            userId: data.userId,
+          };
+        });
       })
     );
-
-    // axios
-    // .get("/api/hej", {
-    //   withCredentials: true,
-    // })
-    // .then((res) => {
-    //   console.log(res)
-    
-    // });
-
-
-
-
   }
 
-
-  function onNameChange(){
-    getProfileInformation()
+  function onNameChange() {
+    getProfileInformation();
   }
 
   useEffect(() => {
-
     getProfileInformation();
     // GET REQUEST TO SERVER, GETTING THE SPLODOS WITH SPECIFIED CATEGORY, ALL CATEGORIES, AND ALSO CATEGORIES WHICH ARE EMPTY
-    axios
-      .get("/api/profile", { withCredentials: true })
-      .then((res) => {
-        console.log(res);
+    axios.get("/api/profile", { withCredentials: true }).then((res) => {
+      console.log(res);
 
-        // CHECKING AUTHENTICATION
-        if (res.data.response != "noauth") {
-          let resultSplodosWithCat = res.data.response.splodosWithCat;
-          let resultCats = res.data.response.categories;
-          let emptyCategories = res.data.response.categories;
+      // CHECKING AUTHENTICATION
+      if (res.data.response != "noauth") {
+        let resultSplodosWithCat = res.data.response.splodosWithCat;
+        let resultCats = res.data.response.categories;
+        let emptyCategories = res.data.response.categories;
 
-          let profileSplodos = [];
-          let profileCats = [];
-          let profileCatSplodos = [];
+        let profileSplodos = [];
+        let profileCats = [];
+        let profileCatSplodos = [];
 
-          // SORTING SPLODOS WITH CATEGORY
-          resultSplodosWithCat.sort(function (a, b) {
-            return parseFloat(a.catId) - parseFloat(b.catId);
-          });
+        // SORTING SPLODOS WITH CATEGORY
+        resultSplodosWithCat.sort(function (a, b) {
+          return parseFloat(a.catId) - parseFloat(b.catId);
+        });
 
-          // SORTING CATEGORIES BY CATID
-          resultCats.sort(function (a, b) {
-            return parseFloat(a.catId) - parseFloat(b.catId);
-          });
+        // SORTING CATEGORIES BY CATID
+        resultCats.sort(function (a, b) {
+          return parseFloat(a.catId) - parseFloat(b.catId);
+        });
 
-          //FOREACH SPLODO WITH A SPECIFIED CATEGORY, FINDS THE CATEGORY BY THAT SPLODOS CATID, THEN ADDING THAT SPECIFIC SPLODO INSIDE THAT CATEGORY BASED OFF FOUND CATID.
-          res.data.response.splodosWithCat.forEach((splodo) => {
-            let cat = resultCats.find(({ _id }) => _id === splodo.catId);
-            if (cat != undefined) {
-              console.log("SPLODOD", cat._id);
-              cat.splodos.push({
-                splodoId: splodo.splodoId,
-                title: splodo.title,
-              });
-              console.log(splodo.splodoId);
-              console.log(cat);
-
-              // EVERY ITERATION, CHECKS IF CATEGORIES ARE PRESENT, IF NOT, ITS ADDED TO THE EMPTYCATEGORIES ARRAY
-              // NOT USED NOW THOUGH
-              if (
-                emptyCategories.find(({ _id}) => _id === cat._id) !=
-                undefined
-              ) {
-                let newEmptyCategories = emptyCategories.filter(function (obj) {
-                  return obj._id !== cat._id;
-                });
-
-                emptyCategories = newEmptyCategories;
-              }
-            } else {
-              console.log("NO CATEGORY EXIST WITH THAT SPLODO: ERROR ");
-            }
-          });
-
-          // ADDING ALL SPLODOS THAT DOESNT HAVE AN ASSIGNED CATEGORY
-
-          res.data.response.splodosWithoutCat.forEach((item) => {
-            profileSplodos.push({
-              splodoId: item.splodoId,
-              title: item.title,
-              catId: item.catId,
-              iconUrl: item.iconUrl
+        //FOREACH SPLODO WITH A SPECIFIED CATEGORY, FINDS THE CATEGORY BY THAT SPLODOS CATID, THEN ADDING THAT SPECIFIC SPLODO INSIDE THAT CATEGORY BASED OFF FOUND CATID.
+        res.data.response.splodosWithCat.forEach((splodo) => {
+          let cat = resultCats.find(({ _id }) => _id === splodo.catId);
+          if (cat != undefined) {
+            console.log("SPLODOD", cat._id);
+            cat.splodos.push({
+              splodoId: splodo.splodoId,
+              title: splodo.title,
             });
+            console.log(splodo.splodoId);
+            console.log(cat);
+
+            // EVERY ITERATION, CHECKS IF CATEGORIES ARE PRESENT, IF NOT, ITS ADDED TO THE EMPTYCATEGORIES ARRAY
+            // NOT USED NOW THOUGH
+            if (
+              emptyCategories.find(({ _id }) => _id === cat._id) != undefined
+            ) {
+              let newEmptyCategories = emptyCategories.filter(function (obj) {
+                return obj._id !== cat._id;
+              });
+
+              emptyCategories = newEmptyCategories;
+            }
+          } else {
+            console.log("NO CATEGORY EXIST WITH THAT SPLODO: ERROR ");
+          }
+        });
+
+        // ADDING ALL SPLODOS THAT DOESNT HAVE AN ASSIGNED CATEGORY
+
+        res.data.response.splodosWithoutCat.forEach((item) => {
+          profileSplodos.push({
+            splodoId: item.splodoId,
+            title: item.title,
+            catId: item.catId,
+            iconUrl: item.iconUrl,
           });
+        });
 
-          console.log(emptyCategories);
-          console.log(resultCats);
-          console.log(profileSplodos);
+        console.log(emptyCategories);
+        console.log(resultCats);
+        console.log(profileSplodos);
 
-          // SETTING STATE FOR CATEGORIES AND SPLODOS WITHOUT CATEGORY
-          setCats(resultCats);
-          setSplodos(profileSplodos);
-        } else {
-          console.log("not auth")
-          navigate("/login")
-        }
-      });
+        // SETTING STATE FOR CATEGORIES AND SPLODOS WITHOUT CATEGORY
+        setCats(resultCats);
+        setSplodos(profileSplodos);
+      } else {
+        console.log("not auth");
+        navigate("/login");
+      }
+    });
 
-	 axios
+    axios
       .get("/api/hej", {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res)
-      	console.log("from profile")
+        console.log(res);
+        console.log("from profile");
       });
-
-
-
-
-
   }, []);
 
   return (
     <div className="Profile">
-      <ProfilePicArea userInfo={userInfo} onNameChange={onNameChange}/>
+      <ProfilePicArea userInfo={userInfo} onNameChange={onNameChange} />
       <BrowseArea
         onNewFolderPress={onNewFolderPress}
         cats={cats}
