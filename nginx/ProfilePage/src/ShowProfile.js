@@ -71,6 +71,7 @@ export default function ShowProfile(props) {
               cat.splodos.push({
                 splodoId: splodo.splodoId,
                 title: splodo.title,
+                tags: splodo.tags
               });
               console.log(splodo.splodoId);
               console.log(cat);
@@ -99,6 +100,7 @@ export default function ShowProfile(props) {
               title: item.title,
               catId: item.catId,
               iconUrl: item.iconUrl,
+              tags: item.tags
             });
           });
 

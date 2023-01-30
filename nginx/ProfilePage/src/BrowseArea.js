@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./BrowseArea.css";
 import SplodoListItem from "./SplodoListItem";
 import Category from "./Category";
@@ -39,9 +39,13 @@ export default function BrowseArea(props) {
         title={splodo.title}
         iconUrl={splodo.iconUrl}
         onlyShow={props.onlyShow}
+        tags={splodo.tags}
       ></IndividualSplodo>
     );
   });
+
+
+  
 
   return (
     <div className="browseArea">

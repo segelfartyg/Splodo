@@ -158,7 +158,7 @@ export default function Profile() {
         let resultSplodosWithCat = res.data.response.splodosWithCat;
         let resultCats = res.data.response.categories;
         let emptyCategories = res.data.response.categories;
-
+  
         let profileSplodos = [];
         let profileCats = [];
         let profileCatSplodos = [];
@@ -202,7 +202,7 @@ export default function Profile() {
         });
 
         // ADDING ALL SPLODOS THAT DOESNT HAVE AN ASSIGNED CATEGORY
-
+        
         res.data.response.splodosWithoutCat.forEach((item) => {
           profileSplodos.push({
             splodoId: item.splodoId,

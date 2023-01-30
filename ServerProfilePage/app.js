@@ -239,6 +239,7 @@ connection.once("open", async function () {
           splodoId: splodo._id,
           title: splodo.title,
           iconUrl: splodo.iconUrl,
+          tags: splodo.tags
         });
 
         splodosWithoutCat.push({
@@ -246,6 +247,7 @@ connection.once("open", async function () {
           splodoId: splodo._id,
           title: splodo.title,
           iconUrl: splodo.iconUrl,
+          tags: splodo.tags
         });
       } else if (splodo.catId > 0) {
         splodosWithCat.push({
@@ -253,6 +255,7 @@ connection.once("open", async function () {
           splodoId: splodo._id,
           title: splodo.title,
           iconUrl: splodo.iconUrl,
+          tags: splodo.tags
         });
       }
     });

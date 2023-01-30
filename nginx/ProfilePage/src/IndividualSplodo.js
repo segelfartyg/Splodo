@@ -1,18 +1,68 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import "./IndividualSplodo.css";
 import { Link } from "react-router-dom";
 
 export default function IndividualSplodo(props) {
-  function onSplodoClick() {}
 
-  const [splodoLink, setSplodoLink] = useState("/splodo")
+
+  const [continueRender, setContinueRender] = useState(false)
+
+
+  function onSplodoClick() {
+
+    if(props.onlyShow){
+
+      props.tags.forEach((tag) => {
+        if(tag.tagName == "url"){
+          window.location.href = tag.tagValue;
+          return
+        }
+       
+      })
+
+    }
+   
+
+
+
+  }
+
+  const [splodoLink, setSplodoLink] = useState()
 
   useEffect(() => {
-    console.log(props.onlyShow)
+
+    let foundFunction = false;
+
+
     if(props.onlyShow){
-      setSplodoLink("/splodoshow");
+
+      props.tags.forEach((tag) => {
+        if(tag.tagName == "url"){
+          foundFunction = true;
+          return
+        }
+       
+      })
+
+
+
     }
-    
+   
+
+
+    if(!foundFunction){
+
+      if(props.onlyShow){
+        setSplodoLink("/splodoshow");
+      }
+      else{
+        setSplodoLink("/splodo");
+      }
+
+    }
+   
+  
+ 
   }, [])
   
 
