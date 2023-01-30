@@ -351,7 +351,7 @@ connection.once("open", async function () {
   }
 
   app.post("/api/new", async (req, res) => {
-    console.log(req.body);
+    console.log("BODDDYYY " + req.body.catId);
 
     if (req.user) {
       if (checkIconTier(req.user.role, req.body.iconUrl)) {

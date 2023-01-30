@@ -28,6 +28,13 @@ export default function New() {
   const newTagNameRef = useRef();
   const newTagValueRef = useRef();
 
+  const currentSplodoCat = useRef({ value: "nocat", label: "No Category" });
+
+  const [currentSplodoCatVar, setCurrentSplodoCatVar] = useState({
+    value: "nocat",
+    label: "No Category",
+  });
+
   const location = useLocation();
 
   const [tags, setTags] = useState([]);
@@ -66,6 +73,14 @@ export default function New() {
         label: location.state.fromCatName,
       });
     }
+    else{
+
+      currentSplodoCat.current = {value: "nocat", label: "No Category"};
+      setCurrentSplodoCatVar({value: "nocat", label: "No Category"});
+
+
+
+    }
 
     fetch("/api/getIcons", {
       credentials: "include",
@@ -83,18 +98,23 @@ export default function New() {
         setIconOptions(temp);
       })
     );
+
+
+    console.log(currentSplodoCat.current)
   }, []);
 
   function onCatSelect(event) {
   
    
     currentSplodoCat.current = event;
-    console.log(currentSplodoCat.current)
   }
 
-  const currentSplodoCat = useRef({ value: "nocat", label: "No Category" });
+  
 
   function postSplodo() {
+
+console.log(currentSplodoCat.current.value);
+
     (async () => {
       const rawResponse = await fetch("/api/new", {
         method: "POST",
@@ -220,7 +240,7 @@ export default function New() {
             options={options}
             onChange={onCatSelect}
             ref={currentSplodoCat}
-            value={currentSplodoCat.current.label}
+            value={currentSplodoCatVar}
             placeholder={currentSplodoCat.current.label}
           ></Dropdown>
 
