@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import IndividualSplodo from "./IndividualSplodo";
 
 export default function BrowseArea(props) {
-  console.log(props.cats);
+ 
 
   const [chosenCat, setChosenCat] = useState(0);
 
@@ -21,12 +21,13 @@ export default function BrowseArea(props) {
   let catRender = props.cats.map((cat) => {
     return (
       <Category
-        key={cat._id}
+        key={cat._id + cat.title}
         catId={cat._id}
         catName={cat.title}
         cats={cat.splodos}
         onCatClick={onCatClick}
         chosenCat={props.chosenCat}
+        onlyShow={props.onlyShow}
       ></Category>
     );
   });

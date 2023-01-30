@@ -175,6 +175,7 @@ connection.once("open", async function () {
             splodoId: splodo._id,
             title: splodo.title,
             iconUrl: splodo.iconUrl,
+            tags: splodo.tags
           });
 
           splodosWithoutCat.push({
@@ -182,16 +183,21 @@ connection.once("open", async function () {
             splodoId: splodo._id,
             title: splodo.title,
             iconUrl: splodo.iconUrl,
+            tags: splodo.tags
           });
-        } else if (splodo.catId > 0) {
+        } else if (splodo.catId.length > 0) {
+
           splodosWithCat.push({
             catId: splodo.catId,
             splodoId: splodo._id,
             title: splodo.title,
             iconUrl: splodo.iconUrl,
+            tags: splodo.tags
           });
         }
       });
+
+
 
       res.send({
         response: {
@@ -249,7 +255,7 @@ connection.once("open", async function () {
           iconUrl: splodo.iconUrl,
           tags: splodo.tags
         });
-      } else if (splodo.catId > 0) {
+      } else if (splodo.catId.length > 0) {
         splodosWithCat.push({
           catId: splodo.catId,
           splodoId: splodo._id,
@@ -497,14 +503,12 @@ connection.once("open", async function () {
     console.log(req.query.catId);
 
     let categoryName = await Category.find({
-      _id: req.query.catId,
-      userId: req.user.userId,
+      _id: req.query.catId
     }).select("title");
     console.log(categoryName);
 
     let result = await Splodo.find({
-      userId: req.user.userId,
-      catId: req.query.catId,
+      catId: req.query.catId
     });
 
     res.send({ title: categoryName[0].title, splodos: result });

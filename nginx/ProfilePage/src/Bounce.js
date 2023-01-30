@@ -10,7 +10,7 @@ export default function Bounce(props) {
     const location = useLocation();
  
     const { from } = location.state;
-    console.log(from)
+  
     const [categorySplodos, setCategorySplodos] = useState([])
 
 
@@ -27,8 +27,7 @@ export default function Bounce(props) {
           credentials: "include",
         }).then((response) =>
           response.json().then((data) => {
-            console.log(data);
-    
+           
             let temp = [];
             data.splodos.forEach((splodo) =>{
 

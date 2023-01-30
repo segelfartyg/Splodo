@@ -7,7 +7,7 @@ import IndividualSplodo from "./IndividualSplodo";
 export default function CategoryView(props) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { from, title } = location.state;
+  const { from, title, onlyShow } = location.state;
   const [catTitle, setCatTitle] = useState("");
   const [categorySplodos, setCategorySplodos] = useState([]);
   const [catNameChangeStyle, setCatNameChangeStyle] = useState({
@@ -16,6 +16,7 @@ export default function CategoryView(props) {
   const catNameChangeRef = useRef();
 
   useEffect(() => {
+    console.log(onlyShow)
     setCatTitle(title);
     GetCategorySplodos();
   }, []);
@@ -25,7 +26,7 @@ export default function CategoryView(props) {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
-        console.log(data);
+     
 
         let temp = [];
         data.splodos.forEach((splodo) => {
@@ -34,6 +35,7 @@ export default function CategoryView(props) {
             title: splodo.title,
             catId: splodo.catId,
             iconUrl: splodo.iconUrl,
+            tags: splodo.tags
           });
         });
         setCategorySplodos(temp);
@@ -48,6 +50,8 @@ export default function CategoryView(props) {
         splodoId={splodo.splodoId}
         title={splodo.title}
         iconUrl={splodo.iconUrl}
+        tags={splodo.tags}
+        onlyShow={onlyShow}
       ></IndividualSplodo>
     );
   });

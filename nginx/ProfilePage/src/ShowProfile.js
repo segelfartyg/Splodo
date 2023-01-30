@@ -41,7 +41,7 @@ export default function ShowProfile(props) {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
+    
 
         // CHECKING AUTHENTICATION
         if (res.data != "nouser") {
@@ -67,14 +67,16 @@ export default function ShowProfile(props) {
           res.data.response.splodosWithCat.forEach((splodo) => {
             let cat = resultCats.find(({ _id }) => _id === splodo.catId);
             if (cat != undefined) {
-              console.log("SPLODOD", cat._id);
+            
+         
+              checkTags(splodo.title, splodo.tags)
+
               cat.splodos.push({
                 splodoId: splodo.splodoId,
                 title: splodo.title,
                 tags: splodo.tags
               });
-              console.log(splodo.splodoId);
-              console.log(cat);
+          
 
               // EVERY ITERATION, CHECKS IF CATEGORIES ARE PRESENT, IF NOT, ITS ADDED TO THE EMPTYCATEGORIES ARRAY
               // NOT USED NOW THOUGH
@@ -95,6 +97,9 @@ export default function ShowProfile(props) {
           // ADDING ALL SPLODOS THAT DOESNT HAVE AN ASSIGNED CATEGORY
 
           res.data.response.splodosWithoutCat.forEach((item) => {
+
+            checkTags(item.title, item.tags)
+
             profileSplodos.push({
               splodoId: item.splodoId,
               title: item.title,
@@ -104,9 +109,6 @@ export default function ShowProfile(props) {
             });
           });
 
-          console.log(emptyCategories);
-          console.log(resultCats);
-          console.log(profileSplodos);
 
           // SETTING STATE FOR CATEGORIES AND SPLODOS WITHOUT CATEGORY
           setCats(resultCats);
@@ -117,15 +119,39 @@ export default function ShowProfile(props) {
         }
       });
 
-    axios
-      .get("/api/hej", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
-        console.log("from profile");
-      });
+
+
+
+
+
+
   }, []);
+
+
+  function checkTags(title, tags){
+ 
+    let stylingobject = {deg: "90deg", colors: []}
+
+    if(title == "Styling"){
+      console.log(tags)
+      tags.forEach((tag) => {
+
+        if(tag.tagName == "deg"){
+          if(tag.tagValue >= 0){
+              stylingobject.deg = tag.tagValue + "deg"
+          }
+          else{
+            stylingobject.deg = "90deg"
+          }
+        }
+        else if(tag.tagName.includes("c")){
+          stylingobject.colors.push(tag.tagValue)
+        }
+      })
+      props.changePageStyle(stylingobject)
+   
+    }   
+  }
 
   function getProfileInformation() {
     fetch("/api/getProfileShow?splodoName=" + window.location.pathname, {
@@ -133,8 +159,7 @@ export default function ShowProfile(props) {
     }).then((response) =>
       response.json().then((data) => {
 
-        console.log(data)
-        console.log(data[0]);
+
         setUserInfo((prev) => {
           return {
             ...prev,
@@ -147,10 +172,18 @@ export default function ShowProfile(props) {
     );
   }
 
+
+
+
   return (
     <div className="Profile">
+
+
+
+    
       <ProfilePicArea userInfo={userInfo} onlyShow={true} />
       <BrowseArea cats={cats} splodos={splodos} onlyShow={true} />
+  
     </div>
   );
 }

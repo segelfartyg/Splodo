@@ -87,8 +87,11 @@ export default function Splodo(props) {
   }
 
   function onCatSelect(event) {
-    console.log(event);
+
+    console.log("hej")
     currentSplodoCat.current = event;
+    
+    console.log(currentSplodoCat.current)
   }
 
   function onSaveClick() {
@@ -195,15 +198,11 @@ export default function Splodo(props) {
       })
     );
 
-    fetch("/api/getTags?" + "splodoId=" + from, {
-      credentials: "include",
-    }).then((response) => response.json().then((data) => {}));
-
     fetch("/api/getIcons", {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
-        console.log(data.response);
+      
 
         let temp = [];
 
@@ -211,7 +210,7 @@ export default function Splodo(props) {
           temp.push({ name: icon, url: "/api/icons/" + icon });
         });
 
-        console.log(temp);
+  
         setIconOptions(temp);
       })
     );
@@ -232,7 +231,7 @@ export default function Splodo(props) {
   }, [splodoShow.catId, options]);
 
   function onIconClick(url, name) {
-    console.log(url, name);
+
 
     setCurrentSplodoIcon((prev) => {
       return { ...prev, name: name, url: url };
@@ -251,6 +250,7 @@ export default function Splodo(props) {
   let iconRender = iconOptions.map((icon) => {
     return (
       <div
+        key={icon.url}
         onClick={() => onIconClick(icon.url, icon.name)}
         className="choiceIcon"
       >

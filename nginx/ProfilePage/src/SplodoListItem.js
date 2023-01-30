@@ -8,7 +8,7 @@ export default function SplodoListItem(props) {
   });
 
   useEffect(() => {
-    console.log(props.chosenCat, props.catId);
+  
     if (props.chosenCat == props.catId) {
       if (hidden.height == "0rem") {
         setHidden((prev) => {
@@ -20,7 +20,6 @@ export default function SplodoListItem(props) {
         });
       }
 
-      console.log("hej");
     } else {
     }
   }, [props.childrenHide]);

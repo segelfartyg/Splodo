@@ -6,7 +6,7 @@ import "./Profile.css";
 import Config from "../Config.js";
 import axios from "axios";
 
-export default function Profile() {
+export default function Profile(props) {
   const [chosenCat, setChosenCat] = useState(0);
   const [userInfo, setUserInfo] = useState({
     splodoName: "sname",
@@ -41,8 +41,7 @@ export default function Profile() {
 
     // GET REQUEST TO SERVER, GETTING THE SPLODOS WITH SPECIFIED CATEGORY, ALL CATEGORIES, AND ALSO CATEGORIES WHICH ARE EMPTY
     axios.get("/api/addCollection", { withCredentials: true }).then((res) => {
-      console.log(res);
-
+    
       // CHECKING AUTHENTICATION
       if (res.data.response != "noauth") {
         let resultSplodosWithCat = res.data.response.splodosWithCat;
@@ -67,13 +66,12 @@ export default function Profile() {
         res.data.response.splodosWithCat.forEach((splodo) => {
           let cat = resultCats.find(({ catId }) => catId === splodo.catId);
           if (cat != undefined) {
-            console.log("SPLODOD", cat.catId);
+           
             cat.splodos.push({
               splodoId: splodo.splodoId,
               title: splodo.title,
             });
-            console.log(splodo.splodoId);
-            console.log(cat);
+        
 
             // EVERY ITERATION, CHECKS IF CATEGORIES ARE PRESENT, IF NOT, ITS ADDED TO THE EMPTYCATEGORIES ARRAY
             // NOT USED NOW THOUGH
@@ -103,9 +101,7 @@ export default function Profile() {
           });
         });
 
-        console.log(emptyCategories);
-        console.log(resultCats);
-        console.log(profileSplodos);
+   
 
         // SETTING STATE FOR CATEGORIES AND SPLODOS WITHOUT CATEGORY
         setCats(resultCats);
@@ -116,21 +112,14 @@ export default function Profile() {
     });
   }
 
-  // useEffect(() => {
 
-  //     console.log(Config);
-
-  //     fetch("http://localhost:3000/profile", {credentials: "include"})
-  //     .then((response) => response.text()
-  //     .then ((data) => console.log(data)))
-  // }, [])
 
   function getProfileInformation() {
     fetch("/api/getProfile", {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
-        console.log(data);
+    
         setUserInfo((prev) => {
           return {
             ...prev,
@@ -151,7 +140,6 @@ export default function Profile() {
     getProfileInformation();
     // GET REQUEST TO SERVER, GETTING THE SPLODOS WITH SPECIFIED CATEGORY, ALL CATEGORIES, AND ALSO CATEGORIES WHICH ARE EMPTY
     axios.get("/api/profile", { withCredentials: true }).then((res) => {
-      console.log(res);
 
       // CHECKING AUTHENTICATION
       if (res.data.response != "noauth") {
@@ -173,17 +161,24 @@ export default function Profile() {
           return parseFloat(a.catId) - parseFloat(b.catId);
         });
 
+
+        console.log(res.data.response)
         //FOREACH SPLODO WITH A SPECIFIED CATEGORY, FINDS THE CATEGORY BY THAT SPLODOS CATID, THEN ADDING THAT SPECIFIC SPLODO INSIDE THAT CATEGORY BASED OFF FOUND CATID.
         res.data.response.splodosWithCat.forEach((splodo) => {
+
+
+         
+          checkTags(splodo.title, splodo.tags)
+
           let cat = resultCats.find(({ _id }) => _id === splodo.catId);
           if (cat != undefined) {
-            console.log("SPLODOD", cat._id);
+          
             cat.splodos.push({
               splodoId: splodo.splodoId,
               title: splodo.title,
+              tags: splodo.tags
             });
-            console.log(splodo.splodoId);
-            console.log(cat);
+           
 
             // EVERY ITERATION, CHECKS IF CATEGORIES ARE PRESENT, IF NOT, ITS ADDED TO THE EMPTYCATEGORIES ARRAY
             // NOT USED NOW THOUGH
@@ -204,17 +199,18 @@ export default function Profile() {
         // ADDING ALL SPLODOS THAT DOESNT HAVE AN ASSIGNED CATEGORY
         
         res.data.response.splodosWithoutCat.forEach((item) => {
+
+          checkTags(item.title, item.tags)
+
           profileSplodos.push({
             splodoId: item.splodoId,
             title: item.title,
             catId: item.catId,
             iconUrl: item.iconUrl,
+            tags: item.tags
           });
         });
 
-        console.log(emptyCategories);
-        console.log(resultCats);
-        console.log(profileSplodos);
 
         // SETTING STATE FOR CATEGORIES AND SPLODOS WITHOUT CATEGORY
         setCats(resultCats);
@@ -225,18 +221,44 @@ export default function Profile() {
       }
     });
 
-    axios
-      .get("/api/hej", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
-        console.log("from profile");
-      });
   }, []);
+
+
+  function checkTags(title, tags){
+ 
+    let stylingobject = {deg: "90deg", colors: []}
+    console.log(title, tags)
+    if(title == "Styling"){
+      console.log(tags)
+      tags.forEach((tag) => {
+
+        if(tag.tagName == "deg"){
+          if(tag.tagValue >= 0){
+              stylingobject.deg = tag.tagValue + "deg"
+          }
+          else{
+            stylingobject.deg = "90deg"
+          }
+        }
+        else if(tag.tagName.includes("c")){
+          stylingobject.colors.push(tag.tagValue)
+        }
+      })
+      props.changePageStyle(stylingobject)
+   
+    }   
+  }
+
+
+
+
 
   return (
     <div className="Profile">
+ 
+
+
+     
       <ProfilePicArea userInfo={userInfo} onNameChange={onNameChange} />
       <BrowseArea
         onNewFolderPress={onNewFolderPress}
@@ -245,6 +267,8 @@ export default function Profile() {
         setChosenCat={setChosenCat}
         chosenCat={chosenCat}
       />
+
+    
     </div>
   );
 }

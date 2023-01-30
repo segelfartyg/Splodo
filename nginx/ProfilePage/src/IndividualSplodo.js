@@ -33,6 +33,7 @@ export default function IndividualSplodo(props) {
 
     let foundFunction = false;
 
+    console.log(props.onlyShow)
 
     if(props.onlyShow){
 
@@ -66,8 +67,7 @@ export default function IndividualSplodo(props) {
   }, [])
   
 
-  console.log(props.splodoId)
- console.log(props.iconUrl)
+
   return (
     <div onClick={onSplodoClick} className="IndividualSplodo browseItem">
       <Link className="Link" to={splodoLink} state={{ from: props.splodoId }}>

@@ -37,7 +37,7 @@ export default function New() {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
-        console.log(data.response);
+       
 
         let temp = [];
         data.response.forEach((cat) => {
@@ -53,18 +53,12 @@ export default function New() {
         });
 
         setOptions(temp);
-        // setSplodoShow((prev) => ({
-        //   ...prev,
-        //   title: data.response[0].title,
-        //   desc: data.response[0].desc,
-        //   url: data.response[0].url,
-        //   splodoId: data.response[0]._id,
-        // }));
+    
       })
     );
 
     if (location.state != null) {
-      console.log(location.state);
+
       currentSplodoCat.current = location.state.fromCat;
 
       onCatSelect({
@@ -77,7 +71,7 @@ export default function New() {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
-        console.log(data.response);
+        
 
         let temp = [];
 
@@ -85,16 +79,17 @@ export default function New() {
           temp.push({ name: icon, url: "/api/icons/" + icon });
         });
 
-        console.log(temp);
+   
         setIconOptions(temp);
       })
     );
   }, []);
 
   function onCatSelect(event) {
-    console.log(event);
-
+  
+   
     currentSplodoCat.current = event;
+    console.log(currentSplodoCat.current)
   }
 
   const currentSplodoCat = useRef({ value: "nocat", label: "No Category" });
@@ -112,7 +107,7 @@ export default function New() {
           title: titleRef.current.value,
           desc: descRef.current.value,
           tags: tags,
-          catId: "nocat",
+          catId: currentSplodoCat.current.value,
           iconUrl: currentSplodoIcon.url,
         }),
       });
@@ -123,7 +118,7 @@ export default function New() {
       } else {
         console.log("creation failed");
       }
-      console.log(content);
+   
     })();
   }
 
@@ -164,12 +159,12 @@ export default function New() {
 
     setTags([...temp]);
 
-    console.log(tags);
+
   }
 
   let tagsRender = tags.map((tag) => {
     return (
-      <p key={Math.random()}>
+      <p key={tag.tagName + tag.tagValue + tag.index}>
         {tag.tagName} : {tag.tagValue}{" "}
         <button className="tagRemoveBtn" onClick={() => onTagRemove(tag.index)}>
           REMOVE
@@ -179,7 +174,7 @@ export default function New() {
   });
 
   function onIconClick(url, name) {
-    console.log(url, name);
+   
 
     setCurrentSplodoIcon((prev) => {
       return { ...prev, name: name, url: url };
@@ -198,6 +193,7 @@ export default function New() {
   let iconRender = iconOptions.map((icon) => {
     return (
       <div
+        key={icon.iconUrl}
         onClick={() => onIconClick(icon.url, icon.name)}
         className="choiceIcon"
       >

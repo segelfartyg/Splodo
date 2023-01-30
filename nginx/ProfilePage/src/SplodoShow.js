@@ -43,7 +43,7 @@ export default function SplodoShow(props) {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
-        console.log(data);
+     
         if (data.response[0].tags) {
           let temp = [];
           data.response[0].tags.forEach((tag) => {
@@ -55,7 +55,7 @@ export default function SplodoShow(props) {
             setTags([...temp]);
           });
         }
-        console.log(data.response);
+  
         setSplodoShow((prev) => ({
           ...prev,
           title: data.response[0].title,

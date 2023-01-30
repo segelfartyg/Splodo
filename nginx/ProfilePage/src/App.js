@@ -27,11 +27,14 @@ import SplodoShow from "./SplodoShow";
 
 function App() {
   const [mobileNavStyle, setMobileNavStyle] = useState({ animation: "none" });
+  const [appStyle, setAppStyle] = useState({
+    background: "linear-gradient(90deg,rgb(230, 230, 230) 0%,rgb(255, 255, 255) 10%,rgb(255, 255, 255) 50%,rgb(255, 255, 255) 90%,rgb(230, 230, 230) 100%)"
+  })
 
   useEffect(() => {
     if (envVariable != undefined) {
       Config.SERVERURI = envVariable;
-      console.log(Config.SERVERURI);
+    
       Object.freeze(Config);
     }
 
@@ -75,8 +78,26 @@ function App() {
       });
   }
 
+
+  function changePageStyle(stylingprops){
+
+
+    
+    console.log(stylingprops)
+
+    let colorstring = "";
+
+    stylingprops.colors.forEach((color) => {
+      colorstring += `, ${color}`
+    })
+    
+    setAppStyle(prev => {
+      return {...prev, background: `linear-gradient(${stylingprops.deg} ${colorstring})`}
+    })
+  }
+
   return (
-    <div className="App">
+    <div className="App" style={appStyle}>
       <div className="hamburgerOverlayDiv">
         <div onClick={onHamburgerClick} className="hamburger">
           <div className="hamburgerTile"></div>
@@ -122,7 +143,7 @@ function App() {
 
           <Routes>
             <Route index element={<Feed />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile" element={<Profile changePageStyle={changePageStyle} />} />
             <Route path="new" element={<New />} />
             <Route path="featured" element={<Splodo />} />
             <Route path="about" element={<About />} />
@@ -136,7 +157,7 @@ function App() {
 
             <Route
               path="/*"
-              element={<ShowProfile props={{ value: "hej" }} />}
+              element={<ShowProfile props={{ value: "hej" }} changePageStyle={changePageStyle} />}
             />
           </Routes>
         </div>

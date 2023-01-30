@@ -18,7 +18,7 @@ export default function ChooseCat(props) {
   }, []);
 
   function onCatClick(_catId) {
-    console.log(_catId);
+
   }
 
   function GetCategories() {
@@ -26,8 +26,7 @@ export default function ChooseCat(props) {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
-        console.log(data.response);
-
+       
         let temp = [];
         data.response.forEach((cat) => {
           temp.push({

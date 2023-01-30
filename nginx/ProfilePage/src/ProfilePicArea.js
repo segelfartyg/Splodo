@@ -12,6 +12,8 @@ export default function ProfilePicArea(props) {
 
   const [imageFormStyle, setImageFormStyle] = useState({});
 
+  const [imageSource, setImageSource] = useState("/api/icons/tier1star.png")
+
   const nameChangeRef = useRef();
 
   const [nameChangeStyle, setNameChangeStyle] = useState({ display: "none" });
@@ -25,10 +27,7 @@ export default function ProfilePicArea(props) {
   }, []);
 
   useEffect(() => {
-    console.log(props.userInfo);
-    console.log(props.userInfo.role);
-
-    console.log(props.userInfo.userId);
+   
     switch (props.userInfo.role) {
       case "Traveller":
         setProfileColor((prev) => {
@@ -79,6 +78,12 @@ export default function ProfilePicArea(props) {
         });
         break;
     }
+
+
+    
+
+    setImageSource("/api/" + props.userInfo.userId + ".png?" + new Date().getTime())
+  
   }, [props.userInfo]);
 
   function onChangeNameClick() {
@@ -112,7 +117,7 @@ export default function ProfilePicArea(props) {
           });
           const content = await rawResponse.text();
           props.onNameChange(content);
-          console.log(content);
+       
         })();
       }
     }
@@ -173,7 +178,7 @@ export default function ProfilePicArea(props) {
           <button type="submit">Submit</button>
         </form>
         <img
-          src={"/api/" + props.userInfo.userId + ".png?" + new Date().getTime()}
+          src={imageSource}
           alt={imageState}
           className="profilePic"
         ></img>

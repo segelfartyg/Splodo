@@ -8,7 +8,7 @@ export default function (props) {
   const [childrenHide, setChildrenHide] = useState(false);
 
 
-  console.log(props.catId);
+
   function onCatClick(catId) {
     props.onCatClick(props.catId);
 
@@ -27,7 +27,7 @@ export default function (props) {
 
   return (
     <div className="containerCatSplodo">
-      <Link to="/category" state={{ from: props.catId, title: props.catName }}>
+      <Link to="/category" state={{ from: props.catId, title: props.catName, onlyShow: props.onlyShow }}>
       <div onClick={() => onCatClick(props.catId)} className="browseItem">
         <div className="folderContent">
           <div className="imageAndTitle">
