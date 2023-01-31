@@ -1,72 +1,49 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./IndividualSplodo.css";
 import { Link } from "react-router-dom";
 
 export default function IndividualSplodo(props) {
 
-
-  const [continueRender, setContinueRender] = useState(false)
-
-
+// FUNCTION THAT CHECKS WETHER OR NOT A SPLODO SHOULD DIRECT TO OTHER PAGE 
   function onSplodoClick() {
-
-    if(props.onlyShow){
-
+    if (props.onlyShow) {
       props.tags.forEach((tag) => {
-        if(tag.tagName == "url"){
+        if (tag.tagName == "url") {
           window.location.href = tag.tagValue;
-          return
+          return;
         }
-       
-      })
-
+      });
     }
-   
-
-
-
   }
 
-  const [splodoLink, setSplodoLink] = useState()
+  const [splodoLink, setSplodoLink] = useState();
 
+
+  // ON MOUNT IT CHECKS IF THERE IS A GLOBAL FUNCTION ATTACHED TO THE SPECIFIC SPLODO. IF THERE IS A GLOBAL FUNCTION
+  // ATTACHED, THEN NO FORWARDINGLINK TO THE SPLODO IS ATTACHED TO THE COMPONENT. THE FORWARDING LINK IS ALSO ALWAYS ATTACHED
+  // IF THE USER IS LOGGED IN TO ITS PROFILE PAGE. 
   useEffect(() => {
-
     let foundFunction = false;
 
-    console.log(props.onlyShow)
+    console.log(props.onlyShow);
 
-    if(props.onlyShow){
-
+    if (props.onlyShow) {
       props.tags.forEach((tag) => {
-        if(tag.tagName == "url"){
+        if (tag.tagName == "url") {
           foundFunction = true;
-          return
+          return;
         }
-       
-      })
-
-
-
+      });
     }
-   
 
-
-    if(!foundFunction){
-
-      if(props.onlyShow){
+    if (!foundFunction) {
+      if (props.onlyShow) {
         setSplodoLink("/splodoshow");
-      }
-      else{
+      } else {
         setSplodoLink("/splodo");
       }
-
     }
-   
-  
- 
-  }, [])
-  
-
+  }, []);
 
   return (
     <div onClick={onSplodoClick} className="IndividualSplodo browseItem">

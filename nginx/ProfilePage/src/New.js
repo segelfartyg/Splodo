@@ -28,8 +28,11 @@ export default function New() {
   const newTagNameRef = useRef();
   const newTagValueRef = useRef();
 
+
+  // REF FOR CURRENT CATEGORY
   const currentSplodoCat = useRef({ value: "nocat", label: "No Category" });
 
+  // STATE FOR CURRENT CATEGORY
   const [currentSplodoCatVar, setCurrentSplodoCatVar] = useState({
     value: "nocat",
     label: "No Category",
@@ -39,13 +42,15 @@ export default function New() {
 
   const [tags, setTags] = useState([]);
 
+
+  // ON MOUNT
   useEffect(() => {
+
+    // GETTING CATS AND ATTACHING THERE VIA setOptions TO THE DROPDOWN
     fetch("/api/getCats", {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
-       
-
         let temp = [];
         data.response.forEach((cat) => {
           temp.push({
@@ -60,60 +65,51 @@ export default function New() {
         });
 
         setOptions(temp);
-    
       })
     );
 
+
+    // IF THE USER HAVE ARRIVED FROM DIRECTORY, SETTING THE CATSELECT ACCORDINGLY.
     if (location.state != null) {
+      currentSplodoCat.current = { value: location.state.fromCat,  label: location.state.fromCatName };
 
-      currentSplodoCat.current = location.state.fromCat;
+      console.log(location.state.fromCat)
 
-      onCatSelect({
-        value: location.state.fromCat,
-        label: location.state.fromCatName,
-      });
-    }
-    else{
+      setCurrentSplodoCatVar({ value: location.state.fromCat,  label: location.state.fromCatName });
 
-      currentSplodoCat.current = {value: "nocat", label: "No Category"};
-      setCurrentSplodoCatVar({value: "nocat", label: "No Category"});
-
-
-
+    } else {
+      currentSplodoCat.current = { value: "nocat", label: "No Category" };
+      setCurrentSplodoCatVar({ value: "nocat", label: "No Category" });
     }
 
+
+    // GETTING THE ICONS FROM API 
     fetch("/api/getIcons", {
       credentials: "include",
     }).then((response) =>
       response.json().then((data) => {
-        
-
         let temp = [];
 
         data.response.forEach((icon) => {
           temp.push({ name: icon, url: "/api/icons/" + icon });
         });
 
-   
         setIconOptions(temp);
       })
     );
 
-
-    console.log(currentSplodoCat.current)
+    console.log(currentSplodoCat.current);
   }, []);
 
+  // SETTING REF WHEN CHOOSING CAT
   function onCatSelect(event) {
-  
-   
     currentSplodoCat.current = event;
   }
 
-  
 
+  // POSTING SPLODO
   function postSplodo() {
-
-console.log(currentSplodoCat.current.value);
+    console.log(currentSplodoCat.current.value);
 
     (async () => {
       const rawResponse = await fetch("/api/new", {
@@ -138,15 +134,12 @@ console.log(currentSplodoCat.current.value);
       } else {
         console.log("creation failed");
       }
-   
     })();
   }
 
   function onTagRemove(_index) {
     let temp = tags;
-
     let newArr = removeObjectWithId(temp, _index);
-
     setTags([...newArr]);
   }
 
@@ -178,8 +171,6 @@ console.log(currentSplodoCat.current.value);
     });
 
     setTags([...temp]);
-
-
   }
 
   let tagsRender = tags.map((tag) => {
@@ -194,8 +185,6 @@ console.log(currentSplodoCat.current.value);
   });
 
   function onIconClick(url, name) {
-   
-
     setCurrentSplodoIcon((prev) => {
       return { ...prev, name: name, url: url };
     });

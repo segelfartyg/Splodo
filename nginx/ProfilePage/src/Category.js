@@ -7,8 +7,6 @@ export default function (props) {
   const [arrowStyle, setArrowStyle] = useState({ animation: "none" });
   const [childrenHide, setChildrenHide] = useState(false);
 
-
-
   function onCatClick(catId) {
     props.onCatClick(props.catId);
 

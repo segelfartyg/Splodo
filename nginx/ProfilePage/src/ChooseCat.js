@@ -25,8 +25,7 @@ export default function ChooseCat(props) {
     fetch("/api/getCats", {
       credentials: "include",
     }).then((response) =>
-      response.json().then((data) => {
-       
+      response.json().then((data) => {  
         let temp = [];
         data.response.forEach((cat) => {
           temp.push({

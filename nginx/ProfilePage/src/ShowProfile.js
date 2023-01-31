@@ -34,7 +34,7 @@ export default function ShowProfile(props) {
   ]);
 
   useEffect(() => {
-    getProfileInformation();
+ 
     // GET REQUEST TO SERVER, GETTING THE SPLODOS WITH SPECIFIED CATEGORY, ALL CATEGORIES, AND ALSO CATEGORIES WHICH ARE EMPTY
     axios
       .get("/api/ProfileShow?splodoName=" + window.location.pathname, {
@@ -45,6 +45,8 @@ export default function ShowProfile(props) {
 
         // CHECKING AUTHENTICATION
         if (res.data != "nouser") {
+
+          getProfileInformation();
           let resultSplodosWithCat = res.data.response.splodosWithCat;
           let resultCats = res.data.response.categories;
           let emptyCategories = res.data.response.categories;

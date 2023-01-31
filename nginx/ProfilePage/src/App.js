@@ -24,9 +24,12 @@ import Bounce from "./Bounce";
 import ChooseCat from "./ChooseCat";
 import ShowProfile from "./ShowProfile.js";
 import SplodoShow from "./SplodoShow";
+import Docs from "./Docs"
 
 function App() {
   const [mobileNavStyle, setMobileNavStyle] = useState({ animation: "none" });
+
+  // SETTING STYLE DEPENDING ON STYLING SPLODO
   const [appStyle, setAppStyle] = useState({
     background: "linear-gradient(90deg,rgb(230, 230, 230) 0%,rgb(255, 255, 255) 10%,rgb(255, 255, 255) 50%,rgb(255, 255, 255) 90%,rgb(230, 230, 230) 100%)"
   })
@@ -34,20 +37,12 @@ function App() {
   useEffect(() => {
     if (envVariable != undefined) {
       Config.SERVERURI = envVariable;
-    
       Object.freeze(Config);
     }
-
-    axios
-      .get("/api/hej", {
-        withCredentials: true,
-      })
-      .then((res) => {
- 
-      });
-
   }, []);
 
+
+  // MOBILE MENU
   function onHamburgerClick() {
     if (mobileNavStyle.animation == "none") {
       setMobileNavStyle((prev) => {
@@ -79,14 +74,9 @@ function App() {
   }
 
 
+  // CHANGING STYLE FROM PROFILE AND SHOWPROFILE
   function changePageStyle(stylingprops){
-
-
-    
-    console.log(stylingprops)
-
     let colorstring = "";
-
     stylingprops.colors.forEach((color) => {
       colorstring += `, ${color}`
     })
@@ -154,6 +144,7 @@ function App() {
             <Route path="choosecat" element={<ChooseCat />} />
             <Route path="login" element={<Login />} />
             <Route path="splodoshow" element={<SplodoShow />} />
+            <Route path="docs" element={<Docs />} />
 
             <Route
               path="/*"

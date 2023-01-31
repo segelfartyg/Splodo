@@ -6,9 +6,6 @@ import { Link } from "react-router-dom";
 import IndividualSplodo from "./IndividualSplodo";
 
 export default function BrowseArea(props) {
- 
-
-  const [chosenCat, setChosenCat] = useState(0);
 
   function onCatClick(catid) {
     props.setChosenCat(catid);
@@ -44,9 +41,6 @@ export default function BrowseArea(props) {
       ></IndividualSplodo>
     );
   });
-
-
-  
 
   return (
     <div className="browseArea">
