@@ -25,8 +25,8 @@ services:
     volumes:
       - MongoDBProfilePage:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=NDJISAmxsanjiS4567SDAYD187VGvddFFF
-      - MONGO_INITDB_ROOT_PASSWORD=UjewanNUDSAuh237nYDSRWNDuuD72bIoI
+      - MONGO_INITDB_ROOT_USERNAME=USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=PASSWORD
 
   ProfilePageServer:
     image: profilepageserver/splodo
@@ -42,8 +42,8 @@ services:
       SERVERURI: http://splodo.com:3000
       DB_NAME: splododb
       NAME: Samuel
-      GOOGLE_CLIENT_ID: 883967806822-6ksrgqhjggjievfgh3eubqukdsa4oflm.apps.googleusercontent.com
-      GOOGLE_CLIENT_SECRET: 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
+      GOOGLE_CLIENT_ID: GCID
+      GOOGLE_CLIENT_SECRET: GCS
     depends_on:
       - ProfilePageMongoDB
     
