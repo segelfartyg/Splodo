@@ -13,6 +13,20 @@ const Category = require("./models/CategoryModel").Category;
 const User = require("./models/User").User;
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
+const http = require("http");
+const https = require("https");
+
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/splodo.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/splodo.com/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/splodo.com/chain.pem', 'utf8');
+
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca
+}
+
 const { readdir } = require("fs/promises");
 
 const storage = multer.diskStorage({
@@ -106,13 +120,21 @@ passport.deserializeUser((id, done) => {
 mongoose.connect(databaseURI, {autoIndex: false}).then(() => {console.log("connected to mongo")});
 
 const connection = mongoose.connection;
-
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 // let kategori = new Category({catId: 1, userId: "117006401158785848064", title: "Books", splodos:[]})
 // kategori.save();
 
 connection.on("error", console.error.bind(console, "connection error:"));
 connection.once("open", async function () {
-  app.listen(port, () => {
+
+
+
+  httpServer.listen(80, () => {
+    console.log(`Example app listening on port ${port}`);
+  });
+
+  httpsServer.listen(443, () => {
     console.log(`Example app listening on port ${port}`);
   });
 
