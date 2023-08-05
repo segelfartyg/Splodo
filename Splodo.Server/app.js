@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const port = 3000;
 require("dotenv").config();
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -28,6 +27,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 databaseURI = process.env.MONGODB_URI;
+const port = process.env.PORT;
 
 var publicDir = require("path").join(__dirname, "/images");
 app.use("/api", express.static(publicDir));
