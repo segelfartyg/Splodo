@@ -101,7 +101,7 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-mongoose.connect(databaseURI).then(() => {console.log("connected to mongo")});
+mongoose.connect(databaseURI, {autoIndex: false}).then(() => {console.log("connected to mongo")});
 
 const connection = mongoose.connection;
 
