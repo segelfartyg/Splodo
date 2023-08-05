@@ -33,6 +33,8 @@ var publicDir = require("path").join(__dirname, "/images");
 app.use("/api", express.static(publicDir));
 app.use(express.static(path.join("../Splodo.Web/", 'dist')));
 
+app.use(express.static(__dirname, {dotfiles: 'allow'} ));
+
 var publicDir2 = require("path").join(__dirname, "/icons");
 app.use("/api/icons", express.static(publicDir2));
 
