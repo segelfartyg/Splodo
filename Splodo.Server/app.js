@@ -131,11 +131,11 @@ connection.once("open", async function () {
 
 
   httpServer.listen(80, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Example app listening on port 80`);
   });
 
   httpsServer.listen(443, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Example app listening on port 443`);
   });
 
 
