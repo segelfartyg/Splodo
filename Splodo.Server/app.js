@@ -31,6 +31,7 @@ databaseURI = process.env.MONGODB_URI;
 
 var publicDir = require("path").join(__dirname, "/images");
 app.use("/api", express.static(publicDir));
+app.use(express.static(path.join("../Splodo.Web/", 'dist')));
 
 var publicDir2 = require("path").join(__dirname, "/icons");
 app.use("/api/icons", express.static(publicDir2));
@@ -100,7 +101,7 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-mongoose.connect(databaseURI).then(() => {});
+mongoose.connect(databaseURI).then(() => {console.log("connected to mongo")});
 
 const connection = mongoose.connection;
 
@@ -112,6 +113,9 @@ connection.once("open", async function () {
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
   });
+
+
+
 
   app.get(
     "/api/google",
@@ -597,4 +601,12 @@ connection.once("open", async function () {
       res.send("noauth");
     }
   });
+
+
+
+  // For any other route, serve the index.html file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../Splodo.Web/dist', 'index.html'));
+});
+
 });
