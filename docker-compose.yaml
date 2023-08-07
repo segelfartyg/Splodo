@@ -2,52 +2,53 @@ version: "3"
 
 services:
 
-  nginx:
-    depends_on:
-      - ProfilePageServer
-    restart: always
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/sites-available/default
-      - ./letsencrypt:/etc/letsencrypt
- 
-  
-  ProfilePageMongoDB:
+  SplodoMongoDB:
     image: mongo:latest
     restart: always
     ports:
       - "27017:27017"
     volumes:
-      - MongoDBProfilePage:/data/db
+      - SplodoMongoDB:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD=PASSWORD
+     MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/DB_ROOT_USERNAME
+     MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/DB_ROOT_PASSWORD
+    secrets:
+      - DB_ROOT_USERNAME
+      - DB_ROOT_PASSWORD
 
-  ProfilePageServer:
-    image: profilepageserver/splodo
+  SplodoServer:
+    image: splodo.server
     restart: always
     ports:
-     - "3000:3000"
+     - "80:80"
+     - "443:443"
     volumes:
       - /images:/server/images
     environment:
-      PORT: 3000
-      MONGODB_URI: mongodb://NDJISAmxsanjiS4567SDAYD187VGvddFFF:UjewanNUDSAuh237nYDSRWNDuuD72bIoI@ProfilePageMongoDB:27017/splodo?authSource=admin
-      CLIENT_URI: https://splodo.com
-      SERVERURI: http://splodo.com:3000
-      DB_NAME: splododb
-      NAME: Samuel
-      GOOGLE_CLIENT_ID: GCID
-      GOOGLE_CLIENT_SECRET: GCS
+     PORT: 80
+     CLIENT_URI: https://splodo.com
+     SERVERURI: https://splodo.com
+    secrets:
+      - MONGODB_CONNECTION_STRING
+      - AUTH_GOOGLE_CLIENT_ID
+      - AUTH_GOOGLE_CLIENT_SECRET
     depends_on:
-      - ProfilePageMongoDB
-    
+      - SplodoMongoDB
+
+secrets:
+  DB_ROOT_USERNAME:
+    file: ./values/db_root_username.txt
+  DB_ROOT_PASSWORD:
+    file: ./values/db_root_password.txt
+  MONGODB_CONNECTION_STRING:
+    file: ./values/db_root_connection_string.txt
+    name: ${MY_SECRET_DATA_ENV_VAR}
+  AUTH_GOOGLE_CLIENT_ID:
+    file: ./values/google_client_id.txt
+  AUTH_GOOGLE_CLIENT_SECRET:
+    file: ./values/google_client_secret.txt
+
 volumes:
-  MongoDBProfilePage: {}
+  SplodoMongoDB: {}
   images: {}
- 
+

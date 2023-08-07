@@ -17,9 +17,19 @@ const fs = require("fs");
 const http = require("http");
 const https = require("https");
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/splodo.com/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/splodo.com/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/splodo.com/chain.pem', 'utf8');
+
+const MongoDBConnectionString = fs.readFileSync('/run/secrets/MONGODB_CONNECTION_STRING', 'utf8').trim();
+console.log(MongoDBConnectionString);
+const GoogleClientId = fs.readFileSync('/run/secrets/AUTH_GOOGLE_CLIENT_ID', 'utf8').trim();
+console.log(GoogleClientId);
+const GoogleClientSecret = fs.readFileSync('/run/secrets/AUTH_GOOGLE_CLIENT_SECRET', 'utf8').trim();
+console.log(GoogleClientSecret);
+
+
+const privateKey = fs.readFileSync('./ssl/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('./ssl/cert.pem', 'utf8');
+const ca = fs.readFileSync('./ssl/chain.pem', 'utf8');
+
 
 const credentials = {
   key: privateKey,
@@ -39,13 +49,11 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-databaseURI = process.env.MONGODB_URI;
-const port = process.env.PORT;
+const port = 80;
 
 var publicDir = require("path").join(__dirname, "/images");
 app.use("/api", express.static(publicDir));
-app.use(express.static(path.join("../Splodo.Web/", 'dist')));
+app.use(express.static(path.join("./Splodo.Web/", 'dist')));
 
 app.use(express.static(__dirname, {dotfiles: 'allow'} ));
 
@@ -57,7 +65,7 @@ app.use(cors({ origin: process.env.CLIENT_URI, credentials: true }));
 app.set("trust proxy", 1);
 
 var store = new MongoDBStore({
-  uri: process.env.MONGODB_URI,
+  uri: MongoDBConnectionString,
   collection: "sessions",
 });
 
@@ -76,8 +84,8 @@ app.use(passport.session());
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: GoogleClientId,
+      clientSecret: GoogleClientSecret,
       callbackURL: process.env.SERVERURI + "/google/callback",
     },
     async (accessToken, refreshToken, profile, callback) => {
@@ -117,7 +125,8 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-mongoose.connect(databaseURI, {autoIndex: false}).then(() => {console.log("connected to mongo")});
+
+mongoose.connect(MongoDBConnectionString, {autoIndex: false}).then(() => {console.log("connected to mongo")});
 
 const connection = mongoose.connection;
 const httpServer = http.createServer(app);
@@ -634,3 +643,4 @@ app.get('*', (req, res) => {
 });
 
 });
+

@@ -1,11 +1,4 @@
 certbot/
-letsencrypt/
 data/
 images/
-./nginx/ProfilePage/node_modules/
-./nginx/ProfilePage/Config.js
-./nginx/ProfilePage/.env
-ServerProfilePage/node_modules/
-ServerProfilePage/images/
-ServerProfilePage/.env
-docker-compose.yaml
+values
