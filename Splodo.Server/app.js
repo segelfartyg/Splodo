@@ -138,7 +138,11 @@ connection.on("error", console.error.bind(console, "connection error:"));
 connection.once("open", async function () {
 
 
+httpServer.listen(3000, () => {
+	console.log("listening on 3000");
+});
 
+/*
   httpServer.listen(80, () => {
     console.log(`Example app listening on port 80`);
   });
@@ -147,7 +151,7 @@ connection.once("open", async function () {
     console.log(`Example app listening on port 443`);
   });
 
-
+*/
 
 
   app.get(

@@ -20,12 +20,11 @@ services:
     image: splodo.server
     restart: always
     ports:
-     - "80:80"
-     - "443:443"
+     - "3000:3000"
     volumes:
       - /images:/server/images
     environment:
-     PORT: 80
+     PORT: 3000
      CLIENT_URI: https://splodo.com
      SERVERURI: https://splodo.com
     secrets:
