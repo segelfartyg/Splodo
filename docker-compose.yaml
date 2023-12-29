@@ -34,6 +34,13 @@ services:
     depends_on:
       - SplodoMongoDB
 
+  SplodoMap:
+    image: splodo.map
+    restart: always
+    ports:
+     - "4000:4000"
+
+     
 secrets:
   DB_ROOT_USERNAME:
     file: ./values/db_root_username.txt
