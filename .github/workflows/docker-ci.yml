@@ -28,4 +28,4 @@ jobs:
           context: ./Splodo.Web
           file: ./Splodo.Web/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/splodo:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/splodo:splodo.web
