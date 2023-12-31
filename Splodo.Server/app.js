@@ -641,7 +641,7 @@ httpServer.listen(3000, () => {
 
 
 
-  // For any other route, serve the index.html file
+  // For any other route, serve the index.html file.
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './dist', 'index.html'));
 });
