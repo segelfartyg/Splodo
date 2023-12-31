@@ -26,7 +26,7 @@ services:
     environment:
      PORT: 3000
      CLIENT_URI: https://splodo.com
-     SERVERURI: https://splodo.com
+     SERVERURI: https://api.splodo.com
     secrets:
       - MONGODB_CONNECTION_STRING
       - AUTH_GOOGLE_CLIENT_ID
@@ -39,8 +39,11 @@ services:
     restart: always
     ports:
      - "4000:4000"
-
-     
+  SplodoWeb:
+    image: segelfartyg/splodo:splodo.web
+    restart: always
+    ports:
+     - "8000:8000"
 secrets:
   DB_ROOT_USERNAME:
     file: ./values/db_root_username.txt
