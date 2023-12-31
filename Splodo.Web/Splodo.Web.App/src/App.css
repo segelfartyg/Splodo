@@ -1,0 +1,242 @@
+.App {
+  height: 100vh;
+  overflow-y: scroll;
+
+  margin: auto;
+    text-align: center;
+
+
+  /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  font-family: bernhard-gothic-urw, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  position: relative;
+  background: yellow;
+
+  background: linear-gradient(
+    90deg,
+    rgb(12, 146, 255) 0%,
+    rgb(0, 118, 214) 10%,
+    rgb(0, 110, 184) 50%,
+    rgb(0, 118, 214) 90%,
+    rgb(12, 146, 255) 100%
+  );
+
+  background: linear-gradient(
+    90deg,
+    rgb(0, 151, 33) 0%,
+    rgb(0, 196, 59) 10%,
+    rgb(0, 143, 43) 50%,
+    rgb(0, 196, 59) 90%,
+    rgb(0, 151, 33) 100%
+  );
+
+  background: linear-gradient(
+    90deg,
+    rgb(230, 230, 230) 0%,
+    rgb(255, 255, 255) 10%,
+    rgb(255, 255, 255) 50%,
+    rgb(255, 255, 255) 90%,
+    rgb(230, 230, 230) 100%
+  );
+
+  /*color: green; ttatata*/
+}
+
+.navBar {
+  width: 100%;
+  display: flex;
+  height: 5rem;
+}
+
+.navBar a {
+  width: 10%;
+  color: rgb(0, 0, 0);
+
+  margin: 0;
+  text-decoration: none;
+  margin-left: 1rem;
+  display: flex;
+  padding: 0;
+}
+
+.navBar a p {
+  margin: auto;
+}
+
+.navBar a:last-of-type {
+  color: black;
+  margin-left: auto;
+}
+
+.main {
+  min-height: 100%;
+  background: rgb(255, 255, 255);
+  width: 80%;
+  margin: auto;
+  filter: drop-shadow(0px 0px 0.25rem rgb(0, 0, 0));
+  position: relative;
+
+  /*border-left: 2px solid rgb(0, 0, 0);
+  border-right: 2px solid rgb(0, 0, 0);*/
+}
+
+.logoutBtn {
+  position: fixed;
+  font-family: bernhard-gothic-urw, sans-serif;
+  background:white;
+  border:solid black 1px;
+  border-radius: 5px;
+  right:1rem;
+  bottom: 1rem;
+}
+
+.loginBtn {
+  font-family: bernhard-gothic-urw, sans-serif;
+  background: rgb(255, 255, 255);
+  width: fit-content;
+  padding: 1rem;
+  display: flex;
+  border: solid black 1px;
+  border-radius: 5px;
+  gap: 1rem;
+  filter: drop-shadow(1px 1px 1px);
+  margin: auto;
+}
+
+.loginBtn:hover {
+  background: rgb(240, 240, 240);
+}
+
+.loginBtn p {
+  margin: auto;
+}
+
+.googleLoginPic {
+  width: 3rem;
+  border: solid black 1px;
+  border-radius: 5px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.card {
+  padding: 2rem;
+  border: solid black 1px;
+  border-radius: 10px;
+  height: fit-content;
+  width: fit-content;
+  filter: drop-shadow(2px 2px 2px black);
+}
+
+.hamburger {
+  position: absolute;
+  left: 10%;
+  background:white;
+  padding:1rem;
+  border-radius: 10px;
+  top:1rem;
+  font-size: 3rem;
+  z-index: 4;
+  display: none;
+  margin-left:-2rem;
+}
+
+.hamburgerOverlayDiv{
+  display:flex;
+  width:80%;
+  margin:auto;
+  position: relative;
+}
+
+.hamburgerTile{
+  height: 0.25rem;
+  width: 2rem;
+  border-radius:5px;
+  background: black;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.mobileNav {
+  position: fixed;
+  height: 100%;
+  background: white;
+  width: 50%;
+  max-width: 300px;
+  z-index: 5;
+  border-right: 4px solid black;
+  left: -500px;
+  animation: none 0.5s forwards;
+  display:flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.mobileNavInner{
+  margin:auto;
+  height:fit-content;
+}
+
+@keyframes navRight {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(500px);
+  }
+}
+
+@keyframes navLeft {
+  0% {
+    transform: translateX(500px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+button:hover{
+  background:rgb(233, 233, 233);
+
+}
+
+@media screen and (max-width: 1104px) {
+  .navBar {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .main{
+    width:95%;
+    padding-top: 5rem;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+
+
+}

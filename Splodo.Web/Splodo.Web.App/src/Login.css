@@ -1,0 +1,9 @@
+.login{
+    display:flex;
+    padding-top: 5rem;
+}
+
+.loginContainer{
+    margin:auto;
+    background:white;
+}

@@ -1,0 +1,18 @@
+.Feed{
+    padding-top: 5rem;
+
+    width:80%;
+    display:flex;
+    margin: auto;
+}
+
+.Feed .con {
+    border:solid black 1px;
+    width: 100%;
+    max-width: 500px;
+    margin:auto;
+    padding:3rem;
+    border-radius: 5px;
+    background: white;
+    filter:drop-shadow(2px 2px 2px black)
+}
