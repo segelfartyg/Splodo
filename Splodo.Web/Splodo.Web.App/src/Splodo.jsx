@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Splodo.css";
-import Config from "../Config";
+import Config from "../Config.js";
 import Dropdown from "react-dropdown";
 import Category from "./Category";
 

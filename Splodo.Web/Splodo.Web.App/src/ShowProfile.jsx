@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import ProfilePicArea from "./ProfilePicArea";
 import BrowseArea from "./BrowseArea";
+import Config from "../Config.js";
 import axios from "axios";
 
 export default function ShowProfile(props) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ProfilePicArea.css";
-import Config from "../Config";
+import Config from "../Config.js";
 
 export default function ProfilePicArea(props) {
   const [profileColor, setProfileColor] = useState({
