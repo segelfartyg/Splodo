@@ -1,6 +1,6 @@
 import React from "react";
 import "./Login.css";
-import Config from "../Config";
+import Config from "../Config.js";
 
 export default function Login() {
   function onLogin() {
