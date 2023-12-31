@@ -26,6 +26,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./Splodo.Web
-          file: ./Dockerfile
+          file: ./Splodo.Web/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/splodo:latest
