@@ -4,6 +4,7 @@ const http = require("http");
 
 const httpServer = http.createServer(app);
 
+// Test endpoint
 app.get(
     "/ping", (req, res) => {
         res.send("pong")
