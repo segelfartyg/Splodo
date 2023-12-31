@@ -117,7 +117,6 @@ mongoose.connect(MongoDBConnectionString, {autoIndex: false}).then(() => {consol
 
 const connection = mongoose.connection;
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
 // let kategori = new Category({catId: 1, userId: "117006401158785848064", title: "Books", splodos:[]})
 // kategori.save();
 
