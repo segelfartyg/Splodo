@@ -25,18 +25,6 @@ console.log(GoogleClientId);
 const GoogleClientSecret = fs.readFileSync('/run/secrets/AUTH_GOOGLE_CLIENT_SECRET', 'utf8').trim();
 console.log(GoogleClientSecret);
 
-
-const privateKey = fs.readFileSync('./ssl/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('./ssl/cert.pem', 'utf8');
-const ca = fs.readFileSync('./ssl/chain.pem', 'utf8');
-
-
-const credentials = {
-  key: privateKey,
-  cert: certificate,
-  ca: ca
-}
-
 const { readdir } = require("fs/promises");
 
 const storage = multer.diskStorage({
@@ -53,7 +41,6 @@ const port = 80;
 
 var publicDir = require("path").join(__dirname, "/images");
 app.use("/api", express.static(publicDir));
-app.use(express.static(path.join("./Splodo.Web/", 'dist')));
 
 app.use(express.static(__dirname, {dotfiles: 'allow'} ));
 
@@ -141,17 +128,6 @@ connection.once("open", async function () {
 httpServer.listen(3000, () => {
 	console.log("listening on 3000");
 });
-
-/*
-  httpServer.listen(80, () => {
-    console.log(`Example app listening on port 80`);
-  });
-
-  httpsServer.listen(443, () => {
-    console.log(`Example app listening on port 443`);
-  });
-
-*/
 
 
   app.get(
@@ -638,13 +614,6 @@ httpServer.listen(3000, () => {
       res.send("noauth");
     }
   });
-
-
-
-  // For any other route, serve the index.html file.
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './dist', 'index.html'));
-});
 
 });
 
