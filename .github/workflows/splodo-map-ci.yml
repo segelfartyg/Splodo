@@ -1,11 +1,11 @@
-name: splodo-web-ci
+name: splodo-map-ci
 
 on:
   push:
     branches:
       - master
     paths:
-      - Splodo.Web/**
+      - Splodo.Map/**
 
 jobs:
   build:
@@ -27,7 +27,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./Splodo.Web
-          file: ./Splodo.Web/Dockerfile
+          context: ./Splodo.Map
+          file: ./Splodo.Map/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/splodo:splodo.web
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/splodo:splodo.map
