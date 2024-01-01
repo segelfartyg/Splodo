@@ -159,8 +159,6 @@ httpServer.listen(3000, () => {
 
       await newColl.save();
     }
-
-    //let result = "hej"
     res.redirect("/api/profile");
   });
 
