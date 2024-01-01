@@ -145,7 +145,6 @@ httpServer.listen(3000, () => {
     }),
     function (req, res) {
       res.redirect(process.env.CLIENT_URI + "/profile");
-      //res.redirect("http//localhost:3050/profile");
     }
   );
 
