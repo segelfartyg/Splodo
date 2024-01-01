@@ -31,3 +31,14 @@ jobs:
           file: ./Splodo.Map/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/splodo:splodo.map
+      -
+         name: DO Deployment
+         uses: appleboy/ssh-action@v0.1.2
+         with:
+           host: ${{secrets.SSH_HOST}}
+           key: ${{secrets.SSH_KEY}}
+           username: ${{secrets.SSH_USERNAME}}
+
+           script: | 
+             mkdir DEPLOYMENTTESTTTTT
+      
