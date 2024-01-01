@@ -40,5 +40,9 @@ jobs:
            username: ${{secrets.SSH_USERNAME}}
 
            script: | 
-             mkdir DEPLOYMENTTESTTTTT
+             cd ${{ secrets.SPLODO_DIRECTORY }}
+             docker-compose down
+             docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/splodo:splodo.map -f
+             docker-compose up
+             
       
